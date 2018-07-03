@@ -1,0 +1,31 @@
+{
+  "manifest_version": 2,
+  "name": "EN.CX extension",
+  "version": "1.0",
+ 
+  "description": "Doing some improvements on Encounter engine.",
+
+  "applications": {
+    "gecko": {
+      "id": "enextension@mozilla.org",
+      "strict_min_version": "45.0"
+    }
+  },
+
+  "content_scripts": [
+    {
+      "matches": ["*://*.en.cx/gameengines/encounter/play/*"],
+      "css": [
+        "style/play.css"
+      ],
+      "js": [
+        "lib/jquery.js",
+        "scripts/en_codes.js",
+        "scripts/en_task.js",
+        "scripts/en_bonuses.js",
+        "scripts/en_game.js"
+      ]
+    }
+  ]
+
+}
