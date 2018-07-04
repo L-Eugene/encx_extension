@@ -55,106 +55,15 @@ var ENEXT = {
   copySet: function(s1, s2){
     s1.clear();
     s2.forEach(function(x){ this.add(x); }, s1);
-  },
-
-  sortDOM: function(sel1, sel2){
-    var $h = $(sel1);
-    var $s = $h.find(sel2).sort(function (a, b){
-      return +$(a).attr('sort-value') - +$(b).attr('sort-value');
-    });
-    $h.empty().append($s);
   }
 };
 
-var hintData = {
-  hints: {},
-  hintIds: new Set(),
-  updatedHints: new Set(),
-  sortHintsNeeded: false,
+function getCleanGameURL(){
+  return `${location.protocol}//${location.hostname}${location.pathname}`;
+}
 
-  initialize: function (level){
-    $('div.content')
-      .append('<div id="hints"></div>')
-      .append('<div id="penalty-hints"></div>');
-  },
-
-  hintChanged: function (hint){
-    return JSON.stringify(hint) != JSON.stringify(this.hints[hint.HintId]);
-  },
-
-  update: function (level){
-    this.updatedHints.clear();
-    level.Helps.forEach(this.updateHint, this);
-    this.removeDisappeared();
-
-    // Sorting hints on page
-    if (this.sortHintsNeeded){
-      ENEXT.sortDOM('div#hints', 'div.hint-block');
-      this.sortHintsNeeded = false;
-    }
-  },
-
-  updateHint: function (hint){
-    if (hint.HelpId in this.hints){
-      if (this.hintChanged(hint)){
-        $(`#hint-${hint.HelpId}`).replaceWith(this.hintTemplate(hint));
-        this.sortHintsNeeded = true;
-      }
-    } else {
-      $('div#hints')
-        .append(this.hintTemplate(hint));
-      this.hintIds.add(hint.HelpId);
-
-      this.sortHintsNeeded = true;
-    }
-
-    this.updatedHints.add(hint.HelpId);
-    this.hints[hint.HelpId] = hint;
-  },
-
-  removeDisappeared: function(){
-    this.hintIds.forEach(function(id){
-      if (this.updatedHints.has(id)) return;
-      $(`#hint-${id}`).remove();
-    }, this);
-
-    ENEXT.copySet(this.hintIds, this.updatedHints);
-  },
-
-  hintTemplate: function (hint){
-    return $('<div>')
-      .addClass('hint-block')
-      .addClass(hint.RemainSeconds ? 'color_dis' : '')
-      .attr('id', `hint-${hint.HelpId}`)
-      .attr('sort-value', hint.Number)
-      .append(
-        $(hint.RemainSeconds ? '<b>' : '<h3>')
-          .append(`Подсказка ${hint.Number}`)
-      )
-      .append(
-        hint.RemainSeconds
-          ? this.timerTemplate(hint)
-          : $('<p>').append(hint.HelpText)
-      )
-      .append(
-        $('<div>').addClass('spacer')
-      );
-  },
-
-  timerTemplate: function (hint){
-    return $('<span>')
-      .append(' будет через ')
-      .append(
-        $('<span>')
-          .addClass('countdown-timer')
-          .attr('seconds-left', hint.RemainSeconds)
-          .append(ENEXT.convertTime(hint.RemainSeconds))
-      );
-  }
-};
-
-function getGameURL(){
-  return location.href + (location.search.length ? '&' : '?') + "json=1";
+function getGameURL(params = ""){
+  return `${getCleanGameURL()}?json=1&${params}`;
 }
 
 // Update all page elements
@@ -165,10 +74,9 @@ function updateEnginePage(data){
   }
 
   if (gameObj.noData()){
-    //$('div.content').empty();
+    $("div.content").empty();
     taskData.initialize(data);
     hintData.initialize(data.Level);
-    // TODO: set penalty hints
     bonusData.initialize(data.Level.Bonuses);
   }
 
@@ -179,7 +87,6 @@ function updateEnginePage(data){
 
   taskData.update(data);
   hintData.update(data.Level);
-  // TODO: update penalty hints
   bonusData.update(data.Level.Bonuses);
 
   // TODO: update messages
@@ -189,21 +96,21 @@ function updateEnginePage(data){
 
 // onSubmit handler for code and bonus fields
 function sendCode( event ){
-  updateLevel({ data: event.data.hashMethod() }, false);
+  updateLevel({ data: event.data.hashMethod() }, "", false);
 
   event.preventDefault();
 }
 
 // API request
-function updateLevel(data = {}, repeat = true){
+function updateLevel(data = {}, params="", repeat = true){
   $.ajax(
-    getGameURL(),
+    getGameURL(params),
     $.extend(
       {},
       {
-        dataType: 'json',
-        type: 'POST',
-        contentType: 'application/json',
+        dataType: "json",
+        type: "POST",
+        contentType: "application/json",
         success: updateEnginePage
       },
       data
@@ -214,8 +121,8 @@ function updateLevel(data = {}, repeat = true){
 }
 
 function updateTimers(){
-  $('.countdown-timer').each(function(index){
-    var sec = $(this).attr('seconds-left') - 1;
+  $(".countdown-timer").each(function(index){
+    var sec = $(this).attr("seconds-left") - 1;
 
     if (!sec && gameObj.updateTimer !== null){
       clearTimeout(gameObj.updateTimer);
@@ -223,7 +130,7 @@ function updateTimers(){
     }
 
     $(this).html(ENEXT.convertTime(sec));
-    $(this).attr('seconds-left', sec);
+    $(this).attr("seconds-left", sec);
   });
 
   if (gameObj.updateTimer === null) updateLevel();
@@ -231,20 +138,19 @@ function updateTimers(){
 
 $(function(){
   // Do nothing on json API page.
-  if (location.search.includes('json=1')) return;
+  if (location.search.includes("json=1")) return;
 
   // Enter codes without page reload
-  $('input#Answer[name="LevelAction.Answer"]').closest('form').submit(
+  $("input#Answer[name='LevelAction.Answer']").closest("form").submit(
     { hashMethod: codeFields.getCodeHash },
     sendCode
   );
 
   // Enter bonuses without page reload
-  $('input#BonusAnswer[name="BonusAction.Answer"]').closest('form').submit(
+  $("input#BonusAnswer[name='BonusAction.Answer']").closest("form").submit(
     { hashMethod: codeFields.getBonusHash },
     sendCode
   );
 
-  updateLevel();
   setInterval(updateTimers, 1000);
 });

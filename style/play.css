@@ -1,3 +1,22 @@
 div.content div#sectors {
   column-count: 3;
 }
+
+div.content #hints, div.content #bonuses {
+  display: flex;
+  flex-direction: column;
+}
+
+.hint-block button {
+  background-color:#007f00;
+  border-radius:28px;
+  border:1px solid #18ab29;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:12px;
+  padding:8px 18px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+}

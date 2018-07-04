@@ -26,6 +26,7 @@
         "lib/jquery.js",
         "scripts/en_codes.js",
         "scripts/en_task.js",
+        "scripts/en_hints.js",
         "scripts/en_bonuses.js",
         "scripts/en_game.js"
       ]
