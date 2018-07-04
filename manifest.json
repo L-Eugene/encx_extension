@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "EN.CX extension",
-  "version": "1.0",
+  "version": "1.0.0",
 
   "icons": {
     "48": "img/logo-48.png"
@@ -9,16 +9,16 @@
  
   "description": "Doing some improvements on Encounter engine.",
 
-  "applications": {
-    "gecko": {
-      "id": "enextension@mozilla.org",
-      "strict_min_version": "45.0"
-    }
-  },
-
   "content_scripts": [
     {
-      "matches": ["*://*.en.cx/gameengines/encounter/play/*"],
+      "matches": [
+        "*://*.en.cx/gameengines/encounter/play/*",
+        "*://*.encounter.cx/gameengines/encounter/play/*",
+        "*://*.encounter.ru/gameengines/encounter/play/*",
+        "*://*.en-world.org/gameengines/encounter/play/*",
+        "*://*.quest.ua/gameengines/encounter/play/*",
+        "*://quest.ua/gameengines/encounter/play/*"
+      ],
       "css": [
         "style/play.css"
       ],
