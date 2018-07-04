@@ -1,5 +1,4 @@
 var bonusData = {
-  sortNeeded: false,
   bonuses: {},
 
   initialize: function (bonuses){
@@ -8,11 +7,6 @@ var bonusData = {
 
   update: function (bonuses){
     bonuses.forEach(this.updateBonus, this);
-
-    if (this.sortNeeded){
-      ENEXT.sortDOM('div#bonuses', 'div.bonus-block');
-      this.sortNeeded = false;
-    }
   },
 
   bonusInfoTemplate: function(bonus){
@@ -36,7 +30,7 @@ var bonusData = {
     return $('<div>')
       .addClass('bonus-block')
       .attr('id', `bonus-${bonus.BonusId}`)
-      .attr('sort-value', bonus.Number)
+      .css('order', bonus.Number)
       .append(
         $('<h3>')
           .addClass(bonus.IsAnswered ? 'color_correct' : 'color_bonus')
@@ -79,13 +73,10 @@ var bonusData = {
 
   updateBonus: function (bonus){
     if (bonus.BonusId in this.bonuses){
-      if (this.bonusChanged(bonus)){
+      if (this.bonusChanged(bonus))
         $(`div#bonus-${bonus.BonusId}`).replaceWith(this.bonusTemplate(bonus));
-        this.sortNeeded = true;
-      }
     } else {
       $('div#bonuses').append(this.bonusTemplate(bonus));
-      this.sortNeeded = true;
     }
 
     this.bonuses[bonus.BonusId] = bonus;

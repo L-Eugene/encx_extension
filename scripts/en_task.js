@@ -2,7 +2,6 @@ var taskData = {
   task: "",
   title: "",
   sectors: {},
-  sortNeeded: false,
   updatedSectors: new Set(),
   sectorIds: new Set(),
 
@@ -39,12 +38,6 @@ var taskData = {
     this.updatedSectors.clear();
     game.Level.Sectors.forEach(this.updateSector, this);
     this.removeDisappeared();
-
-    // Order sectors
-    if (this.sortNeeded){
-      ENEXT.sortDOM("div#sectors", "p.sector-block");
-      this.sortNeeded = false;
-    }
   },
 
   removeDisappeared: function(){
@@ -64,15 +57,12 @@ var taskData = {
     this.updatedSectors.add(sector.SectorId);
 
     if (sector.SectorId in this.sectors){
-      if (this.sectorChanged(sector)){
+      if (this.sectorChanged(sector))
         $(`#sector-${sector.SectorId}`)
           .replaceWith(this.sectorTemplate(sector));
-        this.sortNeeded = true;
-      }
     } else {
       $("div#sectors").append(this.sectorTemplate(sector));
       this.sectorIds.add(sector.SectorId);
-      this.sortNeeded = true;
     }
 
     this.sectors[sector.SectorId] = sector;
@@ -109,7 +99,6 @@ var taskData = {
     return $("<p>")
       .addClass("sector-block")
       .attr("id", `sector-${sector.SectorId}`)
-      .attr("sort-value", sector.Order)
       .append(`${sector.Name}: `)
       .append(
         sector.IsAnswered
