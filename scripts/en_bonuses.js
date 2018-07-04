@@ -2,68 +2,77 @@ var bonusData = {
   bonuses: {},
 
   initialize: function (bonuses){
-    $('div.content').append('<div id="bonuses"></div>');
+    $("div.content").append("<div id='bonuses'></div>");
   },
 
   update: function (bonuses){
+    $(".bonus-block").attr("delete-mark", true);
     bonuses.forEach(this.updateBonus, this);
+    $(".bonus-block[delete-mark=true]").each(
+      function (){
+        delete bonusData.bonuses[$(this).attr("id-numeric")];
+        $(this).remove();
+      }
+    );
   },
 
   bonusInfoTemplate: function(bonus){
-    return $('<span>')
-      .addClass('color_sec')
+    return $("<span>")
+      .addClass("color_sec")
       .append(`(${ENEXT.convertTimestamp(bonus.Answer.AnswerDateTime.Value)} `)
       .append(
-        $('<a>')
-          .attr('href', `/userdetails.aspx?uid=${bonus.Answer.UserId}`)
-          .attr('target', '_blank')
+        $("<a>")
+          .attr("href", `/userdetails.aspx?uid=${bonus.Answer.UserId}`)
+          .attr("target", "_blank")
           .append(bonus.Answer.Login)
       )
-      .append(', награда ')
+      .append(", награда ")
       .append(
         ENEXT.convertTime(bonus.AwardTime)
       )
-      .append(')');
+      .append(")");
   },
 
   bonusTemplate: function(bonus){
-    return $('<div>')
-      .addClass('bonus-block')
-      .attr('id', `bonus-${bonus.BonusId}`)
-      .css('order', bonus.Number)
+    return $("<div>")
+      .addClass("bonus-block")
+      .attr("id", `bonus-${bonus.BonusId}`)
+      .attr("id-numeric", bonus.BonusId)
+      .attr("delete-mark", false)
+      .css("order", bonus.Number)
       .append(
-        $('<h3>')
-          .addClass(bonus.IsAnswered ? 'color_correct' : 'color_bonus')
+        $("<h3>")
+          .addClass(bonus.IsAnswered ? "color_correct" : "color_bonus")
           .append(`Бонус ${bonus.Number}: ${bonus.Name}&nbsp;`)
           .append(
             bonus.IsAnswered
-              ? $('<span>')
-                  .addClass('color_sec')
+              ? $("<span>")
+                  .addClass("color_sec")
                   .append(this.bonusInfoTemplate(bonus))
-              : ''
+              : ""
           )
       )
       .append(
-        $('<p>')
+        $("<p>")
           .append(
             bonus.IsAnswered
-              ? $('<span>')
-                  .append('Ответ:&nbsp;')
+              ? $("<span>")
+                  .append("Ответ:&nbsp;")
                   .append(
-                    $('<span>')
-                      .addClass('color_correct')
+                    $("<span>")
+                      .addClass("color_correct")
                       .append(bonus.Answer.Answer)
                   )
-              : ''
+              : ""
           )
       )
       .append(
         bonus.IsAnswered
-          ? $('<p>').append(bonus.Help)
-          : $('<p>').append(bonus.Task)
+          ? $("<p>").append(bonus.Help)
+          : $("<p>").append(bonus.Task)
       )
       .append(
-        $('<div>').addClass('spacer')
+        $("<div>").addClass("spacer")
       );
   },
 
@@ -76,9 +85,10 @@ var bonusData = {
       if (this.bonusChanged(bonus))
         $(`div#bonus-${bonus.BonusId}`).replaceWith(this.bonusTemplate(bonus));
     } else {
-      $('div#bonuses').append(this.bonusTemplate(bonus));
+      $("div#bonuses").append(this.bonusTemplate(bonus));
     }
 
+    $(`#bonus-${bonus.BonusId}`).attr("delete-mark", false);
     this.bonuses[bonus.BonusId] = bonus;
   }
 };
