@@ -30,6 +30,7 @@
         "scripts/en_task.js",
         "scripts/en_hints.js",
         "scripts/en_bonuses.js",
+        "scripts/en_messages.js",
         "scripts/en_game.js"
       ]
     }

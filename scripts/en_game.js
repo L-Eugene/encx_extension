@@ -72,6 +72,7 @@ function updateEnginePage(data){
     taskData.initialize(data);
     hintData.initialize(data.Level);
     bonusData.initialize(data.Level.Bonuses);
+    messagesData.initialize(data.Level.Messages);
   }
 
   // Update code history (if changed)
@@ -82,10 +83,9 @@ function updateEnginePage(data){
   taskData.update(data);
   hintData.update(data.Level);
   bonusData.update(data.Level.Bonuses);
+  messagesData.update(data.Level.Messages);
 
-  // TODO: update messages
   gameObj.data = data;
-  console.log(data);
 }
 
 // onSubmit handler for code and bonus fields
