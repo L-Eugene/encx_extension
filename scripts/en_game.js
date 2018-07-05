@@ -35,7 +35,11 @@ var ENEXT = {
 
   // Split value in seconds into D H:M:S
   convertTime: function(sec){
-    var result = `${sec % 60} с`;
+    var result = "";
+
+    if (sec % 60 > 0){
+      result = `${sec % 60} с`;
+    }
     sec = Math.floor(sec / 60);
 
     if (sec % 60 > 0){
@@ -52,7 +56,9 @@ var ENEXT = {
       result = `${sec} дн ${result}`;
     }
 
-    return result;
+    if (result === "") result = "0 c";
+
+    return $.trim(result);
   },
 };
 
