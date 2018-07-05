@@ -23,6 +23,7 @@ var gameObj = {
   }
 };
 var levelstat_refresh = null;
+var code_input_field = null;
 
 var ENEXT = {
   // Convert Encounter timestamp to readable date
@@ -79,6 +80,17 @@ function updateEnginePage(data){
     // Save level list for multi-level games
     if (data.LevelSequence == 3) level_list = $("div.content ul.section");
 
+    // Initialize Level Input Field
+    if ($("input#Answer").length){
+      $("input#Answer").parent().remove();
+    }
+    $(".aside .blocked").remove();
+
+    $("#lnkAnswerBoxMarker")
+      .after(codeFields.inputFieldTemplate(data))
+      .after(codeFields.blockMarkerTemplate());
+    $("#answer-box #Answer").focus();
+
     $("div.content").empty();
     taskData.initialize(data);
     hintData.initialize(data.Level);
@@ -96,6 +108,29 @@ function updateEnginePage(data){
     codeFields.updateCodeHistory(data.Level.MixedActions);
     codeFields.updateLastStatus(data.EngineAction);
   }
+
+  // Update block rule
+  $(".aside .blockageinfo").html("");
+  if (data.Level.HasAnswerBlockRule == true){
+    $(".blockageinfo")
+      .append(`Не более ${data.Level.AttemtsNumber} попыток за ${ENEXT.convertTime(data.Level.AttemtsPeriod)}`)
+      .append(data.Level.BlockTargetId == 1 ? " для игрока" : "")
+      .append(data.Level.BlockTargetId == 2 ? " для команды" : "")
+  }
+
+  if (data.Level.BlockDuration > 0){
+    // If block is active - display block message
+    $("#input-blockage .countdown-timer").attr("seconds-left", data.Level.BlockDuration);
+    $("#input-blockage").show();
+    $("#answer-box #Answer").val("");
+    $("#answer-box").hide();
+  } else {
+    // If block is inactive - hide block message
+    $("#input-blockage .countdown-timer").attr("seconds-left", -1);
+    $("#input-blockage").hide();
+    $("#answer-box").show();
+  }
+
 
   taskData.update(data);
   hintData.update(data.Level);
