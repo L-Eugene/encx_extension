@@ -20,10 +20,12 @@
         "*://quest.ua/gameengines/encounter/play/*"
       ],
       "css": [
+        "style/jquery-ui.min.css",
         "style/play.css"
       ],
       "js": [
         "lib/jquery.js",
+        "lib/jquery-ui.min.js",
         "scripts/en_codes.js",
         "scripts/en_task.js",
         "scripts/en_hints.js",

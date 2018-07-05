@@ -33,6 +33,69 @@ var bonusData = {
       .append(")");
   },
 
+  tabHeaderTemplate: function (title, href){
+    return $("<li>")
+      .append(
+        $("<a>")
+          .attr("href", href)
+          .append(title)
+      );
+  },
+
+  tabBodyTemplate: function (id, text, clas=''){
+    return $("<div>")
+      .attr("id", id)
+      .append(
+        $("<p>")
+          .addClass(clas)
+          .append(text)
+      )
+  },
+
+  bonusOpenTemplate: function (bonus){
+    return $("<div>")
+      .addClass("tabs")
+      .append(
+        $("<ul>")
+          .append(
+            this.tabHeaderTemplate("Подсказка", `#bonus-${bonus.BonusId}-hint`)
+          )
+          .append(
+            this.tabHeaderTemplate("Задание", `#bonus-${bonus.BonusId}-task`)
+          )
+          .append(
+            this.tabHeaderTemplate("Ответ", `#bonus-${bonus.BonusId}-answer`)
+          )
+      )
+      .append(
+        this.tabBodyTemplate(`bonus-${bonus.BonusId}-hint`, bonus.Help)
+      )
+      .append(
+        this.tabBodyTemplate(`bonus-${bonus.BonusId}-task`, bonus.Task)
+      )
+      .append(
+        this.tabBodyTemplate(
+          `bonus-${bonus.BonusId}-answer`,
+          bonus.Answer.Answer,
+          "color_correct"
+        )
+      );
+  },
+
+  bonusClosedTemplate: function (bonus){
+    return $("<div>")
+      .addClass("tabs")
+      .append(
+        $("<ul>")
+          .append(
+            this.tabHeaderTemplate("Задание", `#bonus-${bonus.BonusId}-task`)
+          )
+      )
+      .append(
+        this.tabBodyTemplate(`bonus-${bonus.BonusId}-task`, bonus.Task)
+      )
+  },
+
   bonusTemplate: function(bonus){
     return $("<div>")
       .addClass("bonus-block")
@@ -53,23 +116,9 @@ var bonusData = {
           )
       )
       .append(
-        $("<p>")
-          .append(
-            bonus.IsAnswered
-              ? $("<span>")
-                  .append("Ответ:&nbsp;")
-                  .append(
-                    $("<span>")
-                      .addClass("color_correct")
-                      .append(bonus.Answer.Answer)
-                  )
-              : ""
-          )
-      )
-      .append(
         bonus.IsAnswered
-          ? $("<p>").append(bonus.Help)
-          : $("<p>").append(bonus.Task)
+          ? this.bonusOpenTemplate(bonus)
+          : this.bonusClosedTemplate(bonus)
       )
       .append(
         $("<div>").addClass("spacer")
@@ -89,6 +138,7 @@ var bonusData = {
     }
 
     $(`#bonus-${bonus.BonusId}`).attr("delete-mark", false);
+    $(`#bonus-${bonus.BonusId} .tabs`).tabs();
     this.bonuses[bonus.BonusId] = bonus;
   }
 };

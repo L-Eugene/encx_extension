@@ -7,7 +7,7 @@ div.content #hints, div.content #bonuses {
   flex-direction: column;
 }
 
-.hint-block button {
+.hint-block .button {
   background-color:#007f00;
   border-radius:28px;
   border:1px solid #18ab29;
@@ -19,4 +19,39 @@ div.content #hints, div.content #bonuses {
   padding:8px 18px;
   text-decoration:none;
   text-shadow:0px 1px 0px #2f6627;
+}
+
+.bonus-block .button {	
+  background-color:#007f99;
+  border-radius:6px;
+  border:1px solid #18ab29;
+  display:inline-block;
+  cursor:pointer;
+  color:#ffffff;
+  font-family:Arial;
+  font-size:10px;
+  padding:6px 10px;
+  text-decoration:none;
+  text-shadow:0px 1px 0px #2f6627;
+}
+
+.ui-tabs {
+  background: transparent !important;
+  border: 0 !important;
+}
+
+.ui-tabs-nav {
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+}
+
+.ui-tabs-panel {
+  border: 1px solid #ddd !important;
+  color: white !important;
+}
+
+.ui-tabs .ui-widget-header .ui-state-active {
+  border: 0 !important;
+  background-color: #0d3b00 !important;
 }
