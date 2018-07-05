@@ -2,8 +2,6 @@ var taskData = {
   task: "",
   title: "",
   sectors: {},
-  updatedSectors: new Set(),
-  sectorIds: new Set(),
 
   initialize: function(game){
     $("div.content")
@@ -35,18 +33,14 @@ var taskData = {
     }
 
     // Update sectors
-    this.updatedSectors.clear();
+    $(".sector-block").attr("delete-mark", "true");
     game.Level.Sectors.forEach(this.updateSector, this);
-    this.removeDisappeared();
-  },
-
-  removeDisappeared: function(){
-    this.sectorIds.forEach(function(id){
-      if (this.updatedSectors.has(id)) return;
-      $(`#sector-${id}`).remove();
-    }, this);
-
-    ENEXT.copySet(this.sectorIds, this.updatedSectors);
+    $(".sector-block[delete-mark=true]").each(
+      function (){
+        delete taskData.sectors[$(this).attr("id-numeric")];
+        $(this).remove();
+      }
+    );
   },
 
   sectorChanged: function (sector){
@@ -54,17 +48,15 @@ var taskData = {
   },
 
   updateSector: function (sector){
-    this.updatedSectors.add(sector.SectorId);
-
     if (sector.SectorId in this.sectors){
       if (this.sectorChanged(sector))
         $(`#sector-${sector.SectorId}`)
           .replaceWith(this.sectorTemplate(sector));
     } else {
       $("div#sectors").append(this.sectorTemplate(sector));
-      this.sectorIds.add(sector.SectorId);
     }
 
+    $(`#sector-${sector.SectorId}`).attr("delete-mark", false);
     this.sectors[sector.SectorId] = sector;
   },
 
@@ -99,6 +91,8 @@ var taskData = {
     return $("<p>")
       .addClass("sector-block")
       .attr("id", `sector-${sector.SectorId}`)
+      .attr("id-numeric", sector.SectorId)
+      .attr("delete-mark", false)
       .append(`${sector.Name}: `)
       .append(
         sector.IsAnswered

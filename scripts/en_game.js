@@ -50,12 +50,6 @@ var ENEXT = {
 
     return result;
   },
-
-  // Replace all values in s1 with values from s2
-  copySet: function(s1, s2){
-    s1.clear();
-    s2.forEach(function(x){ this.add(x); }, s1);
-  }
 };
 
 function getCleanGameURL(){
