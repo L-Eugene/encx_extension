@@ -6,6 +6,7 @@ var taskData = {
   initialize: function(game){
     $("div.content")
       .append(this.titleTemplate(game))
+      .append(this.timeoutTemplate(game.Level))
       .append(this.sectorsTitleTemplate(game.Level))
       .append(this.sectorsTemplate(game.Level))
       .append($("<div>").addClass("spacer"))
@@ -133,17 +134,55 @@ var taskData = {
   },
 
   titleTemplate: function(game){
-    return $("<h2>")
-      .append("Уровень ")
+    return $("<div>")
       .append(
-        $("<span>")
-          .append(game.Level.Number)
+        $("<h2>")
+          .append("Уровень ")
+          .append(
+            $("<span>")
+              .append(game.Level.Number)
+          )
+          .append(` из ${game.Levels.length}`)
+          .append(
+            game.Level.Name != ""
+              ? `: ${game.Level.Name}`
+              : ""
+          )
       )
-      .append(` из ${game.Levels.length}`)
       .append(
         $("<div>")
-          .addClass("spacer")
+          .append(
+            game.Level.Timeout > 0
+              ? `<b>Продолжительность уровня</b> ${ENEXT.convertTime(game.Level.Timeout)}`
+              : "<b>Уровень без автоперехода</b>"
+          )
+          .append(
+            $("<div>")
+              .addClass("spacer")
+          )
       );
+  },
+
+  timeoutTemplate: function (level){
+    return $("<h3>")
+      .addClass("timer")
+      .attr("id", "timeout-block")
+      .append(
+        $("<strong>")
+          .append("Автопереход ")
+      )
+      .append(" на следующий уровень через ")
+      .append(
+        $("<span>")
+          .addClass("countdown-timer")
+          .attr("seconds-left", level.TimeoutSecondsRemain)
+          .append(ENEXT.convertTime(level.TimeoutSecondsRemain))
+      )
+      .append(
+        level.TimeoutAward != 0
+          ? ` (штраф ${ENEXT.convertTime(-1*level.TimeoutAward)})`
+          : ""
+      )
   },
 
   taskTemplate: function(level){
