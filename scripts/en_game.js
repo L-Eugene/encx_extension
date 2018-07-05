@@ -131,6 +131,8 @@ function updateTimers(){
 }
 
 $(function(){
+  setInterval(updateTimers, 1000);
+
   // Do nothing on json API page.
   if (location.search.includes("json=1")) return;
 
@@ -146,5 +148,7 @@ $(function(){
     sendCode
   );
 
-  setInterval(updateTimers, 1000);
+  // Prepare game menu
+  $(".header li.mail").remove();
+  $(".header li.discuss a").attr("target", "_blank");
 });
