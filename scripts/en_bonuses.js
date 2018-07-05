@@ -96,7 +96,37 @@ var bonusData = {
       )
   },
 
+  bonusExpiredTemplate: function (bonus){
+    return $("<div>")
+      .addClass("bonus-block")
+      .addClass("color_dis")
+      .attr("id", `bonus-${bonus.BonusId}`)
+      .attr("id-numeric", bonus.BonusId)
+      .attr("delete-mark", false)
+      .css("order", bonus.Number)
+      .append(
+        $("<b>").append(`Бонус ${bonus.Number}`)
+      )
+      .append(" не выполнен (время выполнения истекло)")
+  },
+
+  bonusWaitingTemplate: function (bonus){
+    return $("<div>")
+      .addClass("bonus-block")
+      .addClass("color_dis")
+      .attr("id", `bonus-${bonus.BonusId}`)
+      .attr("id-numeric", bonus.BonusId)
+      .attr("delete-mark", false)
+      .css("order", bonus.Number)
+      .append(
+        $("<b>").append(`Бонус ${bonus.Number}: ${bonus.Name} `)
+      )
+      .append(ENEXT.timerTemplate(bonus.SecondsToStart))
+  },
+
   bonusTemplate: function(bonus){
+    if (bonus.SecondsToStart > 0) return this.bonusWaitingTemplate(bonus);
+    if (bonus.Expired == true) return this.bonusExpiredTemplate(bonus);
     return $("<div>")
       .addClass("bonus-block")
       .attr("id", `bonus-${bonus.BonusId}`)

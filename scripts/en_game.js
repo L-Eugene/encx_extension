@@ -60,6 +60,17 @@ var ENEXT = {
 
     return $.trim(result);
   },
+
+  timerTemplate: function (seconds, text = " будет через "){
+    return $("<span>")
+      .append(text)
+      .append(
+        $("<span>")
+          .addClass("countdown-timer")
+          .attr("seconds-left", seconds)
+          .append(ENEXT.convertTime(seconds))
+      );
+  }
 };
 
 function getCleanGameURL(){
