@@ -4,7 +4,9 @@ var gameObj = {
   updateTimer: null,
 
   levelId: function (game) { return game.Level.LevelId; },
-  topActionId: function (game) { return game.Level.MixedActions[0].ActionId; },
+  topActionId: function (game) { 
+    return (0 in game.Level.MixedActions) ? game.Level.MixedActions[0].ActionId : 0;
+  },
 
   isLevelUp: function (newData){
     if (this.noData()) return false;
@@ -73,11 +75,20 @@ function updateEnginePage(data){
   }
 
   if (gameObj.noData()){
+    var level_list = null;
+    // Save level list for multi-level games
+    if (data.LevelSequence == 3) level_list = $("div.content ul.section");
+
     $("div.content").empty();
     taskData.initialize(data);
     hintData.initialize(data.Level);
     bonusData.initialize(data.Level.Bonuses);
     messagesData.initialize(data.Level.Messages);
+
+    // Put level list back for multi-level games
+    if (data.LevelSequence == 3){
+      $("div.content").prepend(level_list);
+    }
   }
 
   // Update code history (if changed)
@@ -168,10 +179,12 @@ function refreshLevelStat(){
 }
 
 $(function(){
-  setInterval(updateTimers, 1000);
-
   // Do nothing on json API page.
   if (location.search.includes("json=1")) return;
+  // Do nothing if game is inactive
+  if ($(".content .infomessage").length) return;
+
+  setInterval(updateTimers, 1000);
 
   // Enter codes without page reload
   $("input#Answer[name='LevelAction.Answer']").closest("form").submit(

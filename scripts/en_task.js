@@ -11,7 +11,7 @@ var taskData = {
       .append($("<div>").addClass("spacer"))
       .append(this.taskTemplate(game.Level));
 
-    this.task = game.Level.Tasks[0].TaskTextFormatted;
+    this.task = (0 in game.Level.Tasks) ? game.Level.Tasks[0].TaskTextFormatted : "";
     this.title = `${game.Level.Number}/${game.Levels.length}`;
   },
 
@@ -22,7 +22,8 @@ var taskData = {
     }
 
     // Update task text
-    if (game.Level.Tasks[0].TaskTextFormatted != this.task){
+    var t = (0 in game.Level.Tasks) ? game.Level.Tasks[0].TaskTextFormatted : "";
+    if (t != this.task){
       $("#task").replaceWith(this.taskTemplate(game.Level));
     }
 
@@ -152,7 +153,9 @@ var taskData = {
         $("<h3>").append("Задание")
       )
       .append(
-        $("<p>").append(level.Tasks[0].TaskTextFormatted)
+        (0 in level.Tasks)
+          ? $("<p>").append(level.Tasks[0].TaskTextFormatted)
+          : ""
       )
       .append(
         $("<div>")
