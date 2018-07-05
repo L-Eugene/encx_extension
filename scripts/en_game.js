@@ -20,6 +20,7 @@ var gameObj = {
     return $.isEmptyObject(this.data);
   }
 };
+var levelstat_refresh = null;
 
 var ENEXT = {
   // Convert Encounter timestamp to readable date
@@ -58,6 +59,10 @@ function getCleanGameURL(){
 
 function getGameURL(params = ""){
   return `${getCleanGameURL()}?json=1&${params}`;
+}
+
+function getLevelStatURL(){
+  return `${location.protocol}//${location.hostname}/LevelStat.aspx?level=${gameObj.data.Level.Number}&gid=${gameObj.data.GameId}&rnd=${Math.random()}`;
 }
 
 // Update all page elements
@@ -131,6 +136,37 @@ function updateTimers(){
   if (gameObj.updateTimer === null) updateLevel();
 }
 
+function showLevelStat(event){
+  $("<div>")
+    .attr("id", "dialog")
+    .attr("title", "Статистика уровня")
+    .append(
+      $("<iframe>")
+        .attr("src", getLevelStatURL())
+        .attr("frameborder", 0)
+        .attr("marginwidth", 0)
+        .attr("marginheight", 0)
+    )
+    .dialog({
+      autoOpen: true,
+      modal: false,
+      width: 700,
+      height: 420,
+      close: function (){
+        clearInterval(levelstat_refresh);
+        $(".levelstats div#dialog").remove();
+      }
+    });
+
+  levelstat_refresh = setInterval(refreshLevelStat, 20000);
+
+  event.preventDefault();
+}
+
+function refreshLevelStat(){
+  $("div#dialog iframe").attr("src", getLevelStatURL());
+}
+
 $(function(){
   setInterval(updateTimers, 1000);
 
@@ -152,4 +188,7 @@ $(function(){
   // Prepare game menu
   $(".header li.mail").remove();
   $(".header li.discuss a").attr("target", "_blank");
+
+  // Show level stat in dialog
+  $(".levelstats a").click(showLevelStat);
 });

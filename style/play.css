@@ -7,6 +7,11 @@ div.content #hints, div.content #bonuses {
   flex-direction: column;
 }
 
+div#dialog iframe {
+  width: 100%;
+  height: 100%;
+}
+
 .hint-block .button {
   background-color:#007f00;
   border-radius:28px;
@@ -54,4 +59,12 @@ div.content #hints, div.content #bonuses {
 .ui-tabs .ui-widget-header .ui-state-active {
   border: 0 !important;
   background-color: #0d3b00 !important;
+}
+
+.ui-dialog-content {
+  background-color: black !important;
+}
+
+.ui-dialog-titlebar-close {
+  background-color: red !important;
 }
