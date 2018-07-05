@@ -47,7 +47,27 @@ var codeFields = {
   updateCodeHistory: function (actions){
     $('ul.history').empty();
     actions.forEach(this.addHistoricCode, this);
-  }
+  },
 
+  updateLastStatus: function (action){
+    if (action.LevelAction.Answer || action.BonusAction.Answer)
+      $("ul.history").prepend(this.lastActionTemplate(action));
+  },
+
+  lastActionUniversalTemplate: function (action, correct_style){
+    return $("<li>")
+      .addClass(action.IsCorrectAnswer ? correct_style : "color_incorrect")
+      .append(
+        action.IsCorrectAnswer
+          ? "Ответ или код верный"
+          : "Ответ или код неверный"
+      )
+  },
+
+  lastActionTemplate: function (action){
+    if (action.LevelAction.Answer)
+      return this.lastActionUniversalTemplate(action.LevelAction, "color_correct");
+    return this.lastActionUniversalTemplate(action.BonusAction, "color_bonus");
+  }
 };
 

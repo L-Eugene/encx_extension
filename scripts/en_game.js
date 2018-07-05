@@ -78,6 +78,7 @@ function updateEnginePage(data){
   // Update code history (if changed)
   if (gameObj.isHistoryUpdated(data)){
     codeFields.updateCodeHistory(data.Level.MixedActions);
+    codeFields.updateLastStatus(data.EngineAction);
   }
 
   taskData.update(data);
