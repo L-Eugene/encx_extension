@@ -1,13 +1,18 @@
 {
   "manifest_version": 2,
   "name": "EN.CX extension",
-  "version": "1.0.0",
+  "short_name": "ENextension",
+  "version": "1.0.1",
 
   "icons": {
-    "48": "img/logo-48.png"
+    "16": "img/logo-16.png",
+    "32": "img/logo-32.png",
+    "48": "img/logo-48.png",
+    "96": "img/logo-96.png",
+    "128": "img/logo-128.png"
   },
  
-  "description": "Making encounter game engine work faster and more informative.",
+  "description": "Ускоряет работу движка Encounter, добавляет дополнительную информацию.",
 
   "content_scripts": [
     {
