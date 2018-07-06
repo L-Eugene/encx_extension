@@ -156,14 +156,11 @@ var taskData = {
               ? `<b>Продолжительность уровня</b> ${ENEXT.convertTime(game.Level.Timeout)}`
               : "<b>Уровень без автоперехода</b>"
           )
-          .append(
-            $("<div>")
-              .addClass("spacer")
-          )
       );
   },
 
   timeoutTemplate: function (level){
+    if (level.TimeoutSecondsRemain == 0) return $("<div class='spacer'></div>");
     return $("<h3>")
       .addClass("timer")
       .attr("id", "timeout-block")
@@ -182,6 +179,10 @@ var taskData = {
         level.TimeoutAward != 0
           ? ` (штраф ${ENEXT.convertTime(-1*level.TimeoutAward)})`
           : ""
+      )
+      .append(
+        $("<div>")
+          .addClass("spacer")
       )
   },
 
