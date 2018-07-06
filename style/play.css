@@ -1,3 +1,7 @@
+.aside {
+  position: fixed;
+}
+
 div.content div#sectors {
   column-count: 3;
 }
