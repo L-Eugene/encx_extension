@@ -92,7 +92,7 @@ var codeFields = {
           .attr("name", "LevelAction.Answer")
           .attr("maxlength", 4000)
           .attr("tabindex", 1)
-          .attr("hint", "Введите ответ или код")
+          .attr("placeholder", "Введите ответ или код")
           .attr("value", "")
           .attr("type", "text")
       )
