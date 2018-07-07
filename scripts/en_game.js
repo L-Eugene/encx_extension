@@ -97,16 +97,8 @@ function updateEnginePage(data){
     // Save level list for multi-level games
     if (data.LevelSequence == 3) level_list = $("div.content ul.section");
 
-    // Initialize Level Input Field
-    if ($("input#Answer").length){
-      $("input#Answer").parent().remove();
-    }
-    $(".aside .blocked").remove();
-
-    $("#lnkAnswerBoxMarker")
-      .after(codeFields.inputFieldTemplate(data))
-      .after(codeFields.blockMarkerTemplate());
-    $("#answer-box #Answer").focus();
+    // Initialize Level Input Field and codes history
+    codeFields.initialize(data);
 
     $("div.content").empty();
     taskData.initialize(data);
