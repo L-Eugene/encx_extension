@@ -2,8 +2,22 @@
   position: fixed;
 }
 
+.history li {
+  word-break: break-all;
+}
+
 div.content div#sectors {
   column-count: 3;
+}
+
+.sector-block {
+  page-break-inside: avoid;
+  break-inside: avoid;
+  word-break: break-all;
+}
+
+#sectors .color_sec {
+  white-space: nowrap;
 }
 
 div.content #hints, div.content #bonuses {
