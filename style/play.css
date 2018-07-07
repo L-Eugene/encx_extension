@@ -16,6 +16,12 @@ div#dialog iframe {
   height: 100%;
 }
 
+.ui-tab {
+  background-color: #808080 !important;
+  color: #272727 !important;
+  border: 1px solid #989898 !important;
+}
+
 .ui-tabs {
   background: transparent !important;
   border: 0 !important;
@@ -28,13 +34,15 @@ div#dialog iframe {
 }
 
 .ui-tabs-panel {
-  border: 1px solid #ddd !important;
+  border: 0 !important;
+  padding-left: 0 !important;
+  padding-top: 0 !important;
   color: white !important;
 }
 
 .ui-tabs .ui-widget-header .ui-state-active {
-  border: 0 !important;
-  background-color: #0d3b00 !important;
+  border: 1px solid #989898 !important;
+  background-color: #1a7700 !important;
 }
 
 .ui-dialog-content {
