@@ -32,6 +32,7 @@ var taskData = {
     if (game.Level.Sectors.length > 1){
       $("#sectors-total").html(game.Level.Sectors.length);
       $("#sectors-left").html(game.Level.SectorsLeftToClose);
+      $("#sectors-left-list").html(this.openSectorList(game.Level.Sectors));
     }
 
     // Update sectors
@@ -60,6 +61,15 @@ var taskData = {
 
     $(`#sector-${sector.SectorId}`).attr("delete-mark", false);
     this.sectors[sector.SectorId] = sector;
+  },
+
+  openSectorList: function(sectors){
+    var i, result = "";
+    for (i = 0; i < sectors.length; i++){
+      if (sectors[i].IsAnswered == false)
+        result += `${(result != "") ? ", " : ""}${sectors[i].Name}`;
+    }
+    return result;
   },
 
   completeSectorTemplate: function(sector){
@@ -107,25 +117,31 @@ var taskData = {
     if (level.Sectors.length < 2) return "";
 
     return $("<h3>")
-          .append("На уровне ")
+      .append("На уровне ")
+      .append(
+        $("<span>")
+          .attr("id", "sectors-total")
+          .append(level.Sectors.length)
+      )
+      .append(" секторов ")
+      .append(
+        $("<span>")
+          .addClass("color_sec")
+          .append("(осталось закрыть ")
           .append(
             $("<span>")
-              .attr("id", "sectors-total")
-              .append(level.Sectors.length)
+              .attr("id", "sectors-left")
+              .append(level.SectorsLeftToClose)
           )
-          .append(" секторов ")
-          .append(
-            $("<span>")
-              .addClass("color_sec")
-              .append("(осталось закрыть ")
-              .append(
-                $("<span>")
-                  .attr("id", "sectors-left")
-                  .append(level.SectorsLeftToClose)
-              )
-              .append(")")
-          );
-
+          .append(")")
+      )
+      .append("<br>")
+      .append("Незакрытые сектора: ")
+      .append(
+        $("<span>")
+          .attr("id", "sectors-left-list")
+          .append(this.openSectorList(level.Sectors))
+      );
   },
 
   sectorsTemplate: function(level){
