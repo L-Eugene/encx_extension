@@ -148,7 +148,6 @@ function updateEnginePage(data){
     $("#answer-box").show();
   }
 
-
   taskData.update(data);
   hintData.update(data.Level);
   bonusData.update(data.Level.Bonuses);
@@ -160,6 +159,8 @@ function updateEnginePage(data){
 // onSubmit handler for code and bonus fields
 function sendCode( event ){
   updateLevel({ data: event.data.hashMethod() }, "", false);
+
+  $(event.target).find("input.placeholder").select();
 
   event.preventDefault();
 }
