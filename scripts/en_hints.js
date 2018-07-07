@@ -81,6 +81,7 @@ var hintData = {
 
   openPenaltyTemplate: function (hint){
     return $("<button>")
+      .addClass("ui-button ui-widget ui-corner-all")
       .attr("id", hint.HelpId)
       .attr("confirm", hint.RequestConfirm)
       .click(function (){
