@@ -14,6 +14,7 @@ var taskData = {
 
     this.task = (0 in game.Level.Tasks) ? game.Level.Tasks[0].TaskTextFormatted : "";
     this.title = `${game.Level.Number}/${game.Levels.length}`;
+    this.sectors = {};
   },
 
   update: function(game){

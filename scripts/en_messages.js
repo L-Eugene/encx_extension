@@ -2,6 +2,8 @@ var messagesData = {
   messages: {},
 
   initialize: function(messages){
+    this.messages = {};
+
     $(".globalmess").remove();
     $(".header").after(
       $("<p>")

@@ -89,7 +89,8 @@ function getLevelStatURL(){
 function updateEnginePage(data){
   // Reload if level-up happened
   if (gameObj.isLevelUp(data)){
-    document.location.reload(true);
+    //document.location.reload(true);
+    gameObj.data = {};
   }
 
   if (gameObj.noData()){

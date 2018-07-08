@@ -33,6 +33,9 @@ var codeFields = {
     $("#answer-box #Answer").focus();
 
     $('ul.history').empty();
+
+    this.actionIds.clear();
+    this.lastActionId = -1;
   },
 
   updateCodeHistory: function (actions){

@@ -2,6 +2,7 @@ var hintData = {
   hints: {},
 
   initialize: function (level){
+    this.hints = {};
     $("div.content").append("<div id='hints'></div>")
   },
 

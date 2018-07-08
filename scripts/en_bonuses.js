@@ -2,6 +2,7 @@ var bonusData = {
   bonuses: {},
 
   initialize: function (bonuses){
+    this.bonuses = {};
     $("div.content").append("<div id='bonuses'></div>");
   },
 
