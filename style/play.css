@@ -30,6 +30,11 @@ div#dialog iframe {
   height: 100%;
 }
 
+.hint-block .ui-button {
+  background-color: #d12525 !important;
+  color: white !important;
+}
+
 .ui-tab {
   background-color: #808080 !important;
   color: #272727 !important;
