@@ -30,7 +30,8 @@
       ],
       "css": [
         "style/jquery-ui.min.css",
-        "style/play.css"
+        "style/play.css",
+        "style/level-carousel.css"
       ],
       "js": [
         "lib/jquery.js",

@@ -3,22 +3,36 @@ var codeFields = {
   actionIds: new Set(),
   lastActionId: -1,
 
+  getEmptyHash: function (){
+    return JSON.stringify(gameObj.getLevelHash());
+  },
+
   getCodeHash: function (){
-    return JSON.stringify({
-      LevelID: $('input[name="LevelId"]').val(),
-      LevelAction: {
-        Answer: $('input#Answer[name="LevelAction.Answer"]').val()
-      }
-    });
+    return JSON.stringify(
+      $.extend(
+        {},
+        gameObj.getLevelHash(),
+        {
+          LevelAction: {
+            Answer: $('input#Answer[name="LevelAction.Answer"]').val()
+          }
+        }
+      )
+    );
   },
 
   getBonusHash: function (){
-    return JSON.stringify({
-      LevelID: $('input[name="LevelId"]').val(),
-      BonusAction: {
-        Answer: $('input#BonusAnswer[name="BonusAction.Answer"]').val()
-      }
-    });
+    return JSON.stringify(
+      $.extend(
+        {},
+        gameObj.getLevelHash(),
+        {
+          BonusAction: {
+            Answer: $('input#BonusAnswer[name="BonusAction.Answer"]').val()
+          }
+        }
+      )
+    );
   },
 
   initialize: function(game){
@@ -26,6 +40,7 @@ var codeFields = {
       $("input#Answer").parent().remove();
     }
     $(".aside .blocked").remove();
+    $("#input-blockage").remove();
 
     $("#lnkAnswerBoxMarker")
       .after(this.inputFieldTemplate(game))
@@ -74,7 +89,7 @@ var codeFields = {
           // data.Level.MixedActions[any].Kind:
           //   1 - code
           //   2 - bonus
-          action.IsCorrect ? 
+          action.IsCorrect ?
             'color_' + (action.Kind == 1 ? 'correct' : 'bonus') : ''
         ).append(action.Answer)
       );
@@ -156,4 +171,3 @@ var codeFields = {
       .hide()
   }
 };
-

@@ -2,6 +2,21 @@
 var gameObj = {
   data: {},
   updateTimer: null,
+  levelHash: {},
+
+  updateLevelHash: function(){
+    this.setLevelHash(
+      $(".aside input[name=LevelId]").val(),
+      $(".aside input[name=LevelNumber]").val()
+    );
+  },
+  setLevelHash: function(id, number){
+    this.levelHash = { LevelId: id, LevelNumber: number };
+  },
+  getLevelHash: function(){
+    if ($.isEmptyObject(this.levelHash)) this.updateLevelHash();
+    return this.levelHash;
+  },
 
   levelId: function (game) { return game.Level.LevelId; },
   topActionId: function (game) {
@@ -20,6 +35,11 @@ var gameObj = {
 
   noData: function (){
     return $.isEmptyObject(this.data);
+  },
+
+  doReload: function(){
+    clearTimeout(this.updateTimer);
+    updateLevel();
   }
 };
 var levelstat_refresh = null;
@@ -77,7 +97,7 @@ function getCleanGameURL(){
   return `${location.protocol}//${location.hostname}${location.pathname}`;
 }
 
-function getGameURL(params = ""){
+function getGameURL(params){
   return `${getCleanGameURL()}?json=1&${params}`;
 }
 
@@ -89,15 +109,10 @@ function getLevelStatURL(){
 function updateEnginePage(data){
   // Reload if level-up happened
   if (gameObj.isLevelUp(data)){
-    //document.location.reload(true);
     gameObj.data = {};
   }
 
   if (gameObj.noData()){
-    var level_list = null;
-    // Save level list for multi-level games
-    if (data.LevelSequence == 3) level_list = $("div.content ul.section");
-
     // Initialize Level Input Field and codes history
     codeFields.initialize(data);
 
@@ -106,11 +121,6 @@ function updateEnginePage(data){
     hintData.initialize(data.Level);
     bonusData.initialize(data.Level.Bonuses);
     messagesData.initialize(data.Level.Messages);
-
-    // Put level list back for multi-level games
-    if (data.LevelSequence == 3){
-      $("div.content").prepend(level_list);
-    }
   }
 
   // Update code history (if changed)
@@ -159,14 +169,17 @@ function sendCode( event ){
 }
 
 // API request
-function updateLevel(data = {}, params="", repeat = true){
+function updateLevel(data = {}, params=`rnd=${Math.random()}`, repeat = true){
+  if ($.isEmptyObject(data)){
+    data = { data: codeFields.getEmptyHash() };
+  }
   $.ajax(
     getGameURL(params),
     $.extend(
       {},
       {
         dataType: "json",
-        type: "POST",
+        type: $.isEmptyObject(data) ? "GET" : "POST",
         contentType: "application/json",
         success: updateEnginePage
       },
@@ -230,6 +243,7 @@ $(function(){
   // Do nothing if game is inactive
   if ($(".content .infomessage").length) return;
 
+  codeFields.getEmptyHash();
   setInterval(updateTimers, 1000);
 
   // Enter codes without page reload

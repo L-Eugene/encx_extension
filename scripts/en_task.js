@@ -1,10 +1,19 @@
 var taskData = {
   task: "",
   title: "",
+  isStorm: false,
   sectors: {},
+  activeLevel: -1,
+  doRoll: null,
+  levels: {},
 
   initialize: function(game){
+    this.isStorm = (game.LevelSequence == 3);
+    this.levels = {};
+    this.activeLevel = game.Level.LevelId;
+
     $("div.content")
+      .append(this.levelListTemplate(game))
       .append(this.titleTemplate(game))
       .append(this.timeoutTemplate(game.Level))
       .append(this.sectorsTitleTemplate(game.Level))
@@ -15,12 +24,21 @@ var taskData = {
     this.task = (0 in game.Level.Tasks) ? game.Level.Tasks[0].TaskTextFormatted : "";
     this.title = `${game.Level.Number}/${game.Levels.length}`;
     this.sectors = {};
+
+    game.Levels.forEach(this.updateLevel, this);
+    this.scrollToActive();
   },
 
   update: function(game){
     // Update task header
     if (`${game.Level.Number}/${game.Levels.length}` != this.title){
-      $("div.content h2").replaceWith(this.titleTemplate(game));
+      $("div.level-length").replaceWith(this.titleTemplate(game));
+    }
+
+    // Update level list for storm games
+    if (this.isStorm){
+      this.activeLevel = game.Level.LevelId;
+      game.Levels.forEach(this.updateLevel, this);
     }
 
     // Update task text
@@ -51,11 +69,25 @@ var taskData = {
     return JSON.stringify(sector) != JSON.stringify(this.sectors[sector.SectorId]);
   },
 
+  levelChanged: function (level){
+    return JSON.stringify(level) != JSON.stringify(this.levels[level.LevelId]);
+  },
+
+  updateLevel: function (level){
+    if (level.LevelId in this.levels){
+      if (this.levelChanged(level))
+        $(`#level-${level.LevelId}`).replaceWith(this.levelTemplate(level));
+    } else {
+      $("#level-list ul").append(this.levelTemplate(level))
+    }
+
+    this.levels[level.LevelId] = level;
+  },
+
   updateSector: function (sector){
     if (sector.SectorId in this.sectors){
       if (this.sectorChanged(sector))
-        $(`#sector-${sector.SectorId}`)
-          .replaceWith(this.sectorTemplate(sector));
+        $(`#sector-${sector.SectorId}`).replaceWith(this.sectorTemplate(sector));
     } else {
       $("div#sectors").append(this.sectorTemplate(sector));
     }
@@ -152,6 +184,7 @@ var taskData = {
 
   titleTemplate: function(game){
     return $("<div>")
+      .addClass("level-length")
       .append(
         $("<h2>")
           .append("Уровень ")
@@ -218,6 +251,107 @@ var taskData = {
         $("<div>")
           .addClass("spacer")
       );
+  },
+
+  levelListTemplate: function(game){
+    if (!this.isStorm) return "";
+
+    return $("<div>")
+      .attr("id", "level-list")
+      .append(
+        $("<a>")
+          .addClass("navigation previous")
+          .append("&laquo;")
+          .click(this.moveCarousel)
+          .mouseover(this.rollCarousel)
+          .mouseout(this.unrollCarousel)
+      )
+      .append(
+        $("<a>")
+          .addClass("navigation next")
+          .append("&raquo;")
+          .click(this.moveCarousel)
+          .mouseover(this.rollCarousel)
+          .mouseout(this.unrollCarousel)
+      )
+      .append(
+        $("<ul>")
+      );
+  },
+
+  levelTemplate: function (level){
+    return $("<li>")
+      .addClass("level-block")
+      .addClass(this.activeLevel == level.LevelId ? "level-active" : "")
+      .addClass(level.Dismissed == true ? "level-dismissed" : "")
+      .addClass(level.IsPassed == true ? "level-finished" : "")
+      .attr("level-number", level.LevelNumber)
+      .attr("level-id", level.LevelId)
+      .append(
+        $("<i>")
+          .append(level.LevelNumber)
+      )
+      .append(
+        $("<div>")
+          .addClass("line")
+      )
+      .append(
+        $("<p>")
+          .append(level.LevelName)
+      )
+      .click(function(event){
+        gameObj.setLevelHash(
+          $(this).attr('level-id'),
+          $(this).attr('level-number')
+        );
+        $(".level-block").removeClass("level-active");
+        $(this).addClass("level-active");
+        gameObj.doReload();
+      });
+  },
+
+  rollCarousel: function (event){
+    event.preventDefault();
+    this.doRoll = setInterval(function(){ taskData.moveCarousel(event); }, 300);
+  },
+
+  unrollCarousel: function (event){
+    event.preventDefault();
+    clearInterval(this.doRoll);
+  },
+
+  carouselMaxMargin: function(){
+    var max_width  = -400;
+    $(".level-block").each(function(){ max_width += $(this).width(); });
+    return max_width;
+  },
+
+  moveCarousel: function (event){
+    event.preventDefault();
+
+    var margin = parseInt($("#level-list ul").first().css("margin-left")) || 0;
+
+    if (event.target.classList.contains('next')){
+      margin -= 100;
+    } else {
+      margin += 100;
+    }
+
+    if (margin > 400 || Math.abs(margin) > this.carouselMaxMargin()) return;
+    console.log(margin);
+    $("#level-list ul").first().css("margin-left", `${margin}px`);
+  },
+
+  scrollToActive: function(){
+    var id = $(".level-active").index(),
+        margin = 400, i;
+    $(`.level-block:lt(${id})`).each(function() {
+      margin -= $(this).width();
+    });
+
+    if (margin > 300) margin = 299;
+    if (margin < -1 * this.carouselMaxMargin()) margin = -1 * this.carouselMaxMargin();
+
+    $("#level-list ul").css("margin-left", `${margin}px`);
   }
 };
-
