@@ -4,7 +4,7 @@ var gameObj = {
   updateTimer: null,
 
   levelId: function (game) { return game.Level.LevelId; },
-  topActionId: function (game) { 
+  topActionId: function (game) {
     return (0 in game.Level.MixedActions) ? game.Level.MixedActions[0].ActionId : 0;
   },
 
@@ -250,4 +250,11 @@ $(function(){
 
   // Show level stat in dialog
   $(".levelstats a").click(showLevelStat);
+
+  // Open link to announce in new tab
+  $("a#lblGameTitle").attr("target", "_blank");
+
+  // Replace Encounter logo
+  $("a.logo").attr("target", "_blank");
+  $("a.logo img").attr("src", browser.extension.getURL("img/logo-96.png"));
 });

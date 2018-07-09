@@ -69,5 +69,5 @@ div#dialog iframe {
 }
 
 .ui-dialog-titlebar-close {
-  background-color: red !important;
+  background: url(http://cdn.endata.cx/images/personal/71031/dialog-close.png) no-repeat !important;
 }
