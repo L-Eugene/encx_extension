@@ -11,8 +11,12 @@
     "96": "img/logo-96.png",
     "128": "img/logo-128.png"
   },
- 
+
   "description": "Ускоряет работу движка Encounter, добавляет дополнительную информацию.",
+
+  "web_accessible_resources": [
+    "img/logo-96.png"
+  ],
 
   "content_scripts": [
     {
@@ -26,7 +30,8 @@
       ],
       "css": [
         "style/jquery-ui.min.css",
-        "style/play.css"
+        "style/play.css",
+        "style/level-carousel.css"
       ],
       "js": [
         "lib/jquery.js",

@@ -2,9 +2,24 @@
 var gameObj = {
   data: {},
   updateTimer: null,
+  levelHash: {},
+
+  updateLevelHash: function(){
+    this.setLevelHash(
+      $(".aside input[name=LevelId]").val(),
+      $(".aside input[name=LevelNumber]").val()
+    );
+  },
+  setLevelHash: function(id, number){
+    this.levelHash = { LevelId: id, LevelNumber: number };
+  },
+  getLevelHash: function(){
+    if ($.isEmptyObject(this.levelHash)) this.updateLevelHash();
+    return this.levelHash;
+  },
 
   levelId: function (game) { return game.Level.LevelId; },
-  topActionId: function (game) { 
+  topActionId: function (game) {
     return (0 in game.Level.MixedActions) ? game.Level.MixedActions[0].ActionId : 0;
   },
 
@@ -20,6 +35,11 @@ var gameObj = {
 
   noData: function (){
     return $.isEmptyObject(this.data);
+  },
+
+  doReload: function(){
+    clearTimeout(this.updateTimer);
+    updateLevel();
   }
 };
 var levelstat_refresh = null;
@@ -77,7 +97,7 @@ function getCleanGameURL(){
   return `${location.protocol}//${location.hostname}${location.pathname}`;
 }
 
-function getGameURL(params = ""){
+function getGameURL(params){
   return `${getCleanGameURL()}?json=1&${params}`;
 }
 
@@ -89,35 +109,18 @@ function getLevelStatURL(){
 function updateEnginePage(data){
   // Reload if level-up happened
   if (gameObj.isLevelUp(data)){
-    document.location.reload(true);
+    gameObj.data = {};
   }
 
   if (gameObj.noData()){
-    var level_list = null;
-    // Save level list for multi-level games
-    if (data.LevelSequence == 3) level_list = $("div.content ul.section");
-
-    // Initialize Level Input Field
-    if ($("input#Answer").length){
-      $("input#Answer").parent().remove();
-    }
-    $(".aside .blocked").remove();
-
-    $("#lnkAnswerBoxMarker")
-      .after(codeFields.inputFieldTemplate(data))
-      .after(codeFields.blockMarkerTemplate());
-    $("#answer-box #Answer").focus();
+    // Initialize Level Input Field and codes history
+    codeFields.initialize(data);
 
     $("div.content").empty();
     taskData.initialize(data);
     hintData.initialize(data.Level);
     bonusData.initialize(data.Level.Bonuses);
     messagesData.initialize(data.Level.Messages);
-
-    // Put level list back for multi-level games
-    if (data.LevelSequence == 3){
-      $("div.content").prepend(level_list);
-    }
   }
 
   // Update code history (if changed)
@@ -148,7 +151,6 @@ function updateEnginePage(data){
     $("#answer-box").show();
   }
 
-
   taskData.update(data);
   hintData.update(data.Level);
   bonusData.update(data.Level.Bonuses);
@@ -161,18 +163,23 @@ function updateEnginePage(data){
 function sendCode( event ){
   updateLevel({ data: event.data.hashMethod() }, "", false);
 
+  $(event.target).find("input.placeholder").select();
+
   event.preventDefault();
 }
 
 // API request
-function updateLevel(data = {}, params="", repeat = true){
+function updateLevel(data = {}, params=`rnd=${Math.random()}`, repeat = true){
+  if ($.isEmptyObject(data)){
+    data = { data: codeFields.getEmptyHash() };
+  }
   $.ajax(
     getGameURL(params),
     $.extend(
       {},
       {
         dataType: "json",
-        type: "POST",
+        type: $.isEmptyObject(data) ? "GET" : "POST",
         contentType: "application/json",
         success: updateEnginePage
       },
@@ -236,6 +243,7 @@ $(function(){
   // Do nothing if game is inactive
   if ($(".content .infomessage").length) return;
 
+  codeFields.getEmptyHash();
   setInterval(updateTimers, 1000);
 
   // Enter codes without page reload
@@ -256,4 +264,11 @@ $(function(){
 
   // Show level stat in dialog
   $(".levelstats a").click(showLevelStat);
+
+  // Open link to announce in new tab
+  $("a#lblGameTitle").attr("target", "_blank");
+
+  // Replace Encounter logo
+  $("a.logo").attr("target", "_blank");
+  $("a.logo img").attr("src", browser.extension.getURL("img/logo-96.png"));
 });

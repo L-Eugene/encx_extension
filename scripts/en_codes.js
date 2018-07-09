@@ -1,21 +1,76 @@
 // Methods to work with code/bonus fields and code history.
 var codeFields = {
+  actionIds: new Set(),
+  lastActionId: -1,
+
+  getEmptyHash: function (){
+    return JSON.stringify(gameObj.getLevelHash());
+  },
+
   getCodeHash: function (){
-    return JSON.stringify({
-      LevelID: $('input[name="LevelId"]').val(),
-      LevelAction: {
-        Answer: $('input#Answer[name="LevelAction.Answer"]').val()
-      }
-    });
+    return JSON.stringify(
+      $.extend(
+        {},
+        gameObj.getLevelHash(),
+        {
+          LevelAction: {
+            Answer: $('input#Answer[name="LevelAction.Answer"]').val()
+          }
+        }
+      )
+    );
   },
 
   getBonusHash: function (){
-    return JSON.stringify({
-      LevelID: $('input[name="LevelId"]').val(),
-      BonusAction: {
-        Answer: $('input#BonusAnswer[name="BonusAction.Answer"]').val()
-      }
-    });
+    return JSON.stringify(
+      $.extend(
+        {},
+        gameObj.getLevelHash(),
+        {
+          BonusAction: {
+            Answer: $('input#BonusAnswer[name="BonusAction.Answer"]').val()
+          }
+        }
+      )
+    );
+  },
+
+  initialize: function(game){
+    if ($("input#Answer").length){
+      $("input#Answer").parent().remove();
+    }
+    $(".aside .blocked").remove();
+    $("#input-blockage").remove();
+
+    $("#lnkAnswerBoxMarker")
+      .after(this.inputFieldTemplate(game))
+      .after(this.blockMarkerTemplate());
+    $("#answer-box #Answer").focus();
+
+    $('ul.history').empty();
+
+    this.actionIds.clear();
+    this.lastActionId = -1;
+  },
+
+  updateCodeHistory: function (actions){
+    if (actions.length > 0 && actions[0].ActionId != this.lastActionId){
+      $("ul.history .last_action").remove();
+    }
+    actions.reverse().forEach(this.addHistoricCode, this);
+  },
+
+  updateLastStatus: function (action){
+    if (action.LevelAction.Answer || action.BonusAction.Answer)
+      $("ul.history").prepend(this.lastActionTemplate(action));
+  },
+
+  addHistoricCode: function (action){
+    if (!this.actionIds.has(action.ActionId)) {
+      $('ul.history').prepend(this.actionTemplate(action));
+      this.actionIds.add(action.ActionId);
+      this.lastActionId = action.ActionId;
+    }
   },
 
   actionTemplate: function (action){
@@ -34,29 +89,16 @@ var codeFields = {
           // data.Level.MixedActions[any].Kind:
           //   1 - code
           //   2 - bonus
-          action.IsCorrect ? 
+          action.IsCorrect ?
             'color_' + (action.Kind == 1 ? 'correct' : 'bonus') : ''
         ).append(action.Answer)
       );
   },
 
-  addHistoricCode: function (action, id, array){
-    $('ul.history').append(this.actionTemplate(action));
-  },
-
-  updateCodeHistory: function (actions){
-    $('ul.history').empty();
-    actions.forEach(this.addHistoricCode, this);
-  },
-
-  updateLastStatus: function (action){
-    if (action.LevelAction.Answer || action.BonusAction.Answer)
-      $("ul.history").prepend(this.lastActionTemplate(action));
-  },
-
   lastActionUniversalTemplate: function (action, correct_style){
     return $("<li>")
       .addClass(action.IsCorrectAnswer ? correct_style : "color_incorrect")
+      .addClass("last_action")
       .append(
         action.IsCorrectAnswer
           ? "Ответ или код верный"
@@ -92,7 +134,7 @@ var codeFields = {
           .attr("name", "LevelAction.Answer")
           .attr("maxlength", 4000)
           .attr("tabindex", 1)
-          .attr("hint", "Введите ответ или код")
+          .attr("placeholder", "Введите ответ или код")
           .attr("value", "")
           .attr("type", "text")
       )
@@ -129,4 +171,3 @@ var codeFields = {
       .hide()
   }
 };
-
