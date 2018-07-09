@@ -338,7 +338,6 @@ var taskData = {
     }
 
     if (margin > 400 || Math.abs(margin) > this.carouselMaxMargin()) return;
-    console.log(margin);
     $("#level-list ul").first().css("margin-left", `${margin}px`);
   },
 
