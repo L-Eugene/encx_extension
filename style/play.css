@@ -59,6 +59,10 @@ div#dialog iframe {
   color: white !important;
 }
 
+.ui-tabs-nav .ui-tabs-anchor {
+  padding: 0.25em 0.5em !important;
+}
+
 .ui-tabs .ui-widget-header .ui-state-active {
   border: 1px solid #989898 !important;
   background-color: #1a7700 !important;
