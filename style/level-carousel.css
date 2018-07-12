@@ -30,6 +30,10 @@
   height: 5px;
 }
 
+.level-finished div.line {
+    background: #323232;
+}
+
 #level-list {
     border:solid 1px rgba(0,0,0,0.3);
     border-radius:4px;
@@ -100,13 +104,4 @@
     margin:5px;
     margin-left:0px;
     padding:0;
-}
-
-/* animation properties for the carousel */
-.animate ul {
-    -moz-transition:margin 1s;
-    -ms-transition:margin 1s;
-    -webkit-transition:margin 1s;
-    -o-transition:margin 1s;
-    transition:margin 1s;
 }

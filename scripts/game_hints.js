@@ -1,41 +1,27 @@
-var hintData = {
-  hints: {},
+class GameHintManager{
+  initialize(storage){
+    this.storage = storage;
+    $("div.content").append("<div id='hints'></div>");
+  }
 
-  initialize: function (level){
-    this.hints = {};
-    $("div.content").append("<div id='hints'></div>")
-  },
-
-  hintChanged: function (hint){
-    return JSON.stringify(hint) != JSON.stringify(this.hints[hint.HintId]);
-  },
-
-  update: function (level){
+  update(storage){
     $(".hint-block").attr("delete-mark", "true");
-    level.Helps.forEach(this.updateHint, this);
-    level.PenaltyHelps.forEach(this.updateHint, this);
-    $(".hint-block[delete-mark=true]").each(
-      function (){
-        delete hintData.hints[$(this).attr("id-numeric")];
-        $(this).remove();
-      }
+    storage.getAllHelps().forEach(
+      function(hint){
+        if (this.storage.isHintNew(hint.HelpId)){
+          $("div#hints").append(this._hintTemplate(hint));
+        } else if (this.storage.isHintChanged(hint.HelpId)) {
+          $(`#hint-${hint.HelpId}`).replaceWith(this._hintTemplate(hint));
+        }
+
+        $(`#hint-${hint.HelpId}`).attr("delete-mark", "false");
+      },
+      this
     );
-  },
+    $(".hint-block[delete-mark=true]").remove();
+  }
 
-  updateHint: function (hint){
-    if (hint.HelpId in this.hints){
-      if (this.hintChanged(hint))
-        $(`#hint-${hint.HelpId}`).replaceWith(this.hintTemplate(hint));
-    } else {
-      $("div#hints")
-        .append(this.hintTemplate(hint));
-    }
-
-    $(`#hint-${hint.HelpId}`).attr("delete-mark", "false");
-    this.hints[hint.HelpId] = hint;
-  },
-
-  hintTemplate: function (hint){
+  _hintTemplate(hint){
     return $("<div>")
       .addClass("hint-block")
       .addClass(hint.RemainSeconds ? "color_dis" : "")
@@ -51,15 +37,15 @@ var hintData = {
       )
       .append(
         hint.RemainSeconds
-          ? this.timerTemplate(hint)
-          : this.bodyTemplate(hint)
+          ? this._timerTemplate(hint)
+          : this._bodyTemplate(hint)
       )
       .append(
         $("<div>").addClass("spacer")
       );
-  },
+  }
 
-  bodyTemplate: function (hint){
+  _bodyTemplate(hint){
     if (!hint.IsPenalty) return $("<p>").append(hint.HelpText);
 
     return $("<p>")
@@ -75,28 +61,29 @@ var hintData = {
       )
       .append(
         hint.HelpText
-          ? hint.HelpText 
-          : this.openPenaltyTemplate(hint)
+          ? hint.HelpText
+          : this._openPenaltyTemplate(hint)
       );
-  },
+  }
 
-  openPenaltyTemplate: function (hint){
+  _openPenaltyTemplate(hint){
     return $("<button>")
       .addClass("ui-button ui-widget ui-corner-all")
       .attr("id", hint.HelpId)
+      .attr("url", this.storage.getCleanURL())
       .attr("confirm", hint.RequestConfirm)
       .click(function (){
         if (
           $(this).attr("confirm") == "false" ||
           confirm(`За просмотр этой подсказки вам будет начислено ${ENEXT.convertTime(hint.Penalty)} штрафного времени.\nВы уверены, что хотите её открыть?`)
         ){
-          $.get(`${getCleanGameURL()}?pid=${$(this).attr("id")}&pact=1`);
+          $.get(`${$(this).attr("url")}?pid=${$(this).attr("id")}&pact=1`);
         }
       })
       .append(`Взять подсказку (штраф ${ENEXT.convertTime(hint.Penalty)})`)
-  },
+  }
 
-  timerTemplate: function (hint){
+  _timerTemplate(hint){
     return $("<span>")
       .append(" будет через ")
       .append(
@@ -107,4 +94,3 @@ var hintData = {
       );
   }
 };
-
