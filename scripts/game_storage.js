@@ -255,10 +255,10 @@ class GameStorage {
     var result = "";
     switch (this.last.Level.BlockTargetId){
       case 1:
-        result = " для игрока";
+        result = chrome.i18n.getMessage("blockTargetPlayer");
         break;
       case 2:
-        result = " для команды";
+        result = chrome.i18n.getMessage("blockTargetTeam");
         break;
     }
     return result;

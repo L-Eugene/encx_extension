@@ -1,0 +1,11 @@
+{
+  "extensionName": {
+    "message": "EN.CX Extension",
+    "description": "Extension name"
+  },
+
+  "extensionDescription": {
+    "message": "Improves Encounter performance and adds additional features.",
+    "description": "Extesion description"
+  }
+}

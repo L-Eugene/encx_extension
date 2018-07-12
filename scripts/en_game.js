@@ -14,25 +14,26 @@ var ENEXT = {
     var result = "";
 
     if (sec % 60 > 0){
-      result = `${sec % 60} с`;
+      result = chrome.i18n.getMessage("timeSec", sec%60);
     }
     sec = Math.floor(sec / 60);
 
     if (sec % 60 > 0){
-      result = `${sec % 60} м ${result}`;
+      result = chrome.i18n.getMessage("timeMin", [sec%60, result]);
     }
     sec = Math.floor(sec / 60);
 
     if (sec % 24 > 0){
-      result = `${sec % 24} ч ${result}`;
+      result = chrome.i18n.getMessage("timeHour", [sec%24, result]);
     }
     sec = Math.floor(sec / 24);
 
     if (sec > 0){
-      result = `${sec} дн ${result}`;
+      result = chrome.i18n.getMessage("timeDay", [sec, result]);
     }
 
-    if (result === "") result = "0 c";
+    if (result === "")
+      result = chrome.i18n.getMessage("timeSec", 0);
 
     return $.trim(result);
   },
@@ -60,7 +61,7 @@ function showLevelStat(event){
 
   $("<div>")
     .attr("id", "dialog")
-    .attr("title", "Статистика уровня")
+    .attr("title", chrome.i18n.getMessage("levelStatTitle"))
     .append(
       $("<iframe>")
         .attr("src", getLevelStatURL())

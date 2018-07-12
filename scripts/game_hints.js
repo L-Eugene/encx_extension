@@ -32,8 +32,11 @@ class GameHintManager{
       .css("order", hint.Number + (hint.IsPenalty ? 10000 : 0))
       .append(
         $(hint.RemainSeconds ? "<b>" : "<h3>")
-          .append(hint.IsPenalty ? "Штрафная подсказка " : "Подсказка ")
-          .append(hint.Number)
+          .append(
+            hint.IsPenalty
+              ? chrome.i18n.getMessage("hintPenaltyTitle", hint.Number)
+              : chrome.i18n.getMessage("hintTitle", hint.Number)
+          )
       )
       .append(
         hint.RemainSeconds
@@ -52,9 +55,11 @@ class GameHintManager{
       .append(
         $("<p>")
           .append(
-            $("<b>").append("Описание подсказки: ")
+            chrome.i18n.getMessage(
+              "hintPenaltyDescription",
+              hint.PenaltyComment
+            )
           )
-          .append(hint.PenaltyComment)
           .append(
             $("<div>").addClass("spacer")
           )
@@ -75,17 +80,27 @@ class GameHintManager{
       .click(function (){
         if (
           $(this).attr("confirm") == "false" ||
-          confirm(`За просмотр этой подсказки вам будет начислено ${ENEXT.convertTime(hint.Penalty)} штрафного времени.\nВы уверены, что хотите её открыть?`)
+          confirm(
+            chrome.i18n.getMessage(
+              "hintPenaltyConfirm",
+              ENEXT.convertTime(hint.Penalty)
+            )
+          )
         ){
           $.get(`${$(this).attr("url")}?pid=${$(this).attr("id")}&pact=1`);
         }
       })
-      .append(`Взять подсказку (штраф ${ENEXT.convertTime(hint.Penalty)})`)
+      .append(
+        chrome.i18n.getMessage(
+          "hintPenaltyButton",
+          ENEXT.convertTime(hint.Penalty)
+        )
+      )
   }
 
   _timerTemplate(hint){
     return $("<span>")
-      .append(" будет через ")
+      .append(chrome.i18n.getMessage("timerWillBeIn"))
       .append(
         $("<span>")
           .addClass("countdown-timer")

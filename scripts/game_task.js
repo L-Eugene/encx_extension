@@ -80,24 +80,26 @@ class GameTaskManager {
       .addClass("level-length")
       .append(
         $("<h2>")
-          .append("Уровень ")
           .append(
-            $("<span>")
-              .append(game.Level.Number)
-          )
-          .append(` из ${game.Levels.length}`)
-          .append(
-            game.Level.Name != ""
-              ? `: ${game.Level.Name}`
-              : ""
+            chrome.i18n.getMessage(
+              "levelTitle",
+              [
+                game.Level.Number,
+                game.Levels.length,
+                game.Level.Name != "" ? `: ${game.Level.Name}`: ""
+              ]
+            )
           )
       )
       .append(
         $("<div>")
           .append(
             game.Level.Timeout > 0
-              ? `<b>Продолжительность уровня</b> ${ENEXT.convertTime(game.Level.Timeout)}`
-              : "<b>Уровень без автоперехода</b>"
+              ? chrome.i18n.getMessage(
+                  "levelDuration",
+                  ENEXT.convertTime(game.Level.Timeout)
+                )
+              : chrome.i18n.getMessage("levelInfinite")
           )
       );
   }
@@ -107,20 +109,20 @@ class GameTaskManager {
     return $("<h3>")
       .addClass("timer")
       .attr("id", "timeout-block")
-      .append(
-        $("<strong>")
-          .append("Автопереход ")
-      )
-      .append(" на следующий уровень через ")
+      .append(chrome.i18n.getMessage("levelAutoUp"))
       .append(
         $("<span>")
           .addClass("countdown-timer")
           .attr("seconds-left", level.TimeoutSecondsRemain)
           .append(ENEXT.convertTime(level.TimeoutSecondsRemain))
       )
+      .append()
       .append(
         level.TimeoutAward != 0
-          ? ` (штраф ${ENEXT.convertTime(-1*level.TimeoutAward)})`
+          ? chrome.i18n.getMessage(
+              "levelAutoUpPenalty",
+              ENEXT.convertTime(-1*level.TimeoutAward)
+            )
           : ""
       )
       .append(
@@ -133,31 +135,19 @@ class GameTaskManager {
     if (level.Sectors.length < 2) return "";
 
     return $("<h3>")
-      .append("На уровне ")
       .append(
-        $("<span>")
-          .attr("id", "sectors-total")
-          .append(level.Sectors.length)
-      )
-      .append(" секторов ")
-      .append(
-        $("<span>")
-          .addClass("color_sec")
-          .append("(осталось закрыть ")
-          .append(
-            $("<span>")
-              .attr("id", "sectors-left")
-              .append(level.SectorsLeftToClose)
-          )
-          .append(")")
+        chrome.i18n.getMessage(
+          "sectorsCount",
+          [level.Sectors.length, level.SectorsLeftToClose]
+        )
       )
       .append("<br>")
-      .append("Незакрытые сектора: ")
       .append(
-        $("<span>")
-          .attr("id", "sectors-left-list")
-          .append(this._openSectorList(level.Sectors))
-      );
+        chrome.i18n.getMessage(
+          "sectorsDisclosed",
+          this._openSectorList(level.Sectors)
+        )
+      )
   }
 
   _sectorsTemplate(level){
@@ -189,7 +179,7 @@ class GameTaskManager {
   _incompleteSectorTemplate(sector){
     return $("<span>")
       .addClass("color_dis")
-      .append("код не введён");
+      .append(chrome.i18n.getMessage("sectorDisclosed"));
   }
 
   _sectorTemplate(sector){
@@ -212,7 +202,7 @@ class GameTaskManager {
 
     return result
       .append(
-        $("<h3>").append("Задание")
+        $("<h3>").append(chrome.i18n.getMessage("titleTask"))
       )
       .append(
         $("<p>")

@@ -33,7 +33,7 @@ class GameBonusManager{
           .attr("target", "_blank")
           .append(bonus.Answer.Login)
       )
-      .append(", награда ")
+      .append(chrome.i18n.getMessage("bonusReward"))
       .append(
         ENEXT.convertTime(bonus.AwardTime)
       )
@@ -65,13 +65,22 @@ class GameBonusManager{
       .append(
         $("<ul>")
           .append(
-            this._tabHeaderTemplate("Подсказка", `#bonus-${bonus.BonusId}-hint`)
+            this._tabHeaderTemplate(
+              chrome.i18n.getMessage("bonusTitleHint"),
+              `#bonus-${bonus.BonusId}-hint`
+            )
           )
           .append(
-            this._tabHeaderTemplate("Задание", `#bonus-${bonus.BonusId}-task`)
+            this._tabHeaderTemplate(
+              chrome.i18n.getMessage("bonusTitleTask"),
+              `#bonus-${bonus.BonusId}-task`
+            )
           )
           .append(
-            this._tabHeaderTemplate("Ответ", `#bonus-${bonus.BonusId}-answer`)
+            this._tabHeaderTemplate(
+              chrome.i18n.getMessage("bonusTitleAnswer"),
+              `#bonus-${bonus.BonusId}-answer`
+            )
           )
       )
       .append(
@@ -95,7 +104,10 @@ class GameBonusManager{
       .append(
         $("<ul>")
           .append(
-            this._tabHeaderTemplate("Задание", `#bonus-${bonus.BonusId}-task`)
+            this._tabHeaderTemplate(
+              chrome.i18n.getMessage("bonusTitleTask"),
+              `#bonus-${bonus.BonusId}-task`
+            )
           )
       )
       .append(
@@ -112,9 +124,13 @@ class GameBonusManager{
       .attr("delete-mark", false)
       .css("order", bonus.Number)
       .append(
-        $("<b>").append(`Бонус ${bonus.Number}`)
+        $("<b>").append(
+          chrome.i18n.getMessage("bonusNumber", bonus.Number)
+        )
       )
-      .append(" не выполнен (время выполнения истекло)")
+      .append(
+        chrome.i18n.getMessage("bonusExpiredMessage")
+      )
   }
 
   _bonusWaitingTemplate(bonus){
@@ -126,7 +142,9 @@ class GameBonusManager{
       .attr("delete-mark", false)
       .css("order", bonus.Number)
       .append(
-        $("<b>").append(`Бонус ${bonus.Number}`)
+        $("<b>").append(
+          chrome.i18n.getMessage("bonusNumber", bonus.Number)
+        )
       )
       .append(this._timerTemplate(bonus.SecondsToStart))
   }
@@ -143,13 +161,23 @@ class GameBonusManager{
       .append(
         $("<h3>")
           .addClass(bonus.IsAnswered ? "color_correct" : "color_bonus")
-          .append(`Бонус ${bonus.Number}: ${bonus.Name}&nbsp;`)
+          .append(
+            chrome.i18n.getMessage(
+              "bonusNumberName",
+              [bonus.Number, bonus.Name]
+            )
+          )
           .append(
             bonus.SecondsLeft > 0
             ? $("<span>")
                 .addClass("color_sec")
                 .append(" (")
-                .append(this._timerTemplate(bonus.SecondsLeft, "осталось "))
+                .append(
+                  this._timerTemplate(
+                    bonus.SecondsLeft,
+                    chrome.i18n.getMessage("timerLeft")
+                  )
+                )
                 .append(")")
             : ""
           )
@@ -171,7 +199,7 @@ class GameBonusManager{
       );
   }
 
-  _timerTemplate(seconds, text = " будет через "){
+  _timerTemplate(seconds, text = chrome.i18n.getMessage("timerWillBeIn")){
     return $("<span>")
       .append(text)
       .append(

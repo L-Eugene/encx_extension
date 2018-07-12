@@ -69,13 +69,22 @@ class GameCodesManager{
     $(".aside .blockageinfo").html("");
     if (storage.isBlockage()){
       $(".blockageinfo")
-        .append(`Не более ${storage.getBlockAttemtsNumber()} попыток за ${ENEXT.convertTime(storage.getBlockAttemtsPeriod())}`)
-        .append(storage.getBlockTargetText())
+        .append(
+          chrome.i18n.getMessage(
+            "blockDescription",
+            [
+              storage.getBlockAttemtsNumber(),
+              ENEXT.convertTime(storage.getBlockAttemtsPeriod()),
+              storage.getBlockTargetText()
+            ]
+          )
+        )
     }
 
     // Update input field block display
     if (storage.isBlocked()){
-      $("#input-blockage .countdown-timer").attr("seconds-left", storage.getBlockDuration());
+      $("#input-blockage .countdown-timer")
+        .attr("seconds-left", storage.getBlockDuration());
       $("#input-blockage").show();
       $("#answer-box #Answer").val("");
       $("#answer-box").hide();
@@ -100,8 +109,8 @@ class GameCodesManager{
       .addClass("last_action")
       .append(
         action.IsCorrectAnswer
-          ? "Ответ или код верный"
-          : "Ответ или код неверный"
+          ? chrome.i18n.getMessage("answerCorrect")
+          : chrome.i18n.getMessage("answerIncorrect")
       )
   }
 
@@ -149,7 +158,10 @@ class GameCodesManager{
           .attr("name", "LevelAction.Answer")
           .attr("maxlength", 4000)
           .attr("tabindex", 1)
-          .attr("placeholder", "Введите ответ или код")
+          .attr(
+            "placeholder",
+            chrome.i18n.getMessage("inputFieldPlaceholder")
+          )
           .attr("value", "")
           .attr("type", "text")
       )
@@ -162,7 +174,7 @@ class GameCodesManager{
         $("<label>")
           .addClass("hidden")
           .attr("for", "Answer")
-          .append("Введите ответ или код и нажмите Enter")
+          .append(chrome.i18n.getMessage("inputFieldLabel"))
       )
   }
 
@@ -172,7 +184,7 @@ class GameCodesManager{
       .attr("id", "input-blockage")
       .append(
         $("<div>")
-          .append("вы сможете ввести код через ")
+          .append(chrome.i18n.getMessage("blockTimeoutMessage"))
           .append(
             $("<span>")
               .addClass("countdown-timer")
