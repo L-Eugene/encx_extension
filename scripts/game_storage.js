@@ -20,16 +20,24 @@ class GameStorage {
     this.needUpdate = false;
   }
 
+  isGameOver(){
+    return [6, 17].includes(this.last.Event);
+  }
+
   // Return true if LevelId changed since previous data update
   isLevelUp(){
     // This is first data update
-    if (this.prev === null) return true;
+    if (this.isGameOver() || this.prev === null) return true;
 
     return this.last.Level.LevelId != this.prev.Level.LevelId;
   }
 
   isLevelPassed(){
     return this.last.Level.IsPassed;
+  }
+
+  getEvent(){
+    return this.last.Event;
   }
 
   // Execute all needed callbacks when data reloaded
@@ -84,10 +92,12 @@ class GameStorage {
     this.prev = this.last;
     this.last = data;
 
-    this.levelHash = {
-      LevelId: this.last.Level.LevelId,
-      LevelNumber: this.last.Level.Number
-    };
+    if (!this.isGameOver()){
+      this.levelHash = {
+        LevelId: this.last.Level.LevelId,
+        LevelNumber: this.last.Level.Number
+      };
+    }
 
     this._doCallbacks();
   }

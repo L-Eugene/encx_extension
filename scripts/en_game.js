@@ -91,8 +91,11 @@ $(function(){
   if (location.search.includes("json=1")) return;
   // Do nothing if game is inactive
   if ($(".content .infomessage").length) return;
+  // Do nothing if game is over
+  if ($(".gameCongratulation").length) return;
 
   gameStorage = new GameStorage();
+  gameStorage.addCallbackObject(new GameEventManager());
   gameStorage.addCallbackObject(new GamePrepare());
   gameStorage.addCallbackObject(new GameCodesManager());
   gameStorage.addCallbackObject(new GameLevelListManager());

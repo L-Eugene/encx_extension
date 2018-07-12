@@ -36,6 +36,7 @@
       "js": [
         "lib/jquery.js",
         "lib/jquery-ui.min.js",
+        "scripts/game_events.js",
         "scripts/game_storage.js",
         "scripts/game_prepare.js",
         "scripts/game_codes.js",
