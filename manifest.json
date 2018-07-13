@@ -4,6 +4,8 @@
   "short_name": "ENextension",
   "version": "1.2.0",
 
+  "author": "Eugene Lapeko",
+
   "default_locale": "ru",
 
   "icons": {
