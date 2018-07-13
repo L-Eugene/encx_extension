@@ -18,13 +18,19 @@
 
   "permissions": ["storage"],
 
+  "web_accessible_resources": [
+    "img/logo-96.png"
+  ],
+
   "options_ui": {
     "page": "options/options.html"
   },
 
-  "web_accessible_resources": [
-    "img/logo-96.png"
-  ],
+  "background": {
+    "scripts": [
+      "background/options-init.js"
+    ]
+  },
 
   "content_scripts": [
     {
