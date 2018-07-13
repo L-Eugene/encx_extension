@@ -341,7 +341,14 @@ class GameStorage {
       true
     );
 
-    $(event.target).find("input.placeholder").select();
+    // Select sent code only if option is set in extension config
+    chrome.storage.local.get(
+      'selectSentCode',
+      function (result){
+        if (result.selectSentCode)
+          $(event.target).find("input.placeholder").select();
+      }
+    );
   }
 
   markForUpdate(){
@@ -378,7 +385,13 @@ class GameStorage {
       },
     );
 
-    this.timer = setTimeout(function(){ that.update() }, 5000);
-    this.needUpdate = false;
+    // get update rate from extension options
+    chrome.storage.local.get(
+      'refreshRate',
+      function (result){
+        that.timer = setTimeout(function(){ that.update() }, 1000 * result.refreshRate);
+        that.needUpdate = false;
+      }
+    );
   }
 };

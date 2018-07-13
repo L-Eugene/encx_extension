@@ -95,16 +95,25 @@ $(function(){
   // Do nothing if game is over
   if ($(".gameCongratulation").length) return;
 
-  gameStorage = new GameStorage();
-  gameStorage.addCallbackObject(new GameEventManager());
-  gameStorage.addCallbackObject(new GamePrepare());
-  gameStorage.addCallbackObject(new GameCodesManager());
-  gameStorage.addCallbackObject(new GameLevelListManager());
-  gameStorage.addCallbackObject(new GameTaskManager());
-  gameStorage.addCallbackObject(new GameHintManager());
-  gameStorage.addCallbackObject(new GameBonusManager());
-  gameStorage.addCallbackObject(new GameMessagesManager());
-  gameStorage.update();
+  chrome.storage.local.get(
+    'deniedDomains',
+    function (result){
+      var domains = result.deniedDomains.split("|");
+      // Run extension only on allowed domains
+      if (!domains.includes(location.hostname)){
+        gameStorage = new GameStorage();
+        gameStorage.addCallbackObject(new GameEventManager());
+        gameStorage.addCallbackObject(new GamePrepare());
+        gameStorage.addCallbackObject(new GameCodesManager());
+        gameStorage.addCallbackObject(new GameLevelListManager());
+        gameStorage.addCallbackObject(new GameTaskManager());
+        gameStorage.addCallbackObject(new GameHintManager());
+        gameStorage.addCallbackObject(new GameBonusManager());
+        gameStorage.addCallbackObject(new GameMessagesManager());
+        gameStorage.update();
 
-  setInterval(updateTimers, 1000);
+        setInterval(updateTimers, 1000);
+      }
+    }
+  );
 });

@@ -16,6 +16,12 @@
 
   "description": "__MSG_extensionDescription__",
 
+  "permissions": ["storage"],
+
+  "options_ui": {
+    "page": "options/options.html"
+  },
+
   "web_accessible_resources": [
     "img/logo-96.png"
   ],

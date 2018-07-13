@@ -1,5 +1,7 @@
 class GameCodesManager extends GameManager {
   constructor(){
+    super();
+    
     this.actionIds = new Set();
     this.storage = null;
   }

@@ -1,4 +1,23 @@
 {
+  "optionsSelectSentCode": {
+    "message": "Выделять код после отправки",
+    "description": "Опция поведения строки ввода"
+  },
+
+  "optionsRefreshRate": {
+    "message": "Обновлять данные игры через",
+    "description": "Опция интервала обновления данных игры"
+  },
+
+  "optionsSeconds": {
+    "message": "секунд(ы)",
+    "description": "Единица измерения интервала обновления, секунды"
+  },
+
+  "optionsDeniedDomains": {
+    "message": "Не включать расширение на доменах:"
+  },
+
   "extensionName": {
     "message": "Расширение движка EN.CX",
     "description": "Название расширения"

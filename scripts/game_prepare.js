@@ -1,5 +1,7 @@
 class GamePrepare extends GameManager {
   constructor (){
+    super();
+
     // Prepare game menu
     $(".header li.mail").remove();
     $(".header li.discuss a").attr("target", "_blank");
@@ -19,5 +21,15 @@ class GamePrepare extends GameManager {
     $("div.content").empty();
   }
 
-  update (storage) {}
+  update (storage) {
+    // Restart
+    chrome.storage.local.get(
+      'deniedDomains',
+      function (result){
+        if (result.deniedDomains.split("|").includes(location.hostname)){
+          location.reload();
+        }
+      }
+    );
+  }
 }
