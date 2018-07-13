@@ -1,4 +1,4 @@
-class GameHintManager{
+class GameHintManager extends GameManager {
   initialize(storage){
     this.storage = storage;
     $("div.content").append("<div id='hints'></div>");
@@ -40,7 +40,7 @@ class GameHintManager{
       )
       .append(
         hint.RemainSeconds
-          ? this._timerTemplate(hint)
+          ? this._timerTemplate(hint.RemainSeconds)
           : this._bodyTemplate(hint)
       )
       .append(
@@ -96,16 +96,5 @@ class GameHintManager{
           ENEXT.convertTime(hint.Penalty)
         )
       )
-  }
-
-  _timerTemplate(hint){
-    return $("<span>")
-      .append(chrome.i18n.getMessage("timerWillBeIn"))
-      .append(
-        $("<span>")
-          .addClass("countdown-timer")
-          .attr("seconds-left", hint.RemainSeconds)
-          .append(ENEXT.convertTime(hint.RemainSeconds))
-      );
   }
 };

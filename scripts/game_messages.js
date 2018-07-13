@@ -1,4 +1,4 @@
-class GameMessagesManager {
+class GameMessagesManager extends GameManager {
   initialize(storage){
     this.storage = storage
 

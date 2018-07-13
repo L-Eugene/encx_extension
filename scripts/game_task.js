@@ -1,4 +1,4 @@
-class GameTaskManager {
+class GameTaskManager extends GameManager {
   _titleUpdated(ln, lc){
     return this.title != `${ln}/${lc}`;
   }

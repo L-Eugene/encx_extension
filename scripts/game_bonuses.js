@@ -1,4 +1,4 @@
-class GameBonusManager{
+class GameBonusManager extends GameManager {
   initialize(storage){
     this.storage = storage;
     $("div.content").append("<div id='bonuses'></div>");
@@ -196,17 +196,6 @@ class GameBonusManager{
       )
       .append(
         $("<div>").addClass("spacer")
-      );
-  }
-
-  _timerTemplate(seconds, text = chrome.i18n.getMessage("timerWillBeIn")){
-    return $("<span>")
-      .append(text)
-      .append(
-        $("<span>")
-          .addClass("countdown-timer")
-          .attr("seconds-left", seconds)
-          .append(ENEXT.convertTime(seconds))
       );
   }
 };

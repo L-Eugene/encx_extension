@@ -1,4 +1,4 @@
-class GameCodesManager{
+class GameCodesManager extends GameManager {
   constructor(){
     this.actionIds = new Set();
     this.storage = null;

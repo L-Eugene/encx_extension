@@ -1,4 +1,4 @@
-class GameLevelListManager {
+class GameLevelListManager extends GameManager {
   constructor(){
     this.activeLevel = -1;
   }

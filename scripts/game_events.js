@@ -22,7 +22,7 @@ Event descriptions. Taken from https://github.com/necto68/EnApp
 22: 'Таймаут уровня',
  */
 
-class GameEventManager {
+class GameEventManager extends GameManager {
   initialize(storage){
     if (storage.isGameOver()){
       location.reload(true);

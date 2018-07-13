@@ -1,4 +1,4 @@
-class GamePrepare {
+class GamePrepare extends GameManager {
   constructor (){
     // Prepare game menu
     $(".header li.mail").remove();
