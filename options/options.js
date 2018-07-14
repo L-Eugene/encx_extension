@@ -14,7 +14,7 @@ function restoreOptions() {
     document.querySelector("#refreshRate").value = result.refreshRate;
     result.deniedDomains.split("|").forEach(
       function(domain){
-        addDeniedDomain(domain);
+        if (domain != "") addDeniedDomain(domain);
       }
     );
   }
@@ -89,8 +89,6 @@ function addDeniedDomainBtn(e){
 function initLocalization(){
   var elements = document.querySelectorAll("[message-key]"), i;
   for (i=0; i<elements.length; i++){
-    console.log(elements[i].getAttribute("message-key"))
-    console.log(chrome.i18n.getMessage(elements[i].getAttribute("message-key")));
     elements[i].innerHTML = chrome.i18n.getMessage(elements[i].getAttribute("message-key"));
   }
 }
