@@ -162,10 +162,15 @@ class GameBonusManager extends GameManager {
         $("<h3>")
           .addClass(bonus.IsAnswered ? "color_correct" : "color_bonus")
           .append(
-            chrome.i18n.getMessage(
-              "bonusNumberName",
-              [bonus.Number, bonus.Name]
-            )
+            bonus.Name != null
+            ? chrome.i18n.getMessage(
+                "bonusNumberName",
+                [bonus.Number, bonus.Name]
+              )
+            : chrome.i18n.getMessage(
+                "bonusNumber",
+                [bonus.Number]
+              )
           )
           .append(
             bonus.SecondsLeft > 0
