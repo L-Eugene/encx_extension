@@ -1,4 +1,14 @@
 {
+  "optionsEngineOptions": {
+    "message": "Настройки игрового движка",
+    "description": "Настройки игрового движка"
+  },
+
+  "optionsExceptionsOptions": {
+    "message": "Настройки исключений",
+    "description": "Настройки исключений"
+  },
+
   "optionsSelectSentCode": {
     "message": "Выделять код после отправки",
     "description": "Опция поведения строки ввода"
@@ -131,6 +141,16 @@
   "inputFieldLabel": {
     "message": "Введите ответ или код и нажмите Enter",
     "description": "Описание активного поля ввода"
+  },
+
+  "bonusFieldPlaceholder": {
+    "message": "Введите бонусный код",
+    "description": "Текст, отображаемый в пустом поле ввода бонуса"
+  },
+
+  "bonusFieldLabel": {
+    "message": "Введите бонусный код и нажмите Enter",
+    "description": "Описание активного поля бонуса"
   },
 
   "blockTimeoutMessage": {

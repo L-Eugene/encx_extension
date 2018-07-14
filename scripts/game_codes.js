@@ -1,7 +1,7 @@
 class GameCodesManager extends GameManager {
   constructor(){
     super();
-    
+
     this.actionIds = new Set();
     this.storage = null;
   }
@@ -12,10 +12,14 @@ class GameCodesManager extends GameManager {
     if ($("input#Answer").length){
       $("input#Answer").parent().remove();
     }
+    if ($("input#BonusAnswer").length){
+      $("input#BonusAnswer").parent().remove();
+    }
     $(".aside .blocked").remove();
     $("#input-blockage").remove();
 
     $("#lnkAnswerBoxMarker")
+      .after(this._bonusFieldTemplate(storage.getGame()))
       .after(this._inputFieldTemplate(storage.getGame()))
       .after(this._blockMarkerTemplate());
     $("#answer-box #Answer").focus();
@@ -33,6 +37,12 @@ class GameCodesManager extends GameManager {
     );
 
     $('ul.history').empty();
+
+    if (storage.isBlockage()){
+      $("#bonus-box").show();
+    } else {
+      $("#bonus-box").hide();
+    }
 
     this.actionIds.clear();
   }
@@ -177,6 +187,31 @@ class GameCodesManager extends GameManager {
           .addClass("hidden")
           .attr("for", "Answer")
           .append(chrome.i18n.getMessage("inputFieldLabel"))
+      )
+  }
+
+  _bonusFieldTemplate(data){
+    return $("<form>")
+      .attr("id", "bonus-box")
+      .append(
+        $("<input>")
+          .addClass("placeholder bonus_answer")
+          .attr("id", "BonusAnswer")
+          .attr("name", "BonusAction.Answer")
+          .attr("maxlength", 4000)
+          .attr("tabindex", 1)
+          .attr(
+            "placeholder",
+            chrome.i18n.getMessage("bonusFieldPlaceholder")
+          )
+          .attr("value", "")
+          .attr("type", "text")
+      )
+      .append(
+        $("<label>")
+          .addClass("hidden")
+          .attr("for", "Answer")
+          .append(chrome.i18n.getMessage("bonusFieldLabel"))
       )
   }
 
