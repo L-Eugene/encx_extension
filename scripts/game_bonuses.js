@@ -125,7 +125,7 @@ class GameBonusManager extends GameManager {
       .css("order", bonus.Number)
       .append(
         $("<b>").append(
-          chrome.i18n.getMessage("bonusNumber", bonus.Number)
+          chrome.i18n.getMessage("bonusNumber", [bonus.Number])
         )
       )
       .append(
@@ -143,7 +143,7 @@ class GameBonusManager extends GameManager {
       .css("order", bonus.Number)
       .append(
         $("<b>").append(
-          chrome.i18n.getMessage("bonusNumber", bonus.Number)
+          chrome.i18n.getMessage("bonusNumber", [bonus.Number])
         )
       )
       .append(this._timerTemplate(bonus.SecondsToStart))

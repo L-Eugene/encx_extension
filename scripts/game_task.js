@@ -97,7 +97,7 @@ class GameTaskManager extends GameManager {
             game.Level.Timeout > 0
               ? chrome.i18n.getMessage(
                   "levelDuration",
-                  ENEXT.convertTime(game.Level.Timeout)
+                  [ENEXT.convertTime(game.Level.Timeout)]
                 )
               : chrome.i18n.getMessage("levelInfinite")
           )
@@ -121,7 +121,7 @@ class GameTaskManager extends GameManager {
         level.TimeoutAward != 0
           ? chrome.i18n.getMessage(
               "levelAutoUpPenalty",
-              ENEXT.convertTime(-1*level.TimeoutAward)
+              [ENEXT.convertTime(-1*level.TimeoutAward)]
             )
           : ""
       )
@@ -145,7 +145,7 @@ class GameTaskManager extends GameManager {
       .append(
         chrome.i18n.getMessage(
           "sectorsDisclosed",
-          this._openSectorList(level.Sectors)
+          [this._openSectorList(level.Sectors)]
         )
       )
   }

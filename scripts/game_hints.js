@@ -34,8 +34,8 @@ class GameHintManager extends GameManager {
         $(hint.RemainSeconds ? "<b>" : "<h3>")
           .append(
             hint.IsPenalty
-              ? chrome.i18n.getMessage("hintPenaltyTitle", hint.Number)
-              : chrome.i18n.getMessage("hintTitle", hint.Number)
+              ? chrome.i18n.getMessage("hintPenaltyTitle", [hint.Number])
+              : chrome.i18n.getMessage("hintTitle", [hint.Number])
           )
       )
       .append(
@@ -57,7 +57,7 @@ class GameHintManager extends GameManager {
           .append(
             chrome.i18n.getMessage(
               "hintPenaltyDescription",
-              hint.PenaltyComment
+              [hint.PenaltyComment]
             )
           )
           .append(
@@ -93,7 +93,7 @@ class GameHintManager extends GameManager {
       .append(
         chrome.i18n.getMessage(
           "hintPenaltyButton",
-          ENEXT.convertTime(hint.Penalty)
+          [ENEXT.convertTime(hint.Penalty)]
         )
       )
   }

@@ -14,7 +14,7 @@ var ENEXT = {
     var result = "";
 
     if (sec % 60 > 0){
-      result = chrome.i18n.getMessage("timeSec", sec%60);
+      result = chrome.i18n.getMessage("timeSec", [sec%60]);
     }
     sec = Math.floor(sec / 60);
 
@@ -33,7 +33,7 @@ var ENEXT = {
     }
 
     if (result === "")
-      result = chrome.i18n.getMessage("timeSec", 0);
+      result = chrome.i18n.getMessage("timeSec", [0]);
 
     return $.trim(result);
   },
