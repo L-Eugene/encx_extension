@@ -38,7 +38,7 @@ class GameCodesManager extends GameManager {
 
     $('ul.history').empty();
 
-    if (storage.isBlockage()){
+    if (storage.isBlockage() && storage.getBonuses().length > 0){
       $("#bonus-box").show();
     } else {
       $("#bonus-box").hide();
