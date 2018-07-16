@@ -13,7 +13,6 @@ class GameTaskManager extends GameManager {
   }
 
   initialize(storage){
-    this.levels = {};
     this.storage = storage;
 
     $("div.content")
