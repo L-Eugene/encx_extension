@@ -1,4 +1,9 @@
 {
+  "buttonOk": {
+    "message": "Ok",
+    "description": "Надпись на кнопке Ok"
+  },
+
   "optionsEngineOptions": {
     "message": "Настройки игрового движка",
     "description": "Настройки игрового движка"
@@ -26,6 +31,19 @@
 
   "optionsDeniedDomains": {
     "message": "Не включать расширение на доменах:"
+  },
+
+  "optionsHideDisclosedSectors": {
+    "message": "Скрывать список незакрытых секторов"
+  },
+
+  "optionsHideCompleteBonuses": {
+    "message": "Скрывать выполненные бонусы"
+  },
+
+  "optionsGameConfigDialog": {
+    "message": "Настройка игры",
+    "description": "Заголовок окна настроек игры"
   },
 
   "extensionName": {

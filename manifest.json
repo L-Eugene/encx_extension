@@ -21,7 +21,8 @@
   "permissions": ["storage"],
 
   "web_accessible_resources": [
-    "img/logo-96.png"
+    "img/logo-96.png",
+    "img/gear-35.png"
   ],
 
   "options_ui": {

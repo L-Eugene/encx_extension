@@ -50,7 +50,15 @@ class GameTaskManager extends GameManager {
       $("#sectors-left-list").html(
         this._openSectorList(storage.getSectors())
       );
+      if (ENEXT.parseBoolean(
+        localStorage.getItem(`${storage.getGameId()}-hide-disclosed-sectors`)
+      )){
+        $("#sectors-left-list-block").hide();
+      } else {
+        $("#sectors-left-list-block").show();
+      }
     }
+
 
     // Update sectors
     $(".sector-block").attr("delete-mark", "true");
@@ -143,10 +151,14 @@ class GameTaskManager extends GameManager {
       )
       .append("<br>")
       .append(
-        chrome.i18n.getMessage(
-          "sectorsDisclosed",
-          [this._openSectorList(level.Sectors)]
-        )
+        $("<div>")
+          .attr("id", "sectors-left-list-block")
+          .append(
+            chrome.i18n.getMessage(
+              "sectorsDisclosed",
+              [this._openSectorList(level.Sectors)]
+            )
+          )
       )
   }
 

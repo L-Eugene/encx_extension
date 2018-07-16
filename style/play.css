@@ -1,3 +1,23 @@
+.header .enext-options {
+  position: absolute;
+  top: 15px;
+  left: -40px;
+  cursor: pointer;
+}
+
+#game-config-dialog table td {
+  border: 0;
+  color: black;
+}
+
+#game-config-dialog label {
+  color: black;
+}
+
+#game-config-dialog input {
+  width: auto;
+}
+
 .aside {
   position: fixed;
 }
@@ -25,7 +45,7 @@ div.content #hints, div.content #bonuses {
   flex-direction: column;
 }
 
-div#dialog iframe {
+div#level-stat-dialog iframe {
   width: 100%;
   height: 100%;
 }
@@ -68,7 +88,7 @@ div#dialog iframe {
   background-color: #1a7700 !important;
 }
 
-.ui-dialog-content {
+.ui-dialog-content#level-stat-dialog {
   background-color: black !important;
 }
 

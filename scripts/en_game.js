@@ -1,4 +1,7 @@
 var gameStorage = null;
+var dialogWindows = {
+  gameConfig: false
+};
 var levelstat_refresh = null;
 
 var ENEXT = {
@@ -7,6 +10,17 @@ var ENEXT = {
     var d = new Date(ts);
     d.setFullYear(d.getFullYear() - 1969);
     return d.toLocaleString();
+  },
+
+  parseBoolean:function (value){
+    switch (typeof value){
+      case 'number':
+        return value != 0;
+      case 'string':
+        return ["true", "yes", "on"].includes(value.toLowerCase())
+      default:
+        return Boolean(value);
+    }
   },
 
   // Split value in seconds into D H:M:S
@@ -60,7 +74,7 @@ function showLevelStat(event){
   event.preventDefault();
 
   $("<div>")
-    .attr("id", "dialog")
+    .attr("id", "level-stat-dialog")
     .attr("title", chrome.i18n.getMessage("levelStatTitle"))
     .append(
       $("<iframe>")
@@ -76,11 +90,15 @@ function showLevelStat(event){
       height: 420,
       close: function (){
         clearInterval(levelstat_refresh);
-        $(".levelstats div#dialog").remove();
+        $(".levelstats div#level-stat-dialog").remove();
       }
     });
 
   levelstat_refresh = setInterval(refreshLevelStat, 20000);
+}
+
+function showGameConfig(e){
+  $("#game-config-dialog").dialog("open");
 }
 
 function refreshLevelStat(){

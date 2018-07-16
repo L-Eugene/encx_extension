@@ -21,6 +21,14 @@ class GameBonusManager extends GameManager {
       this
     );
     $(".bonus-block[delete-mark=true]").remove();
+
+    if (ENEXT.parseBoolean(
+      localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`)
+    )){
+      $(".bonus-answered").hide();
+    } else {
+      $(".bonus-answered").show();
+    }
   }
 
   _bonusInfoTemplate(bonus){
@@ -154,6 +162,7 @@ class GameBonusManager extends GameManager {
     if (bonus.Expired == true) return this._bonusExpiredTemplate(bonus);
     return $("<div>")
       .addClass("bonus-block")
+      .addClass(bonus.IsAnswered ? "bonus-answered" : "")
       .attr("id", `bonus-${bonus.BonusId}`)
       .attr("id-numeric", bonus.BonusId)
       .attr("delete-mark", false)
