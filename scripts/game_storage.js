@@ -287,6 +287,18 @@ class GameStorage {
     return this.last.Level.Sectors.length;
   }
 
+  getSectorsClosedNumber(){
+    var result = 0;
+    this.getSectors().forEach(function(sector){
+      result += (sector.IsAnswered === true) ? 1 : 0;
+    });
+    return result;
+  }
+
+  getSectorsToClose(){
+    return this.getSectorsLeft() + this.getSectorsClosedNumber();
+  }
+
   getSectorsLeft(){
     return this.last.Level.SectorsLeftToClose;
   }

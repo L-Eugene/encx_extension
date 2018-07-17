@@ -145,7 +145,11 @@ class GameTaskManager extends GameManager {
       .append(
         chrome.i18n.getMessage(
           "sectorsCount",
-          [level.Sectors.length, level.SectorsLeftToClose]
+          [
+            level.Sectors.length,
+            this.storage.getSectorsToClose(),
+            level.SectorsLeftToClose
+          ]
         )
       )
       .append("<br>")

@@ -238,7 +238,7 @@
   },
 
   "sectorsCount": {
-    "message": "На уровне <span id='sectors-total'>$1</span> секторов <span class=color_sec>(осталось закрыть <span id='sectors-left'>$2</span>)</span>",
+    "message": "На уровне <span id='sectors-total'>$1</span> секторов [порог: $2] <span class=color_sec>(осталось закрыть <span id='sectors-left'>$3</span>)</span>",
     "description": "Информация о количестве секторов"
   },
 
