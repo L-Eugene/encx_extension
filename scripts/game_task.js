@@ -228,4 +228,4 @@ class GameTaskManager extends GameManager {
           .addClass("spacer")
       );
   }
-};
+}
