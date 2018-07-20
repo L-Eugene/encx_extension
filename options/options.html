@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" type="text/css" href="options.css">
+  </head>
+
+  <body>
+
+    <form>
+      <table>
+        <tr>
+          <td colspan=2><h2 message-key="optionsEngineOptions"></h2></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsSelectSentCode" for="selectSentCode"></label></td>
+          <td><input type="checkbox" id="selectSentCode"></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsRefreshRate" for="refreshRate"></label></td>
+          <td><input type="number" id="refreshRate" min="3" max="60"> <span message-key="optionsSeconds"></span></td>
+        </tr>
+        <tr>
+          <td colspan=2><h2 message-key="optionsExceptionsOptions"></h2></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsDeniedDomains" for="addDomainName"></label></td>
+          <td>
+            <div class="domain-list">
+              <input type=text id="addDomainName">
+              <button id="addDomainButton">+</button>
+              <br>
+              <div id="denied-domains">
+              </div>
+            </div>
+          </td>
+        </tr>
+      </table>
+
+    </form>
+
+    <script src="options.js"></script>
+
+  </body>
+
+</html>

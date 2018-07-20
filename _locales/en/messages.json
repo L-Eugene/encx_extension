@@ -1,0 +1,260 @@
+{
+  "extensionName": {
+    "message": "EN.CX Extension",
+    "description": "Extension name"
+  },
+
+  "extensionDescription": {
+    "message": "Improves Encounter performance and adds additional features.",
+    "description": "Extesion description"
+  },
+
+  "buttonOk": {
+    "message": "Ok",
+    "description": "Ok button text"
+  },
+
+  "optionsEngineOptions": {
+    "message": "Game engine preferences",
+    "description": "Game engine preferences"
+  },
+
+  "optionsExceptionsOptions": {
+    "message": "Exclusions",
+    "description": "Exclusions"
+  },
+
+  "optionsSelectSentCode": {
+    "message": "Select code after submit",
+    "description": "Code input field behavior option"
+  },
+
+  "optionsRefreshRate": {
+    "message": "Game data refresh rate",
+    "description": "Game data refresh rate option"
+  },
+
+  "optionsSeconds": {
+    "message": "second(s)",
+    "description": "Refresh rate units, seconds"
+  },
+
+  "optionsDeniedDomains": {
+    "message": "Disable extension on next domains:"
+  },
+
+  "optionsHideDisclosedSectors": {
+    "message": "Hide disclosed sectors list"
+  },
+
+  "optionsHideCompleteBonuses": {
+    "message": "Hide complete bonuses"
+  },
+
+  "optionsGameConfigDialog": {
+    "message": "Game preferences",
+    "description": "Game preferences window title"
+  },
+
+  "timeSec": {
+    "message": "$1 s",
+    "description": "Seconds"
+  },
+
+  "timeMin": {
+    "message": "$1 m $2",
+    "description": "Minutes"
+  },
+
+  "timeHour": {
+    "message": "$1 h $2",
+    "description": "Hours"
+  },
+
+  "timeDay": {
+    "message": "$1 d $2",
+    "description": "Days"
+  },
+
+  "levelStatTitle": {
+    "message": "Level statistics",
+    "description": "Level statistics window title"
+  },
+
+  "bonusReward": {
+    "message": ", bonus ",
+    "description": "Bonus short description"
+  },
+
+  "bonusTitleHint": {
+    "message": "Hint",
+    "description": "Bonus hint tab title"
+  },
+
+  "bonusTitleTask": {
+    "message": "Task",
+    "description": "Bonus task tab title"
+  },
+
+  "bonusTitleAnswer": {
+    "message": "Answer",
+    "description": "Bonus answer tab title"
+  },
+
+  "bonusExpiredMessage": {
+    "message": " not complete (time limit exceeded)",
+    "description": "Bonus time limit exceeded message"
+  },
+
+  "bonusNumber": {
+    "message": "Bonus $1",
+    "description": "'Bonus' word and number"
+  },
+
+  "bonusNumberName": {
+    "message": "Bonus $1: $2&nbsp;",
+    "description": "'Bonus' word with name and number"
+  },
+
+  "timerLeft": {
+    "message": "time left: ",
+    "description": "Time left message for countdown"
+  },
+
+  "timerWillBeIn": {
+    "message": " will appear in ",
+    "description": "Default value for countdown message"
+  },
+
+  "blockDescription": {
+    "message": "At most $1 tries in $2 $3",
+    "description": "Code blockage information"
+  },
+
+  "blockTargetPlayer": {
+    "message": "per player",
+    "description": "Code blockage limit for player"
+  },
+
+  "blockTargetTeam": {
+    "message": "per team",
+    "description": "Code blockage limit for team"
+  },
+
+  "answerCorrect": {
+    "message": "Answer or code is correct",
+    "description": "Correct code message"
+  },
+
+  "answerIncorrect": {
+    "message": "Answer or code is incorrect",
+    "description": "Incorrect code message"
+  },
+
+  "inputFieldPlaceholder": {
+    "message": "Enter answer or code",
+    "description": "Empty code field placeholder"
+  },
+
+  "inputFieldLabel": {
+    "message": "Enter answer or code and press Enter",
+    "description": "Active code input field description"
+  },
+
+  "bonusFieldPlaceholder": {
+    "message": "Enter bonus code",
+    "description": "epmty bonus code field placeholder"
+  },
+
+  "bonusFieldLabel": {
+    "message": "Enter bonus code and press Enter",
+    "description": "Active bonus field description"
+  },
+
+  "blockTimeoutMessage": {
+    "message": "you can enter code in ",
+    "description": "Field blockage message"
+  },
+
+  "hintTitle": {
+    "message": "Hint $1",
+    "description": "Hint title"
+  },
+
+  "hintPenaltyTitle": {
+    "message": "Penalty hint $1",
+    "description": "Penalty hint title"
+  },
+
+  "hintPenaltyDescription": {
+    "message": "<b>Hint description:</b> $1",
+    "description": "Penalty hint description"
+  },
+
+  "hintPenaltyConfirm": {
+    "message": "You will get $1 of penalty time for this hint.\nAre you sure you want to open it?",
+    "description": "Penalty hint opening confirmation message"
+  },
+
+  "hintPenaltyButton": {
+    "message": "Open hint ($1 penalty)",
+    "description": "Penalty hint opening button text"
+  },
+
+  "levelTitle": {
+    "message": "Level $NUM$ of $TOTAL$$NAME$",
+    "description": "Заголовок уровня",
+    "placeholders": {
+      "num": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      },
+      "name": {
+        "content": "$3"
+      }
+    }
+  },
+
+  "levelDuration": {
+    "message": "<b>Level duration</b> $1",
+    "description": "Level duration"
+  },
+
+  "levelInfinite": {
+    "message": "<b>Level does not have timeout</b>",
+    "description": "Level does not have timeout"
+  },
+
+  "levelAutoUp": {
+    "message": "<strong>Timeout</strong> and pass to next level in ",
+    "description": "Timeout title"
+  },
+
+  "levelAutoUpPenalty": {
+    "message": "(penalty $1)",
+    "description": "Timeout penalty size"
+  },
+
+  "sectorsCount": {
+    "message": "There are <span id='sectors-total'>$1</span> sectors [to close: $2] <span class=color_sec>(<span id='sectors-left'>$3</span> left)</span>",
+    "description": "Sectors information"
+  },
+
+  "sectorsDisclosed": {
+    "message": "Disclosed sectors: <span id='sectors-left-list'>$1</span>",
+    "description": "Disclosed sector list"
+  },
+
+  "sectorDisclosed": {
+    "message": "no code passed",
+    "description": "Unclosed sector mark"
+  },
+
+  "titleTask": {
+    "message": "Task",
+    "description": "Task title"
+  }
+
+}

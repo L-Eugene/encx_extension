@@ -1,0 +1,259 @@
+{
+  "extensionName": {
+    "message": "Расширение движка EN.CX",
+    "description": "Название расширения"
+  },
+
+  "extensionDescription": {
+    "message": "Ускоряет работу движка Encounter, добавляет дополнительные функции на страницы.",
+    "description": "Описание расширения"
+  },
+
+  "buttonOk": {
+    "message": "Ok",
+    "description": "Надпись на кнопке Ok"
+  },
+
+  "optionsEngineOptions": {
+    "message": "Настройки игрового движка",
+    "description": "Настройки игрового движка"
+  },
+
+  "optionsExceptionsOptions": {
+    "message": "Настройки исключений",
+    "description": "Настройки исключений"
+  },
+
+  "optionsSelectSentCode": {
+    "message": "Выделять код после отправки",
+    "description": "Опция поведения строки ввода"
+  },
+
+  "optionsRefreshRate": {
+    "message": "Обновлять данные игры через",
+    "description": "Опция интервала обновления данных игры"
+  },
+
+  "optionsSeconds": {
+    "message": "секунд(ы)",
+    "description": "Единица измерения интервала обновления, секунды"
+  },
+
+  "optionsDeniedDomains": {
+    "message": "Не включать расширение на доменах:"
+  },
+
+  "optionsHideDisclosedSectors": {
+    "message": "Скрывать список незакрытых секторов"
+  },
+
+  "optionsHideCompleteBonuses": {
+    "message": "Скрывать выполненные бонусы"
+  },
+
+  "optionsGameConfigDialog": {
+    "message": "Настройка игры",
+    "description": "Заголовок окна настроек игры"
+  },
+
+  "timeSec": {
+    "message": "$1 c",
+    "description": "Секунды"
+  },
+
+  "timeMin": {
+    "message": "$1 м $2",
+    "description": "Минуты"
+  },
+
+  "timeHour": {
+    "message": "$1 ч $2",
+    "description": "Часы"
+  },
+
+  "timeDay": {
+    "message": "$1 дн $2",
+    "description": "Дни"
+  },
+
+  "levelStatTitle": {
+    "message": "Статистика уровня",
+    "description": "Заголовок окна статистики уровня"
+  },
+
+  "bonusReward": {
+    "message": ", награда ",
+    "description": "Описание бонуса"
+  },
+
+  "bonusTitleHint": {
+    "message": "Подсказка",
+    "description": "Заголовок вкладки с подсказкой бонуса"
+  },
+
+  "bonusTitleTask": {
+    "message": "Задание",
+    "description": "Заголовок вкладки с заданием бонуса"
+  },
+
+  "bonusTitleAnswer": {
+    "message": "Ответ",
+    "description": "Заголовок вкладки с ответом бонуса"
+  },
+
+  "bonusExpiredMessage": {
+    "message": " не выполнен (время выполнения истекло)",
+    "description": "Сообщение об истечении времени выполнения бонуса"
+  },
+
+  "bonusNumber": {
+    "message": "Бонус $1",
+    "description": "Слово 'Бонус' с номером"
+  },
+
+  "bonusNumberName": {
+    "message": "Бонус $1: $2&nbsp;",
+    "description": "Бонус с номером и названием"
+  },
+
+  "timerLeft": {
+    "message": "осталось ",
+    "description": "Слово 'осталось' для обратного отсчета"
+  },
+
+  "timerWillBeIn": {
+    "message": " будет через ",
+    "description": "Значние по умолчанию для обратного отсчета"
+  },
+
+  "blockDescription": {
+    "message": "Не более $1 попыток за $2 $3",
+    "description": "Информация о блокировке ввода кодов"
+  },
+
+  "blockTargetPlayer": {
+    "message": "для игрока",
+    "description": "Ограничение ввода на игрока"
+  },
+
+  "blockTargetTeam": {
+    "message": "для команды",
+    "description": "Ограничение ввода на команду"
+  },
+
+  "answerCorrect": {
+    "message": "Ответ или код верный",
+    "description": "Сообщение о верном коде"
+  },
+
+  "answerIncorrect": {
+    "message": "Ответ или код неверный",
+    "description": "Сообщение о неверном коде"
+  },
+
+  "inputFieldPlaceholder": {
+    "message": "Введите ответ или код",
+    "description": "Текст, отображаемый в пустом поле ввода кода"
+  },
+
+  "inputFieldLabel": {
+    "message": "Введите ответ или код и нажмите Enter",
+    "description": "Описание активного поля ввода"
+  },
+
+  "bonusFieldPlaceholder": {
+    "message": "Введите бонусный код",
+    "description": "Текст, отображаемый в пустом поле ввода бонуса"
+  },
+
+  "bonusFieldLabel": {
+    "message": "Введите бонусный код и нажмите Enter",
+    "description": "Описание активного поля бонуса"
+  },
+
+  "blockTimeoutMessage": {
+    "message": "вы сможете ввести код через ",
+    "description": "Сообщение, отображаемое при блокировке поля ввода"
+  },
+
+  "hintTitle": {
+    "message": "Подсказка $1",
+    "description": "Заголовок подсказки"
+  },
+
+  "hintPenaltyTitle": {
+    "message": "Штрафная подсказка $1",
+    "description": "Заголовок штрафной подсказки"
+  },
+
+  "hintPenaltyDescription": {
+    "message": "<b>Описание подсказки:</b> $1",
+    "description": "Описание штрафной подсказки"
+  },
+
+  "hintPenaltyConfirm": {
+    "message": "За просмотр этой подсказки вам будет начислено $1 штрафного времени.\nВы уверены, что хотите её открыть?",
+    "description": "Подтверждение открытия штрафподсказки"
+  },
+
+  "hintPenaltyButton": {
+    "message": "Взять подсказку (штраф $1)",
+    "description": "Текст кнопки открытия штрафной подсказки"
+  },
+
+  "levelTitle": {
+    "message": "Уровень $NUM$ из $TOTAL$$NAME$",
+    "description": "Заголовок уровня",
+    "placeholders": {
+      "num": {
+        "content": "$1"
+      },
+      "total": {
+        "content": "$2"
+      },
+      "name": {
+        "content": "$3"
+      }
+    }
+  },
+
+  "levelDuration": {
+    "message": "<b>Продолжительность уровня</b> $1",
+    "description": "Длительность уровня"
+  },
+
+  "levelInfinite": {
+    "message": "<b>Уровень без автоперехода</b>",
+    "description": "Уровень без автоперехода"
+  },
+
+  "levelAutoUp": {
+    "message": "<strong>Автопереход</strong> на следующий уровень через ",
+    "description": "Заголовок автоперехода"
+  },
+
+  "levelAutoUpPenalty": {
+    "message": "(штраф $1)",
+    "description": "Размер штрафа за автопереход"
+  },
+
+  "sectorsCount": {
+    "message": "На уровне <span id='sectors-total'>$1</span> секторов [порог: $2] <span class=color_sec>(осталось закрыть <span id='sectors-left'>$3</span>)</span>",
+    "description": "Информация о количестве секторов"
+  },
+
+  "sectorsDisclosed": {
+    "message": "Незакрытые сектора: <span id='sectors-left-list'>$1</span>",
+    "description": "Список незакрытых секторов"
+  },
+
+  "sectorDisclosed": {
+    "message": "код не введён",
+    "description": "Пометка, что код в этот сектор не введен"
+  },
+
+  "titleTask": {
+    "message": "Задание",
+    "description": "Заголовок задания уровня"
+  }
+}

@@ -1,8 +1,12 @@
 {
   "manifest_version": 2,
-  "name": "EN.CX extension",
+  "name": "__MSG_extensionName__",
   "short_name": "ENextension",
-  "version": "1.1.0",
+  "version": "1.2.0",
+
+  "author": "Eugene Lapeko",
+
+  "default_locale": "ru",
 
   "icons": {
     "16": "img/logo-16.png",
@@ -12,11 +16,24 @@
     "128": "img/logo-128.png"
   },
 
-  "description": "Ускоряет работу движка Encounter, добавляет дополнительную информацию.",
+  "description": "__MSG_extensionDescription__",
+
+  "permissions": ["storage"],
 
   "web_accessible_resources": [
-    "img/logo-96.png"
+    "img/logo-96.png",
+    "img/gear-35.png"
   ],
+
+  "options_ui": {
+    "page": "options/options.html"
+  },
+
+  "background": {
+    "scripts": [
+      "background/options-init.js"
+    ]
+  },
 
   "content_scripts": [
     {
@@ -36,11 +53,16 @@
       "js": [
         "lib/jquery.js",
         "lib/jquery-ui.min.js",
-        "scripts/en_codes.js",
-        "scripts/en_task.js",
-        "scripts/en_hints.js",
-        "scripts/en_bonuses.js",
-        "scripts/en_messages.js",
+        "scripts/game_manager.js",
+        "scripts/game_events.js",
+        "scripts/game_storage.js",
+        "scripts/game_prepare.js",
+        "scripts/game_codes.js",
+        "scripts/game_level_list.js",
+        "scripts/game_task.js",
+        "scripts/game_hints.js",
+        "scripts/game_bonuses.js",
+        "scripts/game_messages.js",
         "scripts/en_game.js"
       ]
     }
