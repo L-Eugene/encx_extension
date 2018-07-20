@@ -57,7 +57,7 @@
     height:100%;
     position:absolute;
     text-align:center;
-    text-shadow:rgba(0,0,0,0.1); 0 0 2px;
+    text-shadow:rgba(0,0,0,0.1);
     width:30px;
     -moz-transition:all 0.4s;
     -ms-transition:all 0.4s;
@@ -71,7 +71,7 @@
 #level-list:hover .navigation {
     background:rgba(0,0,0,0.3);
     color:rgba(255,255,255,0.8);
-    text-shadow:rgba(0,0,0,0.7); 0 0 2px;
+    text-shadow:rgba(0,0,0,0.7);
 }
 
 #level-list .navigation:hover {
