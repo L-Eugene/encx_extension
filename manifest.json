@@ -2,11 +2,17 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "short_name": "ENextension",
-  "version": "1.2.0",
+  "version": "1.2.1",
 
   "author": "Eugene Lapeko",
 
   "default_locale": "ru",
+
+  "applications": {
+    "gecko": {
+      "id": "encx_extension@lapeko.info"
+    }
+  },
 
   "icons": {
     "16": "img/logo-16.png",

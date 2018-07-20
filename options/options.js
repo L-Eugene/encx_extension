@@ -35,7 +35,7 @@ function _domainTemplate(domain){
   button.addEventListener("click", deleteDeniedDomain);
 
   var text = document.createElement("span");
-  text.innerHTML = domain;
+  text.textContent = domain;
 
   var block = document.createElement("div")
   block.className = "single-domain";
@@ -89,7 +89,7 @@ function addDeniedDomainBtn(e){
 function initLocalization(){
   var elements = document.querySelectorAll("[message-key]"), i;
   for (i=0; i<elements.length; i++){
-    elements[i].innerHTML = chrome.i18n.getMessage(elements[i].getAttribute("message-key"));
+    elements[i].textContent = chrome.i18n.getMessage(elements[i].getAttribute("message-key"));
   }
 }
 
