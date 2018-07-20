@@ -1,4 +1,14 @@
 {
+  "extensionName": {
+    "message": "Расширение движка EN.CX",
+    "description": "Название расширения"
+  },
+
+  "extensionDescription": {
+    "message": "Ускоряет работу движка Encounter, добавляет дополнительные функции на страницы.",
+    "description": "Описание расширения"
+  },
+
   "buttonOk": {
     "message": "Ok",
     "description": "Надпись на кнопке Ok"
@@ -44,16 +54,6 @@
   "optionsGameConfigDialog": {
     "message": "Настройка игры",
     "description": "Заголовок окна настроек игры"
-  },
-
-  "extensionName": {
-    "message": "Расширение движка EN.CX",
-    "description": "Название расширения"
-  },
-
-  "extensionDescription": {
-    "message": "Ускоряет работу движка Encounter, добавляет дополнительные функции на страницы.",
-    "description": "Описание расширения"
   },
 
   "timeSec": {
