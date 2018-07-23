@@ -1,8 +1,7 @@
 .header .enext-options {
-  position: absolute;
-  top: 15px;
-  left: -40px;
-  cursor: pointer;
+  background-position-x: 22px;
+  background-position-y: -5px;
+  background-repeat: no-repeat;
 }
 
 #game-config-dialog table td {

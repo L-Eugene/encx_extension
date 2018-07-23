@@ -21,12 +21,21 @@ class GamePrepare extends GameManager {
     this.storage = storage;
 
     // Add plugin config button
-    $("a.logo")
-      .before(
-        $("<img>")
+    $(".enext-options").remove();
+    $(".header ul")
+      .append(
+        $("<li>")
           .addClass("enext-options")
-          .attr("src", chrome.extension.getURL("img/gear-35.png"))
-          .click(showGameConfig)
+          .attr(
+            "style",
+            `background-image: url(${chrome.extension.getURL("img/menu.png")})`
+          )
+          .append(
+            $("<a>")
+              .append($("<i>"))
+              .append($("<span>").append(chrome.i18n.getMessage("menuConfig")))
+              .click(showGameConfig)
+          )
       )
       .before(
         this._gameConfigDialogTemplate()

@@ -255,6 +255,10 @@
   "titleTask": {
     "message": "Task",
     "description": "Task title"
-  }
+  },
 
+  "menuConfig": {
+    "message": "Options",
+    "description": "Options menu button title"
+  }
 }
