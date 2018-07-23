@@ -52,13 +52,13 @@
         "*://quest.ua/gameengines/encounter/play/*"
       ],
       "css": [
-        "style/jquery-ui.min.css",
+        "style/jquery-ui.css",
         "style/play.css",
         "style/level-carousel.css"
       ],
       "js": [
         "lib/jquery.js",
-        "lib/jquery-ui.min.js",
+        "lib/jquery-ui.js",
         "scripts/game_manager.js",
         "scripts/game_events.js",
         "scripts/game_storage.js",
