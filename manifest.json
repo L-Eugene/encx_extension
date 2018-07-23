@@ -27,14 +27,8 @@
   "permissions": ["storage"],
 
   "web_accessible_resources": [
-    "img/logo-96.png",
-    "img/gear-35.png",
-    "style/images/ui-icons_444444_256x240.png",
-    "style/images/ui-icons_555555_256x240.png",
-    "style/images/ui-icons_777620_256x240.png",
-    "style/images/ui-icons_777777_256x240.png",
-    "style/images/ui-icons_cc0000_256x240.png",
-    "style/images/ui-icons_ffffff_256x240.png"
+    "img/*",
+    "style/images/*"
   ],
 
   "options_ui": {
