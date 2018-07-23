@@ -71,6 +71,21 @@
         "scripts/game_messages.js",
         "scripts/en_game.js"
       ]
+    },
+
+    {
+      "all_frames": true,
+      "matches": [
+        "*://*.en.cx/LevelStat.aspx*",
+        "*://*.encounter.cx/LevelStat.aspx*",
+        "*://*.encounter.ru/LevelStat.aspx*",
+        "*://*.en-world.org/LevelStat.aspx*",
+        "*://*.quest.ua/LevelStat.aspx*",
+        "*://quest.ua/LevelStat.aspx*"
+      ],
+      "js": [
+        "scripts/levelstat_refresh.js"
+      ]
     }
   ]
 

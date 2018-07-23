@@ -2,7 +2,6 @@ var gameStorage = null;
 var dialogWindows = {
   gameConfig: false
 };
-var levelstat_refresh = null;
 
 var ENEXT = {
   // Convert Encounter timestamp to readable date
@@ -93,16 +92,10 @@ function showLevelStat(event){
         $(".levelstats div#level-stat-dialog").remove();
       }
     });
-
-  levelstat_refresh = setInterval(refreshLevelStat, 20000);
 }
 
 function showGameConfig(e){
   $("#game-config-dialog").dialog("open");
-}
-
-function refreshLevelStat(){
-  $("div#dialog iframe").attr("src", getLevelStatURL());
 }
 
 $(function(){
