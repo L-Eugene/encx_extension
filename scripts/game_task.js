@@ -58,7 +58,6 @@ class GameTaskManager extends GameManager {
       }
     }
 
-
     // Update sectors
     $(".sector-block").attr("delete-mark", "true");
     storage.getSectors().forEach(
@@ -75,6 +74,11 @@ class GameTaskManager extends GameManager {
       this
     );
     $(".sector-block[delete-mark=true]").remove();
+    if (storage.getSectors().length > 10){
+      $("#sectors").addClass("sectors-column");
+    } else {
+      $("#sectors").removeClass("sectors-column");
+    }
 
     // Update task text
     if (storage.getTaskText() != this.task){
