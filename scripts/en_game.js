@@ -116,7 +116,7 @@ $(function(){
   chrome.storage.local.get(
     'deniedDomains',
     function (result){
-      var domains = result.deniedDomains.split("|");
+      var domains = (result.deniedDomains || "").split("|");
       // Run extension only on allowed domains
       if (!domains.includes(location.hostname)){
         gameStorage = new GameStorage();

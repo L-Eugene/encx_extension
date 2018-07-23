@@ -41,7 +41,7 @@ class GamePrepare extends GameManager {
     chrome.storage.local.get(
       'deniedDomains',
       function (result){
-        if (result.deniedDomains.split("|").includes(location.hostname)){
+        if ((result.deniedDomains || "").split("|").includes(location.hostname)){
           location.reload();
         }
       }
