@@ -88,7 +88,6 @@ function showLevelStat(event){
       width: 700,
       height: 420,
       close: function (){
-        clearInterval(levelstat_refresh);
         $(".levelstats div#level-stat-dialog").remove();
       }
     });
