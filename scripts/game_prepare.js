@@ -2,6 +2,12 @@ class GamePrepare extends GameManager {
   constructor (){
     super();
 
+    $("body").addClass(
+      /firefox/.test(navigator.userAgent.toLowerCase())
+        ? "ff"
+        : "gc"
+    );
+
     // Prepare game menu
     $(".header li.mail").remove();
     $(".header li.discuss a").attr("target", "_blank");
