@@ -208,7 +208,6 @@ class GameCodesManager extends GameManager {
       )
       .append(
         $("<label>")
-          .addClass("hidden")
           .attr("for", "Answer")
           .append(chrome.i18n.getMessage("inputFieldLabel"))
       )
@@ -233,7 +232,6 @@ class GameCodesManager extends GameManager {
       )
       .append(
         $("<label>")
-          .addClass("hidden")
           .attr("for", "Answer")
           .append(chrome.i18n.getMessage("bonusFieldLabel"))
       )
