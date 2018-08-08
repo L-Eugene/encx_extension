@@ -4,6 +4,25 @@
   background-repeat: no-repeat;
 }
 
+a.logo {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+
+a.logo img {
+  width: 0;
+  height: 0;
+  padding: 48px 48px 0px 0px
+}
+
+body.ff a.logo img {
+  background: url("moz-extension://__MSG_@@extension_id__/img/logo-48.png");
+}
+body.gc a.logo img {
+  background: url("chrome-extension://__MSG_@@extension_id__/img/logo-48.png");
+}
+
 #game-config-dialog table td {
   border: 0;
   color: black;
