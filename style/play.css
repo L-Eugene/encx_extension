@@ -90,3 +90,11 @@ div#level-stat-dialog iframe {
 .ui-dialog-content#level-stat-dialog {
   background-color: black;
 }
+
+.aside form label {
+  visibility: hidden;
+}
+
+.aside form:focus-within label {
+  visibility: visible;
+}
