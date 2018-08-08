@@ -47,7 +47,11 @@ function restoreOptions() {
   }
 
   chrome.storage.local.get(
-    ['selectSentCode', 'refreshRate', 'deniedDomains'],
+    {
+      'selectSentCode': true,
+      'refreshRate': 5,
+      'deniedDomains': ""
+    },
     setCurrentChoice
   )
 }
