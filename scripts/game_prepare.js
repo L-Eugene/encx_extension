@@ -44,7 +44,6 @@ class GamePrepare extends GameManager {
 
     // Replace Encounter logo
     $("a.logo").attr("target", "_blank");
-    $("a.logo img").attr("src", chrome.extension.getURL("img/logo-96.png"));
   }
 
   initialize (storage){
