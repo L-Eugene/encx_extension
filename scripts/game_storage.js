@@ -164,9 +164,21 @@ class GameStorage {
     return null === this._findBonus(this.prev.Level.Bonuses, bid);
   }
 
+  isHashChanged(prev, last, keys){
+    var k;
+    for (k in keys){
+      if (prev[keys[k]] != last[keys[k]]) return true;
+    }
+    return false;
+  }
+
   isBonusChanged(bid){
     if (null === this.prev) return true;
-    return JSON.stringify(this._findBonus(this.prev.Level.Bonuses, bid)) != JSON.stringify(this._findBonus(this.last.Level.Bonuses, bid))
+    return this.isHashChanged(
+      this._findBonus(this.prev.Level.Bonuses, bid),
+      this._findBonus(this.last.Level.Bonuses, bid),
+      ["IsAnswered", "Help", "Task", "Name", "Number", "Expired"]
+    );
   }
 
   _findBonus(list, bid){
@@ -183,7 +195,12 @@ class GameStorage {
   }
 
   isMessageChanged(mid){
-    return JSON.stringify(this._findMessage(this.prev.Level.Messages, mid)) != JSON.stringify(this._findMessage(this.last.Level.Messages, mid));
+    if (null === this.prev) return true;
+    return this.isHashChanged(
+      this._findMessage(this.prev.Level.Messages, mid),
+      this._findMessage(this.last.Level.Messages, mid),
+      ["MessageText", "OwnerId", "OwnerLogin"]
+    );
   }
 
   _findMessage(list, mid){
@@ -217,7 +234,11 @@ class GameStorage {
     var l = this.last.Level.Helps.concat(this.last.Level.PenaltyHelps),
         p = this.prev.Level.Helps.concat(this.prev.Level.PenaltyHelps);
 
-    return JSON.stringify(this._findHint(l, hid)) != JSON.stringify(this._findHint(p, hid));
+    return this.isHashChanged(
+      this._findHint(l, hid),
+      this._findHint(p, hid),
+      ["Number", "HelpText", "PenaltyHelpState", "PenaltyComment", "PenaltyMessage"]
+    );
   }
 
   // Return list of historical changes
@@ -344,9 +365,12 @@ class GameStorage {
   }
 
   isSectorChanged(sid){
-    var l = this._findSector(this.last.Level.Sectors, sid);
-    var p = this._findSector(this.prev.Level.Sectors, sid);
-    return JSON.stringify(p) != JSON.stringify(l);
+    if (null === this.prev) return true;
+    return this.isHashChanged(
+      this._findSector(this.last.Level.Sectors, sid),
+      this._findSector(this.prev.Level.Sectors, sid),
+      ["Order", "Name", "IsAnswered"]
+    );
   }
 
   isSectorNew(sid){
@@ -359,9 +383,12 @@ class GameStorage {
   }
 
   isLevelChanged(lid){
-    var l = this._findLevel(this.last.Levels, lid),
-        p = this._findLevel(this.prev.Levels, lid);
-    return JSON.stringify(l) != JSON.stringify(p);
+    if (null === this.prev) return true;
+    return this.isHashChanged(
+      this._findLevel(this.last.Levels, lid),
+      this._findLevel(this.prev.Levels, lid),
+      ["LevelNumber", "LevelName", "Dismissed", "IsPassed"]
+    );
   }
 
   isLevelNew(lid){
@@ -423,7 +450,7 @@ class GameStorage {
 
     // get update rate from extension options
     chrome.storage.local.get(
-      'refreshRate',
+      {'refreshRate': 5},
       function (result){
         that.timer = setTimeout(function(){ that.update() }, 1000 * result.refreshRate);
         that.needUpdate = false;
