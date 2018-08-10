@@ -39,6 +39,9 @@ class GameHintManager extends GameManager {
         }
 
         $(`#hint-${hint.HelpId}`).attr("delete-mark", "false");
+
+        $(`#hint-${hint.HelpId} .countdown-timer`)
+          .attr("seconds-left", hint.RemainSeconds);
       },
       this
     );
