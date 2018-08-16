@@ -75,6 +75,8 @@ class GameCodesManager extends GameManager {
     var actions = storage.getHistoryActions();
     var engineAction = storage.getEngineAction();
 
+    localDB.storeActions(Object.assign({}, actions));
+
     if (storage.isHistoryChanged()){
       if (actions.length > 0) $("ul.history .last_action").remove();
 

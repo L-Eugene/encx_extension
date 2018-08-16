@@ -56,6 +56,16 @@
     "description": "Заголовок окна настроек игры"
   },
 
+  "optionsGameHistoryDialog": {
+    "message": "История кодов",
+    "description": "Заголовок окна истории кодов"
+  },
+
+  "optionsGameHistoryDialog_partOfCode": {
+    "message": "Начало кода",
+    "description": "Подсказка в поле ввода фильтра кодов"
+  },
+
   "timeSec": {
     "message": "$1 c",
     "description": "Секунды"
@@ -257,8 +267,25 @@
     "description": "Заголовок задания уровня"
   },
 
+  "titleLevel": {
+    "message": "Уровень"
+  },
+
+  "titlePlayer": {
+    "message": "Игрок"
+  },
+
+  "titleAny": {
+    "message": "Любой"
+  },
+
   "menuConfig": {
     "message": "Настройки",
     "description": "Заголовок кнопки настроек в игровом меню"
+  },
+
+  "menuHistory": {
+    "message": "История",
+    "description": "Заголовок кнопки истории кодов в игровом меню"
   }
 }

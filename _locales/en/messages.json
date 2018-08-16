@@ -56,6 +56,16 @@
     "description": "Game preferences window title"
   },
 
+  "optionsGameHistoryDialog": {
+    "message": "Codes history",
+    "description": "Code history window title"
+  },
+
+  "optionsGameHistoryDialog_partOfCode": {
+    "message": "Code beginning",
+    "description": "Inline hint in code filter input"
+  },
+
   "timeSec": {
     "message": "$1 s",
     "description": "Seconds"
@@ -257,8 +267,25 @@
     "description": "Task title"
   },
 
+  "titleLevel": {
+    "message": "Level"
+  },
+
+  "titlePlayer": {
+    "message": "Player"
+  },
+
+  "titleAny": {
+    "message": "Any"
+  },
+
   "menuConfig": {
     "message": "Options",
     "description": "Options menu button title"
+  },
+
+  "menuHistory": {
+    "message": "History",
+    "description": "History menu button title"
   }
 }
