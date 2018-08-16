@@ -117,10 +117,6 @@ function showLevelStat(event){
     });
 }
 
-function showGameConfig(e){
-  $("#game-config-dialog").dialog("open");
-}
-
 $(function(){
   // Do nothing on json API page.
   if (location.search.includes("json=1")) return;

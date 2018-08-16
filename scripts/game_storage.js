@@ -140,6 +140,12 @@ class GameStorage {
     return this.last.Levels;
   }
 
+  getLevelIds(){
+    return Array.from(this.getLevels()).map(function(elm){
+      return elm.LevelId;
+    });
+  }
+
   // Return formatted text of given tasks
   getTaskText(id = 0){
     if (this.last.Level.Tasks.length-1 < id) return "";

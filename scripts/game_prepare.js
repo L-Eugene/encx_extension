@@ -49,6 +49,34 @@ class GamePrepare extends GameManager {
   initialize (storage){
     this.storage = storage;
 
+    // Add history button
+    $(".encx-history").remove();
+    $(".header ul")
+      .append(
+        $("<li>")
+          .addClass("enext-history")
+          .attr(
+            "style",
+            `background-image: url(${chrome.extension.getURL("img/history.png")})`
+          )
+          .append(
+            $("<a>")
+              .append($("<i>"))
+              .append($("<span>").append(chrome.i18n.getMessage("menuHistory")))
+              .click(
+                {
+                  gamePrepare: this,
+                  storage: storage
+                },
+                this.showGameHistory
+              )
+          )
+      )
+      .before(
+        this._gameHistoryDialogTemplate()
+      );
+    this._prepareHistoryDialog();
+
     // Add plugin config button
     $(".enext-options").remove();
     $(".header ul")
@@ -63,7 +91,7 @@ class GamePrepare extends GameManager {
             $("<a>")
               .append($("<i>"))
               .append($("<span>").append(chrome.i18n.getMessage("menuConfig")))
-              .click(showGameConfig)
+              .click(this.showGameConfig)
           )
       )
       .before(
@@ -84,6 +112,41 @@ class GamePrepare extends GameManager {
         }
       }
     );
+  }
+
+  _historyLevelList(){
+    var result = [];
+    this.storage.getLevels().forEach(function(element){
+      result.push(`<option value="${element.LevelId}">${element.LevelNumber}: ${element.LevelName}</option>`);
+    });
+    return result.join("\n");
+  }
+
+  _gameHistoryDialogTemplate(){
+    return `
+    <div class="game-history-box" id="game-history-dialog" title="${chrome.i18n.getMessage("optionsGameHistoryDialog")}">
+      <table>
+        <tr>
+          <td>
+            ${chrome.i18n.getMessage("titleLevel")}:
+            <select id="game-history-level"></select>
+          </td>
+          <td>
+            ${chrome.i18n.getMessage("titlePlayer")}:
+            <select id="game-history-player"></select>
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2>
+            <input id="game-history-filter" placeholder="${chrome.i18n.getMessage("optionsGameHistoryDialog_partOfCode")}">
+          </td>
+        </tr>
+        <tr>
+          <td colspan=2><ul id="game-history-codes"></ul></td>
+        </tr>
+      </table>
+    </div>
+    `;
   }
 
   _gameConfigDialogTemplate(){
@@ -158,17 +221,134 @@ class GamePrepare extends GameManager {
     });
 
     var val;
-    val = localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`);
-    if (val === null) val = false;
+    val = localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false;
     $("#hide-disclosed-sectors").prop('checked', ENEXT.parseBoolean(val));
 
-    val = localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`);
-    if (val === null) val = false;
+    val = localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false;
     $("#hide-complete-bonuses").prop('checked', ENEXT.parseBoolean(val));
   }
 
+  _fillHistoryForm(e){
+    if (e.type === "click"){
+      // Prepare level list
+      $("#game-history-level option").remove();
+      $("#game-history-level").append(
+        `<option value="All">${chrome.i18n.getMessage("titleAny")}</option>`
+      );
+      e.data.storage.getLevels().forEach(function (level){
+        $("#game-history-level").append(
+          `<option value="${level.LevelId}">
+          ${level.LevelNumber}: ${level.LevelName}
+          </option>`
+        );
+      });
+      $("#game-history-level").val(e.data.storage.getLevel().LevelId);
+
+      $("#game-history-filter").val("");
+    }
+
+    if (e.target.id !== "game-history-player"){
+      // Prepare player list
+      $("#game-history-player option").remove();
+      $("#game-history-player").append(
+        `<option value="All">${chrome.i18n.getMessage("titleAny")}</option>`
+      );
+      var openDB = localDB.openIndexedDB();
+      openDB.onsuccess = function(){
+        var db = localDB.getStoreIndexedDB(openDB);
+        var levels = $("#game-history-level").val() === "All"
+          ? e.data.storage.getLevelIds()
+          : [parseInt($("#game-history-level").val())];
+        var added = [];
+        db.ind.user_id.openCursor(null, "next").onsuccess = function(event){
+          var cursor = event.target.result;
+          if (cursor){
+            if (
+              levels.includes(cursor.value.LevelId) &&
+              !added.includes(cursor.key)
+              /*
+              Prevent adding same name twice
+              Cannot use "nextunique" as record LevelId can be from another game
+              */
+            ){
+              $("#game-history-player").append(
+                `<option value="${cursor.key}">${cursor.value.Login}</option>`
+              );
+              added.push(cursor.key);
+            }
+            cursor.continue();
+          }
+        }
+      };
+    }
+
+    var codeDB = localDB.openIndexedDB();
+    codeDB.onsuccess = function(){
+      var db = localDB.getStoreIndexedDB(codeDB);
+      var levels = $("#game-history-level").val() === "All"
+        ? e.data.storage.getLevelIds()
+        : [parseInt($("#game-history-level").val())];
+      $("#game-history-codes li").remove();
+
+      db.store.openCursor().onsuccess = function(event){
+        var cursor = event.target.result;
+        if (cursor){
+          if (
+            // Level from this game or single selected
+            levels.includes(cursor.value.LevelId) &&
+            // Player, who sent some codes or single selected
+            (
+              $("#game-history-player").val() === "All" ||
+              parseInt($("#game-history-player").val()) === cursor.value.UserId
+            ) &&
+            // Code starts with given string
+            cursor.value.Answer.toLowerCase().startsWith(
+              $("#game-history-filter").val().toLowerCase()
+            )
+          ){
+            $("#game-history-codes").append(
+              encx_tpl.historicActionTemplate(cursor.value)
+            );
+          }
+          cursor.continue();
+        }
+      }
+    }
+  }
+
+  _prepareHistoryDialog(){
+    $("#game-history-dialog").dialog({
+        autoOpen: false,
+        buttons: [
+          {
+            text: chrome.i18n.getMessage("buttonOk"),
+            click: this.gameHistoryDialogClose
+          }
+        ],
+        width: 'auto',
+        close: this.gameHistoryDialogClose
+    });
+
+    $("#game-history-level").change(
+      { storage: this.storage },
+      this._fillHistoryForm
+    );
+    $("#game-history-player").change(
+      { storage: this.storage },
+      this._fillHistoryForm
+    );
+    $("#game-history-filter").keyup(
+      { storage: this.storage },
+      this._fillHistoryForm
+    )
+  }
+
   gameConfigDialogClose(e){
-    $("#game-config-dialog").dialog("close")
+    $("#game-config-dialog").dialog("close");
+  }
+
+  gameHistoryDialogClose(e){
+    $("#game-history-dialog").dialog("close");
   }
 
   gameConfigDialogUpdate(e){
@@ -176,6 +356,15 @@ class GamePrepare extends GameManager {
       `${e.data.storage.getGameId()}-${$(e.target).attr("id")}`,
       $(e.target).prop('checked')
     )
-    // TODO: save to storage
+  }
+
+  showGameConfig(e){
+    $("#game-config-dialog").dialog("open");
+  }
+
+  showGameHistory(e){
+    e.data.gamePrepare._fillHistoryForm(e);
+
+    $("#game-history-dialog").dialog("open");
   }
 }
