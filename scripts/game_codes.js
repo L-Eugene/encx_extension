@@ -48,6 +48,8 @@ class GameCodesManager extends GameManager {
       .after(this._blockMarkerTemplate());
     $("#answer-box #Answer").focus();
 
+    $("#answer-box #Answer").keyup(this._codeInput)
+
     // Enter codes without page reload
     $("input#Answer[name='LevelAction.Answer']").closest("form").submit(
       { type: "Level", storage: this.storage },
@@ -253,5 +255,41 @@ class GameCodesManager extends GameManager {
           )
       )
       .hide()
+  }
+
+  _codeInput(e){
+    var codeDB = localDB.openIndexedDB();
+    codeDB.onsuccess = function(){
+      var db = localDB.getStoreIndexedDB(codeDB);
+      var cur = db.ind.answer.openCursor(IDBKeyRange.only(e.target.value));
+      var found = undefined;
+      cur.onsuccess = function(event){
+        var cursor = event.target.result;
+        if (cursor) {
+          if (
+            found === undefined ||
+            (!found.IsCorrect && cursor.value.IsCorrect) || // Correct over incorrect
+            (cursor.value.IsCorrect && cursor.value.Kind < found.Kind) // Codes over bonuses
+          ) {
+            found = cursor.value;
+          }
+          cursor.continue();
+        } else {
+          if (found === undefined){
+            $("#answer-box #Answer")
+              .removeClass("input-correct-1")
+              .removeClass("input-correct-2")
+              .removeClass("input-incorrect");
+          } else {
+            $("#answer-box #Answer")
+              .addClass(
+                found.IsCorrect
+                  ? `input-correct-${found.Kind}`
+                  : "input-incorrect"
+              );
+          }
+        }
+      };
+    };
   }
 };

@@ -153,3 +153,15 @@ div#level-stat-dialog iframe {
 .aside form:focus-within label {
   visibility: visible;
 }
+
+.input-correct-1 {
+  background-color: green;
+}
+
+.input-correct-2 {
+  background-color: darkblue;
+}
+
+.input-incorrect {
+  background-color: maroon;
+}
