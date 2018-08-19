@@ -24,6 +24,25 @@ SOFTWARE.
 
 class Templates {
   /*
+  Template for historic action record.
+
+  Input:
+  {
+    "ActionId",
+    "LevelId",
+    "LevelNumber",
+    "UserId",
+    "Kind" (1 - code, 2 - bonus),
+    "Login",
+    "Answer",
+    "AnswForm",
+    "EnterDateTime":{"Value":63670223431353},
+    "LocDateTime",
+    "IsCorrect",
+    "Award",
+    "LocAward",
+    "Penalty"
+  }
   */
   historicActionTemplate(action){
     return $('<li>')
