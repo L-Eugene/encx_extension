@@ -71,6 +71,7 @@
         "scripts/game_hints.js",
         "scripts/game_bonuses.js",
         "scripts/game_messages.js",
+        "scripts/game_errors.js",
         "scripts/en_game.js"
       ]
     },

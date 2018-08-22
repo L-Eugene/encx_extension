@@ -39,6 +39,9 @@ class GameStorage {
     this.timer = null;
 
     this.callbackObjects = [];
+    this.errorCallback = undefined;
+
+    this.Errors = [];
 
     // Flag to show that we need an update
     this.needUpdate = false;
@@ -48,10 +51,17 @@ class GameStorage {
     return [6, 17].includes(this.last.Event);
   }
 
+  isError(){
+    return 0 !== this.last.Event
+  }
+
   // Return true if LevelId changed since previous data update
   isLevelUp(){
     // This is first data update
     if (this.isGameOver() || this.prev === null) return true;
+
+    // Do not update anything if we got error
+    if (this.isError()) return false;
 
     return this.last.Level.LevelId != this.prev.Level.LevelId;
   }
@@ -62,6 +72,23 @@ class GameStorage {
 
   getEvent(){
     return this.last.Event;
+  }
+
+  getErrorBlock(){
+    switch (this.last.Event){
+      case 7:
+      case 8:
+      case 9:
+        return encx_tpl.errorNotApplied();
+      case 10:
+        return encx_tpl.errorDoNotHaveTeam();
+      case 11:
+        return encx_tpl.errorNotInActiveStaff();
+      case 13:
+        return encx_tpl.errorPlayerLimitExceeded();
+      default:
+        return encx_tpl.errorUnknown(this.last.Event);
+    }
   }
 
   // Execute all needed callbacks when data reloaded
@@ -83,6 +110,16 @@ class GameStorage {
       function(obj){ obj.update(this);  },
       this
     )
+  }
+
+  _doErrorCallback(){
+    if (undefined === this.errorCallback) return;
+
+    if (this.isLevelUp()){
+      this.errorCallback.initialize(this);
+    }
+
+    this.errorCallback.update(this);
   }
 
   _findObjectByKey(list, key, value){
@@ -112,18 +149,41 @@ class GameStorage {
     this.callbackObjects.push(obj);
   }
 
+  // Error callback is called always.
+  // Other callbacks called only if data load been successful.
+  setErrorCallback(obj){
+    this.errorCallback = obj;
+  }
+
+  raiseAPIError(req, status){
+    if (status == "parsererror"){
+      if ($(req.responseText).find("form[action='/Login.aspx']").length){
+        this.Errors.push(encx_tpl.errorNeedRelogin());
+      } else if (req.responseText.includes("classified as robot's requests")) {
+        this.Errors.push(encx_tpl.errorActAsBot());
+      }
+    }
+    this._doErrorCallback();
+  }
+
   storeAPI(data){
     this.prev = this.last;
     this.last = data;
 
-    if (!this.isGameOver()){
+    if (this.isError()) {
+      this.Errors.push(this.getErrorBlock());
+    } else if (!this.isGameOver()){
       this.levelHash = {
         LevelId: this.last.Level.LevelId,
         LevelNumber: this.last.Level.Number
       };
     }
 
-    this._doCallbacks();
+    if (!this.isError()) {
+      this._doCallbacks();
+    }
+
+    this._doErrorCallback();
   }
 
   // Return full data from API
@@ -363,7 +423,7 @@ class GameStorage {
   }
 
   getLevelURL(){
-    return `${this.getCleanURL()}?json=1`;
+    return `${this.getCleanURL()}?json=1&rnd=${Math.random()}`;
   }
 
   _findSector(list, sid){
@@ -439,6 +499,11 @@ class GameStorage {
   update(data = {}, force = false){
     var that = this;
 
+    console.log(this.last);
+
+    // Reset Error list
+    this.Errors = [];
+
     // If reloaded manually, start refresh interval from now
     if (force && this.timer !== null) clearTimeout(this.timer);
 
@@ -450,8 +515,9 @@ class GameStorage {
         contentType: "application/json",
         context: this,
         success: this.storeAPI,
+        error: this.raiseAPIError,
         data: JSON.stringify( $.extend({}, this.levelHash, data) )
-      },
+      }
     );
 
     // get update rate from extension options

@@ -279,6 +279,10 @@
     "message": "Любой"
   },
 
+  "titleLogin": {
+    "message": "Войти"
+  },
+
   "menuConfig": {
     "message": "Настройки",
     "description": "Заголовок кнопки настроек в игровом меню"
@@ -287,5 +291,35 @@
   "menuHistory": {
     "message": "История",
     "description": "Заголовок кнопки истории кодов в игровом меню"
+  },
+
+  "engineErrorNeedRelogin": {
+    "message": "Вы не авторизованы на сайте ",
+    "description": "Текст ошибки разлогина"
+  },
+
+  "engineErrorActAsBot": {
+    "message": "Ваши запросы классифицированы как запросы робота. Подождите 30 минут или войдите в систему, чтобы подтвердить, что вы не робот.",
+    "description": "Текст ошибки проверки на робота"
+  },
+
+  "engineErrorNotApplied": {
+    "message": "Вы или ваша команда не подали заявку на игру, либо организатор не подтвердил ваше участие"
+  },
+
+  "engineErrorDoNotHaveTeam": {
+    "message": "У Вас нет команды"
+  },
+
+  "engineErrorNotInActiveStaff": {
+    "message": "Вы не в активном составе команды"
+  },
+
+  "engineErrorPlayerLimitExceeded": {
+    "message": "Превышено разрешенное количество игроков в команде"
+  },
+
+  "engineErrorUnknown": {
+    "message": "Неизвестная ошибка ($1)"
   }
 }

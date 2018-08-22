@@ -132,6 +132,7 @@ $(function(){
       // Run extension only on allowed domains
       if (!domains.includes(location.hostname)){
         gameStorage = new GameStorage();
+
         gameStorage.addCallbackObject(new GameEventManager());
         gameStorage.addCallbackObject(new GamePrepare());
         gameStorage.addCallbackObject(new GameCodesManager());
@@ -140,6 +141,9 @@ $(function(){
         gameStorage.addCallbackObject(new GameHintManager());
         gameStorage.addCallbackObject(new GameBonusManager());
         gameStorage.addCallbackObject(new GameMessagesManager());
+
+        gameStorage.setErrorCallback(new GameErrors());
+
         gameStorage.update();
 
         setInterval(updateTimers, 1000);

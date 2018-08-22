@@ -65,6 +65,68 @@ class Templates {
         ).append(action.Answer)
       );
   }
+
+  _loginForm(){
+    return $("<form>")
+      .attr("method", "POST")
+      .attr(
+        "action",
+        `/Login.aspx?return=${encodeURIComponent(location.pathname)}`
+      )
+      .append(
+        $("<input>").attr("name", "Login")
+      )
+      .append(
+        $("<input>")
+          .attr("name", "Password")
+          .attr("type", "password")
+      )
+      .append(
+        $("<input>")
+          .attr("type", "submit")
+          .val(chrome.i18n.getMessage("titleLogin"))
+      );
+  }
+
+  _errorTextual(textId, options = []){
+    return $("<div>")
+      .addClass("engine-error")
+      .attr("id", textId)
+      .append(chrome.i18n.getMessage(textId, options));
+  }
+
+  errorContainer(){
+    return $("<div>")
+      .attr("id","error-container")
+  }
+
+  errorNeedRelogin(){
+    return this._errorTextual("engineErrorNeedRelogin").append(this._loginForm());
+  }
+
+  errorActAsBot(){
+    return this._errorTextual("engineErrorActAsBot").append(this._loginForm());
+  }
+
+  errorNotApplied(){
+    return this._errorTextual("engineErrorNotApplied");
+  }
+
+  errorDoNotHaveTeam(){
+    return this._errorTextual("engineErrorDoNotHaveTeam");
+  }
+
+  errorNotInActiveStaff(){
+    return this._errorTextual("engineErrorNotInActiveStaff");
+  }
+
+  errorPlayerLimitExceeded(){
+    return this._errorTextual("engineErrorPlayerLimitExceeded");
+  }
+
+  errorUnknown(id){
+    return this._errorTextual("engineErrorUnknown", [id]);
+  }
 };
 
 var encx_tpl = new Templates();

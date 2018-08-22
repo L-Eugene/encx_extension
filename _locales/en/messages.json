@@ -279,6 +279,10 @@
     "message": "Any"
   },
 
+  "titleLogin": {
+    "message": "Login"
+  },
+
   "menuConfig": {
     "message": "Options",
     "description": "Options menu button title"
@@ -287,5 +291,35 @@
   "menuHistory": {
     "message": "History",
     "description": "History menu button title"
+  },
+
+  "engineErrorNeedRelogin": {
+    "message": "You are not authorized.",
+    "description": "Not logged in error message"
+  },
+
+  "engineErrorActAsBot": {
+    "message": "Your requests have been classified as robot's requests. Please, wait 30 minutes or login to confirm you are not a robot. ",
+    "description": "Robot detection error message"
+  },
+
+  "engineErrorNotApplied": {
+    "message": "You does not accepted game invitation or author did not confirmed your participation"
+  },
+
+  "engineErrorDoNotHaveTeam": {
+    "message": "You don't have a team"
+  },
+
+  "engineErrorNotInActiveStaff": {
+    "message": "You are not in team active staff"
+  },
+
+  "engineErrorPlayerLimitExceeded": {
+    "message": "Maximal allowed number of team players exceeded"
+  },
+
+  "engineErrorUnknown": {
+    "message": "Unknown error ($1)"
   }
 }
