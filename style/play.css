@@ -1,3 +1,15 @@
+#error-container {
+  display: flex;
+  flex-direction: column;
+  background-color: maroon;
+  border-radius: 3px;
+  margin: 5px;
+}
+
+#error-container div {
+  padding: 5px;
+}
+
 .header .enext-options {
   background-position-x: 22px;
   background-position-y: -5px;
