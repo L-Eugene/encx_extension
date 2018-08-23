@@ -28,7 +28,6 @@ var localDB = {
     var openDB = indexedDB.open("Codes", 2);
 
     openDB.onupgradeneeded = function() {
-      console.log("Upgrade");
       var db = {};
       db.result = openDB.result;
 

@@ -499,8 +499,6 @@ class GameStorage {
   update(data = {}, force = false){
     var that = this;
 
-    console.log(this.last);
-
     // Reset Error list
     this.Errors = [];
 
