@@ -141,8 +141,9 @@ class GamePrepare extends GameManager {
         }
 
         var mailinfo = $(result).find("#spanUnreadMails");
-        if (0 === mailinfo.length){
-          mailinfo = [ encx_tpl.emptyMailboxLink(storage.getMailURL()) ]
+        $(mailinfo[0]).show();
+        if ($(mailinfo[0]).find("a").text() === ""){
+          $(mailinfo[0]).find("a").text("0");
         }
 
         $("div.header .userinfo").remove();

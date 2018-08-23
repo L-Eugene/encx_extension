@@ -155,10 +155,6 @@ class Templates {
   singleTeamLink(teamURL){
     return `<a href="${teamURL}">${chrome.i18n.getMessage("titleNoTeam")}</a>`;
   }
-
-  emptyMailboxLink(mailURL){
-    return `(<a href="${mailURL}>0</a>")`
-  }
 };
 
 var encx_tpl = new Templates();
