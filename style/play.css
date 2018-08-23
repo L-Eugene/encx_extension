@@ -1,3 +1,18 @@
+.header .userinfo {
+  text-align: center;
+  font-size: x-small;
+  line-height: 1.3em;
+  padding: 2px 15px;
+  border-radius: 0 0 5px 5px;
+  background-color: darkgreen;
+  position: fixed;
+  top: 0;
+}
+
+.header .userinfo .mailbox .icon {
+  font-size: 1.2em;
+}
+
 #error-container {
   display: flex;
   flex-direction: column;
