@@ -283,6 +283,10 @@
     "message": "Login"
   },
 
+  "titleNoTeam": {
+    "message": "Single"
+  },
+
   "menuConfig": {
     "message": "Options",
     "description": "Options menu button title"

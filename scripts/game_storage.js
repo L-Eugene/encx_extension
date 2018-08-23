@@ -418,6 +418,10 @@ class GameStorage {
     return this.last.Level.Sectors;
   }
 
+  getMyTeamURL(){
+    return `${location.protocol}//${location.hostname}/Teams/TeamDetails.aspx`;
+  }
+
   getCleanURL(){
     return `${location.protocol}//${location.hostname}${location.pathname}`;
   }

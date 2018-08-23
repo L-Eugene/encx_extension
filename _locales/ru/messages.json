@@ -283,6 +283,10 @@
     "message": "Войти"
   },
 
+  "titleNoTeam": {
+    "message": "Одиночка"
+  },
+
   "menuConfig": {
     "message": "Настройки",
     "description": "Заголовок кнопки настроек в игровом меню"

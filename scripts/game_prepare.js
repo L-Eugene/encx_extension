@@ -44,6 +44,8 @@ class GamePrepare extends GameManager {
 
     // Replace Encounter logo
     $("a.logo").attr("target", "_blank");
+
+    this.playerUpdateTime = 0;
   }
 
   initialize (storage){
@@ -99,6 +101,9 @@ class GamePrepare extends GameManager {
       );
     this._prepareConfigDialog();
 
+
+    this.updateUserInfo(storage, true);
+
     $("div.content").empty();
   }
 
@@ -112,6 +117,46 @@ class GamePrepare extends GameManager {
         }
       }
     );
+
+    this.updateUserInfo(storage);
+  }
+
+  updateUserInfo(storage, force = false){
+    // Refresh every minute
+    if (
+      !force &&
+      (Date.now() - this.playerUpdateTime) < 1000 * 60
+    ) return;
+
+    // Display player info
+    $.get(
+      storage.getMyTeamURL(),
+      function(result){
+        var userinfo = $(result)
+            .find("#tblUserBox tr:first td:first a[href='/UserDetails.aspx']");
+
+        var teaminfo = $(result).find("a#lnkTeamName");
+        if (0 === teaminfo.length){
+          teaminfo = [ encx_tpl.singleTeamLink(storage.getMyTeamURL()) ];
+        }
+
+        var mailinfo = $(result).find("#spanUnreadMails");
+        if (0 === mailinfo.length){
+          mailinfo = [ encx_tpl.emptyMailboxLink(storage.getMailURL()) ]
+        }
+
+        $("div.header .userinfo").remove();
+        $("div.header")
+          .append(encx_tpl.userinfoBlock({
+            "user": userinfo[0],
+            "team": teaminfo[0],
+            "mail": mailinfo[0]
+          }));
+        $("div.userinfo a").attr("target", "_blank");
+      }
+    );
+
+    this.playerUpdateTime = Date.now();
   }
 
   _historyLevelList(){
