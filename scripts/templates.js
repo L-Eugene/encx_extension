@@ -76,11 +76,13 @@ class Templates {
       .append(
         $("<input>").attr("name", "Login")
       )
+      .append($("<br>"))
       .append(
         $("<input>")
           .attr("name", "Password")
           .attr("type", "password")
       )
+      .append($("<br>"))
       .append(
         $("<input>")
           .attr("type", "submit")
