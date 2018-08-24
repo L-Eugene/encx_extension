@@ -76,10 +76,6 @@ var ENEXT = {
   },
 };
 
-function getLevelStatURL(){
-  return `${location.protocol}//${location.hostname}/LevelStat.aspx?level=${gameStorage.getLevelNumber()}&gid=${gameStorage.getGameId()}&rnd=${Math.random()}`;
-}
-
 function updateTimers(){
   $(".countdown-timer").each(function(index){
     var sec = $(this).attr("seconds-left") - 1;
@@ -91,30 +87,6 @@ function updateTimers(){
   });
 
   gameStorage.updateIfNeeded();
-}
-
-function showLevelStat(event){
-  event.preventDefault();
-
-  $("<div>")
-    .attr("id", "level-stat-dialog")
-    .attr("title", chrome.i18n.getMessage("levelStatTitle"))
-    .append(
-      $("<iframe>")
-        .attr("src", getLevelStatURL())
-        .attr("frameborder", 0)
-        .attr("marginwidth", 0)
-        .attr("marginheight", 0)
-    )
-    .dialog({
-      autoOpen: true,
-      modal: false,
-      width: 700,
-      height: 420,
-      close: function (){
-        $(".levelstats div#level-stat-dialog").remove();
-      }
-    });
 }
 
 $(function(){

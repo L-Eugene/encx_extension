@@ -438,6 +438,10 @@ class GameStorage {
     return `${this.getCleanURL()}?json=1&rnd=${Math.random()}`;
   }
 
+  getLevelStatURL(){
+    return `${location.protocol}//${location.hostname}/LevelStat.aspx?level=${this.getLevelNumber()}&gid=${this.getGameId()}&rnd=${Math.random()}`;
+  }
+
   _findSector(list, sid){
     return this._findObjectByKey(list, "SectorId", sid);
   }
