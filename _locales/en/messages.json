@@ -34,6 +34,11 @@
     "description": "Game data refresh rate option"
   },
 
+  "optionsEnableSound": {
+    "message": "Enable sound notifications",
+    "description": "Sound notification option"
+  },
+
   "optionsSeconds": {
     "message": "second(s)",
     "description": "Refresh rate units, seconds"
@@ -54,6 +59,16 @@
   "optionsGameConfigDialog": {
     "message": "Game preferences",
     "description": "Game preferences window title"
+  },
+
+  "optionsGameHistoryDialog": {
+    "message": "Codes history",
+    "description": "Code history window title"
+  },
+
+  "optionsGameHistoryDialog_partOfCode": {
+    "message": "Code beginning",
+    "description": "Inline hint in code filter input"
   },
 
   "timeSec": {
@@ -257,8 +272,68 @@
     "description": "Task title"
   },
 
+  "titleLevel": {
+    "message": "Level"
+  },
+
+  "titlePlayer": {
+    "message": "Player"
+  },
+
+  "titleAny": {
+    "message": "Any"
+  },
+
+  "titleLogin": {
+    "message": "Login"
+  },
+
+  "titleNoTeam": {
+    "message": "Single"
+  },
+
   "menuConfig": {
     "message": "Options",
     "description": "Options menu button title"
+  },
+
+  "menuHistory": {
+    "message": "History",
+    "description": "History menu button title"
+  },
+
+  "menuBonuses": {
+    "message": "Bonus/penalty",
+    "description": "Bonus and penalty menu button title"
+  },
+
+  "engineErrorNeedRelogin": {
+    "message": "You are not authorized.",
+    "description": "Not logged in error message"
+  },
+
+  "engineErrorActAsBot": {
+    "message": "Your requests have been classified as robot's requests. Please, wait 30 minutes or login to confirm you are not a robot. ",
+    "description": "Robot detection error message"
+  },
+
+  "engineErrorNotApplied": {
+    "message": "You does not accepted game invitation or author did not confirmed your participation"
+  },
+
+  "engineErrorDoNotHaveTeam": {
+    "message": "You don't have a team"
+  },
+
+  "engineErrorNotInActiveStaff": {
+    "message": "You are not in team active staff"
+  },
+
+  "engineErrorPlayerLimitExceeded": {
+    "message": "Maximal allowed number of team players exceeded"
+  },
+
+  "engineErrorUnknown": {
+    "message": "Unknown error ($1)"
   }
 }

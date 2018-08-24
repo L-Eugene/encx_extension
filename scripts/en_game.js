@@ -76,10 +76,6 @@ var ENEXT = {
   },
 };
 
-function getLevelStatURL(){
-  return `${location.protocol}//${location.hostname}/LevelStat.aspx?level=${gameStorage.getLevelNumber()}&gid=${gameStorage.getGameId()}&rnd=${Math.random()}`;
-}
-
 function updateTimers(){
   $(".countdown-timer").each(function(index){
     var sec = $(this).attr("seconds-left") - 1;
@@ -93,34 +89,6 @@ function updateTimers(){
   gameStorage.updateIfNeeded();
 }
 
-function showLevelStat(event){
-  event.preventDefault();
-
-  $("<div>")
-    .attr("id", "level-stat-dialog")
-    .attr("title", chrome.i18n.getMessage("levelStatTitle"))
-    .append(
-      $("<iframe>")
-        .attr("src", getLevelStatURL())
-        .attr("frameborder", 0)
-        .attr("marginwidth", 0)
-        .attr("marginheight", 0)
-    )
-    .dialog({
-      autoOpen: true,
-      modal: false,
-      width: 700,
-      height: 420,
-      close: function (){
-        $(".levelstats div#level-stat-dialog").remove();
-      }
-    });
-}
-
-function showGameConfig(e){
-  $("#game-config-dialog").dialog("open");
-}
-
 $(function(){
   // Do nothing on json API page.
   if (location.search.includes("json=1")) return;
@@ -130,12 +98,13 @@ $(function(){
   if ($(".gameCongratulation").length) return;
 
   chrome.storage.local.get(
-    'deniedDomains',
+    {'deniedDomains': ""},
     function (result){
-      var domains = (result.deniedDomains || "").split("|");
+      var domains = result.deniedDomains.split("|");
       // Run extension only on allowed domains
       if (!domains.includes(location.hostname)){
         gameStorage = new GameStorage();
+
         gameStorage.addCallbackObject(new GameEventManager());
         gameStorage.addCallbackObject(new GamePrepare());
         gameStorage.addCallbackObject(new GameCodesManager());
@@ -144,6 +113,9 @@ $(function(){
         gameStorage.addCallbackObject(new GameHintManager());
         gameStorage.addCallbackObject(new GameBonusManager());
         gameStorage.addCallbackObject(new GameMessagesManager());
+
+        gameStorage.setErrorCallback(new GameErrors());
+
         gameStorage.update();
 
         setInterval(updateTimers, 1000);

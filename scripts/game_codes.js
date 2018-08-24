@@ -48,6 +48,8 @@ class GameCodesManager extends GameManager {
       .after(this._blockMarkerTemplate());
     $("#answer-box #Answer").focus();
 
+    $("#answer-box #Answer").keyup(this._codeInput)
+
     // Enter codes without page reload
     $("input#Answer[name='LevelAction.Answer']").closest("form").submit(
       { type: "Level", storage: this.storage },
@@ -75,6 +77,8 @@ class GameCodesManager extends GameManager {
     var actions = storage.getHistoryActions();
     var engineAction = storage.getEngineAction();
 
+    localDB.storeActions(Object.assign({}, actions));
+
     if (storage.isHistoryChanged()){
       if (actions.length > 0) $("ul.history .last_action").remove();
 
@@ -82,7 +86,7 @@ class GameCodesManager extends GameManager {
         // Insert historic action to block if it was not inserted before
         function(action){
           if (!this.actionIds.has(action.ActionId)) {
-            $('ul.history').prepend(this._historicActionTemplate(action));
+            $('ul.history').prepend(encx_tpl.historicActionTemplate(action));
             this.actionIds.add(action.ActionId);
           }
         },
@@ -150,28 +154,6 @@ class GameCodesManager extends GameManager {
       )
   }
 
-  _historicActionTemplate(action){
-    return $('<li>')
-      .addClass(action.IsCorrect ? 'correct' : '' )
-      .append(action.LocDateTime)
-      .append('&nbsp;')
-      .append(
-        $('<a>')
-          .attr('href', '/userdetails.aspx?uid=' + action.UserId)
-          .append(action.Login)
-      )
-      .append('&nbsp;')
-      .append(
-        $('<span>').addClass(
-          // data.Level.MixedActions[any].Kind:
-          //   1 - code
-          //   2 - bonus
-          action.IsCorrect ?
-            'color_' + (action.Kind == 1 ? 'correct' : 'bonus') : ''
-        ).append(action.Answer)
-      );
-  }
-
   _inputFieldTemplate(data){
     return $("<form>")
       .attr("id", "answer-box")
@@ -208,7 +190,6 @@ class GameCodesManager extends GameManager {
       )
       .append(
         $("<label>")
-          .addClass("hidden")
           .attr("for", "Answer")
           .append(chrome.i18n.getMessage("inputFieldLabel"))
       )
@@ -233,7 +214,6 @@ class GameCodesManager extends GameManager {
       )
       .append(
         $("<label>")
-          .addClass("hidden")
           .attr("for", "Answer")
           .append(chrome.i18n.getMessage("bonusFieldLabel"))
       )
@@ -253,5 +233,41 @@ class GameCodesManager extends GameManager {
           )
       )
       .hide()
+  }
+
+  _codeInput(e){
+    var codeDB = localDB.openIndexedDB();
+    codeDB.onsuccess = function(){
+      var db = localDB.getStoreIndexedDB(codeDB);
+      var cur = db.ind.answer.openCursor(IDBKeyRange.only(e.target.value));
+      var found = undefined;
+      cur.onsuccess = function(event){
+        var cursor = event.target.result;
+        if (cursor) {
+          if (
+            found === undefined ||
+            (!found.IsCorrect && cursor.value.IsCorrect) || // Correct over incorrect
+            (cursor.value.IsCorrect && cursor.value.Kind < found.Kind) // Codes over bonuses
+          ) {
+            found = cursor.value;
+          }
+          cursor.continue();
+        } else {
+          if (found === undefined){
+            $("#answer-box #Answer")
+              .removeClass("input-correct-1")
+              .removeClass("input-correct-2")
+              .removeClass("input-incorrect");
+          } else {
+            $("#answer-box #Answer")
+              .addClass(
+                found.IsCorrect
+                  ? `input-correct-${found.Kind}`
+                  : "input-incorrect"
+              );
+          }
+        }
+      };
+    };
   }
 };

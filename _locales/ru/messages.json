@@ -34,6 +34,11 @@
     "description": "Опция интервала обновления данных игры"
   },
 
+  "optionsEnableSound": {
+    "message": "Разрешить звуковые уведомления",
+    "description": "Опция включения звуковых уведомлений"
+  },
+
   "optionsSeconds": {
     "message": "секунд(ы)",
     "description": "Единица измерения интервала обновления, секунды"
@@ -54,6 +59,16 @@
   "optionsGameConfigDialog": {
     "message": "Настройка игры",
     "description": "Заголовок окна настроек игры"
+  },
+
+  "optionsGameHistoryDialog": {
+    "message": "История кодов",
+    "description": "Заголовок окна истории кодов"
+  },
+
+  "optionsGameHistoryDialog_partOfCode": {
+    "message": "Начало кода",
+    "description": "Подсказка в поле ввода фильтра кодов"
   },
 
   "timeSec": {
@@ -257,8 +272,68 @@
     "description": "Заголовок задания уровня"
   },
 
+  "titleLevel": {
+    "message": "Уровень"
+  },
+
+  "titlePlayer": {
+    "message": "Игрок"
+  },
+
+  "titleAny": {
+    "message": "Любой"
+  },
+
+  "titleLogin": {
+    "message": "Войти"
+  },
+
+  "titleNoTeam": {
+    "message": "Одиночка"
+  },
+
   "menuConfig": {
     "message": "Настройки",
     "description": "Заголовок кнопки настроек в игровом меню"
+  },
+
+  "menuHistory": {
+    "message": "История",
+    "description": "Заголовок кнопки истории кодов в игровом меню"
+  },
+
+  "menuBonuses": {
+    "message": "Бонусы/штрафы",
+    "description": "Заголовок кнопки бонусов и штрафов в игровом меню"
+  },
+
+  "engineErrorNeedRelogin": {
+    "message": "Вы не авторизованы на сайте ",
+    "description": "Текст ошибки разлогина"
+  },
+
+  "engineErrorActAsBot": {
+    "message": "Ваши запросы классифицированы как запросы робота. Подождите 30 минут или войдите в систему, чтобы подтвердить, что вы не робот.",
+    "description": "Текст ошибки проверки на робота"
+  },
+
+  "engineErrorNotApplied": {
+    "message": "Вы или ваша команда не подали заявку на игру, либо организатор не подтвердил ваше участие"
+  },
+
+  "engineErrorDoNotHaveTeam": {
+    "message": "У Вас нет команды"
+  },
+
+  "engineErrorNotInActiveStaff": {
+    "message": "Вы не в активном составе команды"
+  },
+
+  "engineErrorPlayerLimitExceeded": {
+    "message": "Превышено разрешенное количество игроков в команде"
+  },
+
+  "engineErrorUnknown": {
+    "message": "Неизвестная ошибка ($1)"
   }
 }

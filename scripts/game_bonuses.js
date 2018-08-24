@@ -41,6 +41,11 @@ class GameBonusManager extends GameManager {
 
         $(`#bonus-${bonus.BonusId}`).attr("delete-mark", false);
         $(`#bonus-${bonus.BonusId} .tabs`).tabs();
+
+        $(`#bonus-${bonus.BonusId}.bonus-waiting .countdown-timer`)
+          .attr("seconds-left", bonus.SecondsToStart);
+        $(`#bonus-${bonus.BonusId} .bonus-countdown .countdown-timer`)
+          .attr("seconds-left", bonus.SecondsLeft);
       },
       this
     );
@@ -167,8 +172,7 @@ class GameBonusManager extends GameManager {
 
   _bonusWaitingTemplate(bonus){
     return $("<div>")
-      .addClass("bonus-block")
-      .addClass("color_dis")
+      .addClass("bonus-block color_dis bonus-waiting")
       .attr("id", `bonus-${bonus.BonusId}`)
       .attr("id-numeric", bonus.BonusId)
       .attr("delete-mark", false)
@@ -208,7 +212,7 @@ class GameBonusManager extends GameManager {
           .append(
             bonus.SecondsLeft > 0
             ? $("<span>")
-                .addClass("color_sec")
+                .addClass("color_sec bonus-countdown")
                 .append(" (")
                 .append(
                   this._timerTemplate(

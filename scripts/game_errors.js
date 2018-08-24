@@ -22,29 +22,23 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 */
 
-// Base class for all managers
-class GameManager {
-  _timerTemplate(seconds, text = chrome.i18n.getMessage("timerWillBeIn")){
-    return $("<span>")
-      .append(text)
-      .append(
-        $("<span>")
-          .addClass("countdown-timer")
-          .attr("seconds-left", seconds)
-          .append(ENEXT.convertTime(seconds))
-      );
+class GameErrors extends GameManager {
+  initialize(storage){
+    $("#error-container").remove();
+    $(".container").prepend(
+      encx_tpl.errorContainer()
+    )
   }
 
-  playSound(soundUrl){
-    chrome.storage.local.get(
-      {'enableSound': true},
-      function(result){
-        if (!result.enableSound) return;
-
-        var sound = new Audio();
-        sound.src = chrome.extension.getURL(soundUrl);
-        sound.play();
+  update(storage){
+    $("#error-container div.engine-error").addClass("delete");
+    storage.Errors.forEach(function(e){
+      var id = $(e).attr("id");
+      if ($(`#${id}`).length === 0){
+        $("#error-container").append(e);
       }
-    );
+      $(`#${id}`).removeClass("delete")
+    });
+    $("#error-container div.engine-error.delete").remove();
   }
 };

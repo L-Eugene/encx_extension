@@ -39,6 +39,9 @@ class GameStorage {
     this.timer = null;
 
     this.callbackObjects = [];
+    this.errorCallback = undefined;
+
+    this.Errors = [];
 
     // Flag to show that we need an update
     this.needUpdate = false;
@@ -48,10 +51,21 @@ class GameStorage {
     return [6, 17].includes(this.last.Event);
   }
 
+  isError(){
+    return 0 !== this.last.Event
+  }
+
+  isFirstLoad(){
+    return null === this.prev;
+  }
+
   // Return true if LevelId changed since previous data update
   isLevelUp(){
     // This is first data update
     if (this.isGameOver() || this.prev === null) return true;
+
+    // Do not update anything if we got error
+    if (this.isError()) return false;
 
     return this.last.Level.LevelId != this.prev.Level.LevelId;
   }
@@ -62,6 +76,23 @@ class GameStorage {
 
   getEvent(){
     return this.last.Event;
+  }
+
+  getErrorBlock(){
+    switch (this.last.Event){
+      case 7:
+      case 8:
+      case 9:
+        return encx_tpl.errorNotApplied();
+      case 10:
+        return encx_tpl.errorDoNotHaveTeam();
+      case 11:
+        return encx_tpl.errorNotInActiveStaff();
+      case 13:
+        return encx_tpl.errorPlayerLimitExceeded();
+      default:
+        return encx_tpl.errorUnknown(this.last.Event);
+    }
   }
 
   // Execute all needed callbacks when data reloaded
@@ -83,6 +114,16 @@ class GameStorage {
       function(obj){ obj.update(this);  },
       this
     )
+  }
+
+  _doErrorCallback(){
+    if (undefined === this.errorCallback) return;
+
+    if (this.isLevelUp()){
+      this.errorCallback.initialize(this);
+    }
+
+    this.errorCallback.update(this);
   }
 
   _findObjectByKey(list, key, value){
@@ -112,18 +153,41 @@ class GameStorage {
     this.callbackObjects.push(obj);
   }
 
+  // Error callback is called always.
+  // Other callbacks called only if data load been successful.
+  setErrorCallback(obj){
+    this.errorCallback = obj;
+  }
+
+  raiseAPIError(req, status){
+    if (status == "parsererror"){
+      if ($(req.responseText).find("form[action='/Login.aspx']").length){
+        this.Errors.push(encx_tpl.errorNeedRelogin());
+      } else if (req.responseText.includes("classified as robot's requests")) {
+        this.Errors.push(encx_tpl.errorActAsBot());
+      }
+    }
+    this._doErrorCallback();
+  }
+
   storeAPI(data){
     this.prev = this.last;
     this.last = data;
 
-    if (!this.isGameOver()){
+    if (this.isError()) {
+      this.Errors.push(this.getErrorBlock());
+    } else if (!this.isGameOver()){
       this.levelHash = {
         LevelId: this.last.Level.LevelId,
         LevelNumber: this.last.Level.Number
       };
     }
 
-    this._doCallbacks();
+    if (!this.isError()) {
+      this._doCallbacks();
+    }
+
+    this._doErrorCallback();
   }
 
   // Return full data from API
@@ -138,6 +202,12 @@ class GameStorage {
 
   getLevels(){
     return this.last.Levels;
+  }
+
+  getLevelIds(){
+    return Array.from(this.getLevels()).map(function(elm){
+      return elm.LevelId;
+    });
   }
 
   // Return formatted text of given tasks
@@ -164,9 +234,21 @@ class GameStorage {
     return null === this._findBonus(this.prev.Level.Bonuses, bid);
   }
 
+  isHashChanged(prev, last, keys){
+    var k;
+    for (k in keys){
+      if (prev[keys[k]] != last[keys[k]]) return true;
+    }
+    return false;
+  }
+
   isBonusChanged(bid){
     if (null === this.prev) return true;
-    return JSON.stringify(this._findBonus(this.prev.Level.Bonuses, bid)) != JSON.stringify(this._findBonus(this.last.Level.Bonuses, bid))
+    return this.isHashChanged(
+      this._findBonus(this.prev.Level.Bonuses, bid),
+      this._findBonus(this.last.Level.Bonuses, bid),
+      ["IsAnswered", "Help", "Task", "Name", "Number", "Expired"]
+    );
   }
 
   _findBonus(list, bid){
@@ -183,7 +265,12 @@ class GameStorage {
   }
 
   isMessageChanged(mid){
-    return JSON.stringify(this._findMessage(this.prev.Level.Messages, mid)) != JSON.stringify(this._findMessage(this.last.Level.Messages, mid));
+    if (null === this.prev) return true;
+    return this.isHashChanged(
+      this._findMessage(this.prev.Level.Messages, mid),
+      this._findMessage(this.last.Level.Messages, mid),
+      ["MessageText", "OwnerId", "OwnerLogin"]
+    );
   }
 
   _findMessage(list, mid){
@@ -217,7 +304,11 @@ class GameStorage {
     var l = this.last.Level.Helps.concat(this.last.Level.PenaltyHelps),
         p = this.prev.Level.Helps.concat(this.prev.Level.PenaltyHelps);
 
-    return JSON.stringify(this._findHint(l, hid)) != JSON.stringify(this._findHint(p, hid));
+    return this.isHashChanged(
+      this._findHint(l, hid),
+      this._findHint(p, hid),
+      ["Number", "HelpText", "PenaltyHelpState", "PenaltyComment", "PenaltyMessage"]
+    );
   }
 
   // Return list of historical changes
@@ -331,12 +422,24 @@ class GameStorage {
     return this.last.Level.Sectors;
   }
 
+  getMyTeamURL(){
+    return `${location.protocol}//${location.hostname}/Teams/TeamDetails.aspx`;
+  }
+
+  getBonusesURL(){
+    return `${location.protocol}//${location.hostname}/GameBonusPenaltyTime.aspx?gid=${this.getGameId()}`
+  }
+
   getCleanURL(){
     return `${location.protocol}//${location.hostname}${location.pathname}`;
   }
 
   getLevelURL(){
-    return `${this.getCleanURL()}?json=1`;
+    return `${this.getCleanURL()}?json=1&rnd=${Math.random()}`;
+  }
+
+  getLevelStatURL(){
+    return `${location.protocol}//${location.hostname}/LevelStat.aspx?level=${this.getLevelNumber()}&gid=${this.getGameId()}&rnd=${Math.random()}`;
   }
 
   _findSector(list, sid){
@@ -344,9 +447,12 @@ class GameStorage {
   }
 
   isSectorChanged(sid){
-    var l = this._findSector(this.last.Level.Sectors, sid);
-    var p = this._findSector(this.prev.Level.Sectors, sid);
-    return JSON.stringify(p) != JSON.stringify(l);
+    if (null === this.prev) return true;
+    return this.isHashChanged(
+      this._findSector(this.last.Level.Sectors, sid),
+      this._findSector(this.prev.Level.Sectors, sid),
+      ["Order", "Name", "IsAnswered"]
+    );
   }
 
   isSectorNew(sid){
@@ -359,9 +465,12 @@ class GameStorage {
   }
 
   isLevelChanged(lid){
-    var l = this._findLevel(this.last.Levels, lid),
-        p = this._findLevel(this.prev.Levels, lid);
-    return JSON.stringify(l) != JSON.stringify(p);
+    if (null === this.prev) return true;
+    return this.isHashChanged(
+      this._findLevel(this.last.Levels, lid),
+      this._findLevel(this.prev.Levels, lid),
+      ["LevelNumber", "LevelName", "Dismissed", "IsPassed"]
+    );
   }
 
   isLevelNew(lid){
@@ -406,6 +515,9 @@ class GameStorage {
   update(data = {}, force = false){
     var that = this;
 
+    // Reset Error list
+    this.Errors = [];
+
     // If reloaded manually, start refresh interval from now
     if (force && this.timer !== null) clearTimeout(this.timer);
 
@@ -417,13 +529,14 @@ class GameStorage {
         contentType: "application/json",
         context: this,
         success: this.storeAPI,
+        error: this.raiseAPIError,
         data: JSON.stringify( $.extend({}, this.levelHash, data) )
-      },
+      }
     );
 
     // get update rate from extension options
     chrome.storage.local.get(
-      'refreshRate',
+      {'refreshRate': 5},
       function (result){
         that.timer = setTimeout(function(){ that.update() }, 1000 * result.refreshRate);
         that.needUpdate = false;

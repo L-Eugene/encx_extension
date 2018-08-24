@@ -1,7 +1,118 @@
+.header .userinfo {
+  text-align: center;
+  font-size: x-small;
+  line-height: 1.3em;
+  padding: 2px 15px;
+  border-radius: 0 0 5px 5px;
+  background-color: darkgreen;
+  position: fixed;
+  top: 0;
+}
+
+.header .userinfo .mailbox .icon {
+  font-size: 1.2em;
+}
+
+#error-container {
+  display: flex;
+  flex-direction: column;
+  background-color: maroon;
+  border-radius: 0 0 5px 5px;
+  position: fixed;
+  top: 0;
+  left: 40%;
+  z-index: 10;
+}
+
+#error-container input {
+  margin: 3px;
+  padding: 0;
+  width: 90%;
+}
+
+#error-container div {
+  padding: 5px;
+}
+
+.header .enext-bonuses {
+  background-position-x: -65px;
+  background-position-y: -5px;
+  background-repeat: no-repeat;
+}
+
 .header .enext-options {
   background-position-x: 22px;
   background-position-y: -5px;
   background-repeat: no-repeat;
+}
+
+.ff .header .enext-options, .ff .header .enext-bonuses  {
+  background-image: url("moz-extension://__MSG_@@extension_id__/img/menu.png");
+}
+.gc .header .enext-options, .gc .header .enext-bonuses {
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/menu.png");
+}
+
+.header .enext-history {
+  background-position-x: 25px;
+  background-repeat: no-repeat;
+}
+.ff .header .enext-history {
+  background-image: url("moz-extension://__MSG_@@extension_id__/img/history.png");
+}
+.gc .header .enext-history {
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/history.png");
+}
+
+a.logo {
+  width: 48px;
+  height: 48px;
+  overflow: hidden;
+}
+
+a.logo img {
+  width: 0;
+  height: 0;
+  padding: 48px 48px 0px 0px
+}
+
+body.ff a.logo img {
+  background: url("moz-extension://__MSG_@@extension_id__/img/logo-48.png");
+}
+body.gc a.logo img {
+  background: url("chrome-extension://__MSG_@@extension_id__/img/logo-48.png");
+}
+
+#game-history-codes {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 200px;
+  overflow-y: auto;
+}
+
+#game-history-dialog input {
+  background: none;
+  color: black;
+  width: 100%;
+}
+
+#game-history-dialog select {
+  background: none;
+  font: 130% Verdana, Helvetica, sans-serif;
+  padding: 0 3px;
+  padding-bottom: 1px;
+  height: 23px;
+  line-height: 23px;
+  border: 1px solid #707070;
+  border-radius: 3px;
+  color: black;
+}
+
+#game-history-dialog table td {
+  border: 0;
+  color: black;
+  padding-bottom: 5px;
 }
 
 #game-config-dialog table td {
@@ -89,4 +200,24 @@ div#level-stat-dialog iframe {
 
 .ui-dialog-content#level-stat-dialog {
   background-color: black;
+}
+
+.aside form label {
+  visibility: hidden;
+}
+
+.aside form:focus-within label {
+  visibility: visible;
+}
+
+.input-correct-1 {
+  background-color: green;
+}
+
+.input-correct-2 {
+  background-color: darkblue;
+}
+
+.input-incorrect {
+  background-color: maroon;
 }
