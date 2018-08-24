@@ -426,6 +426,10 @@ class GameStorage {
     return `${location.protocol}//${location.hostname}/Teams/TeamDetails.aspx`;
   }
 
+  getBonusesURL(){
+    return `${location.protocol}//${location.hostname}/GameBonusPenaltyTime.aspx?gid=${this.getGameId()}`
+  }
+
   getCleanURL(){
     return `${location.protocol}//${location.hostname}${location.pathname}`;
   }

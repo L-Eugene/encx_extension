@@ -34,16 +34,36 @@
   padding: 5px;
 }
 
+.header .enext-bonuses {
+  background-position-x: -65px;
+  background-position-y: -5px;
+  background-repeat: no-repeat;
+}
+
 .header .enext-options {
   background-position-x: 22px;
   background-position-y: -5px;
   background-repeat: no-repeat;
 }
 
+.ff .header .enext-options, .ff .header .enext-bonuses  {
+  background-image: url("moz-extension://__MSG_@@extension_id__/img/menu.png");
+}
+.gc .header .enext-options, .gc .header .enext-bonuses {
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/menu.png");
+}
+
 .header .enext-history {
   background-position-x: 25px;
   background-repeat: no-repeat;
 }
+.ff .header .enext-history {
+  background-image: url("moz-extension://__MSG_@@extension_id__/img/history.png");
+}
+.gc .header .enext-history {
+  background-image: url("chrome-extension://__MSG_@@extension_id__/img/history.png");
+}
+
 a.logo {
   width: 48px;
   height: 48px;
