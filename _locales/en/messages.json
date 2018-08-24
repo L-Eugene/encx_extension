@@ -34,6 +34,11 @@
     "description": "Game data refresh rate option"
   },
 
+  "optionsEnableSound": {
+    "message": "Enable sound notifications",
+    "description": "Sound notification option"
+  },
+
   "optionsSeconds": {
     "message": "second(s)",
     "description": "Refresh rate units, seconds"

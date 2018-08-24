@@ -55,6 +55,10 @@ class GameStorage {
     return 0 !== this.last.Event
   }
 
+  isFirstLoad(){
+    return null === this.prev;
+  }
+
   // Return true if LevelId changed since previous data update
   isLevelUp(){
     // This is first data update
