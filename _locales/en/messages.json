@@ -302,6 +302,11 @@
     "description": "History menu button title"
   },
 
+  "menuBonuses": {
+    "message": "Bonus/penalty",
+    "description": "Bonus and penalty menu button title"
+  },
+
   "engineErrorNeedRelogin": {
     "message": "You are not authorized.",
     "description": "Not logged in error message"

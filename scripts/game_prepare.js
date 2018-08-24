@@ -56,15 +56,11 @@ class GamePrepare extends GameManager {
     }
 
     // Add history button
-    $(".encx-history").remove();
+    $(".header ul .enext-history").remove();
     $(".header ul")
       .append(
         $("<li>")
           .addClass("enext-history")
-          .attr(
-            "style",
-            `background-image: url(${chrome.extension.getURL("img/history.png")})`
-          )
           .append(
             $("<a>")
               .append($("<i>"))
@@ -83,16 +79,29 @@ class GamePrepare extends GameManager {
       );
     this._prepareHistoryDialog();
 
+    // Add bonuses and penalty button
+    $(".header ul .enext-bonuses").remove();
+    $(".header ul")
+      .append(
+        $("<li>")
+          .addClass("enext-bonuses")
+          .append(
+            $("<a>")
+              .append($("<i>"))
+              .append(
+                $("<span>").append(chrome.i18n.getMessage("menuBonuses"))
+              )
+              .attr("href", storage.getBonusesURL())
+              .attr("target", "_blank")
+          )
+      );
+
     // Add plugin config button
     $(".enext-options").remove();
     $(".header ul")
       .append(
         $("<li>")
           .addClass("enext-options")
-          .attr(
-            "style",
-            `background-image: url(${chrome.extension.getURL("img/menu.png")})`
-          )
           .append(
             $("<a>")
               .append($("<i>"))
