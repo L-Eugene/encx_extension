@@ -37,7 +37,7 @@ class GamePrepare extends GameManager {
     $(".header li.discuss a").attr("target", "_blank");
 
     // Show level stat in dialog
-    $(".levelstats a").click(showLevelStat);
+    $(".levelstats a").click($.proxy(this.showLevelStat, this));
 
     // Open link to announce in new tab
     $("a#lblGameTitle").attr("target", "_blank");
@@ -131,6 +131,30 @@ class GamePrepare extends GameManager {
     );
 
     this.updateUserInfo(storage);
+  }
+
+  showLevelStat(event){
+    event.preventDefault();
+
+    $("<div>")
+      .attr("id", "level-stat-dialog")
+      .attr("title", chrome.i18n.getMessage("levelStatTitle"))
+      .append(
+        $("<iframe>")
+          .attr("src", this.storage.getLevelStatURL())
+          .attr("frameborder", 0)
+          .attr("marginwidth", 0)
+          .attr("marginheight", 0)
+      )
+      .dialog({
+        autoOpen: true,
+        modal: false,
+        width: 700,
+        height: 420,
+        close: function (){
+          $(".levelstats div#level-stat-dialog").remove();
+        }
+      });
   }
 
   updateUserInfo(storage, force = false){
