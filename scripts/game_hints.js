@@ -36,6 +36,8 @@ class GameHintManager extends GameManager {
           $("div#hints").append(this._hintTemplate(hint));
         } else if (this.storage.isHintChanged(hint.HelpId)) {
           $(`#hint-${hint.HelpId}`).replaceWith(this._hintTemplate(hint));
+
+          this.playSound("audio/hint.mp3");
         }
 
         $(`#hint-${hint.HelpId}`).attr("delete-mark", "false");

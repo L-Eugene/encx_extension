@@ -34,4 +34,17 @@ class GameManager {
           .append(ENEXT.convertTime(seconds))
       );
   }
+
+  playSound(soundUrl){
+    chrome.storage.local.get(
+      {'enableSound': true},
+      function(result){
+        if (!result.enableSound) return;
+
+        var sound = new Audio();
+        sound.src = chrome.extension.getURL(soundUrl);
+        sound.play();
+      }
+    );
+  }
 };

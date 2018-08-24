@@ -25,6 +25,7 @@ function saveOptions(e) {
   e.preventDefault();
   chrome.storage.local.set({
     "selectSentCode": document.querySelector("#selectSentCode").checked,
+    "enableSound": document.querySelector("#enableSound").checked,
     "refreshRate": document.querySelector("#refreshRate").value,
     "deniedDomains": deniedDomainList().join('|')
   });
@@ -49,6 +50,7 @@ function restoreOptions() {
   chrome.storage.local.get(
     {
       'selectSentCode': true,
+      'enableSound': true,
       'refreshRate': 5,
       'deniedDomains': ""
     },
@@ -122,7 +124,7 @@ function initLocalization(){
 
 initLocalization();
 document.addEventListener("DOMContentLoaded", restoreOptions);
-["#selectSentCode", "#refreshRate"].forEach(function(id){
+["#selectSentCode", "#refreshRate", "#enableSound"].forEach(function(id){
   document.querySelector(id).addEventListener("change", saveOptions)
 });
 document.querySelector("#addDomainButton").addEventListener("click", addDeniedDomainBtn)

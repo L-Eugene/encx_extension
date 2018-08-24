@@ -45,11 +45,15 @@ class GamePrepare extends GameManager {
     // Replace Encounter logo
     $("a.logo").attr("target", "_blank");
 
-    this.playerUpdateTime = 0;
+    this.userUpdateTime = 0;
   }
 
   initialize (storage){
     this.storage = storage;
+
+    if (storage.isLevelUp() && !storage.isFirstLoad()){
+      this.playSound("audio/levelup.mp3");
+    }
 
     // Add history button
     $(".encx-history").remove();
@@ -101,7 +105,6 @@ class GamePrepare extends GameManager {
       );
     this._prepareConfigDialog();
 
-
     this.updateUserInfo(storage, true);
 
     $("div.content").empty();
@@ -125,7 +128,7 @@ class GamePrepare extends GameManager {
     // Refresh every minute
     if (
       !force &&
-      (Date.now() - this.playerUpdateTime) < 1000 * 60
+      (Date.now() - this.userUpdateTime) < 1000 * 60
     ) return;
 
     // Display player info
@@ -157,7 +160,7 @@ class GamePrepare extends GameManager {
       }
     );
 
-    this.playerUpdateTime = Date.now();
+    this.userUpdateTime = Date.now();
   }
 
   _historyLevelList(){
