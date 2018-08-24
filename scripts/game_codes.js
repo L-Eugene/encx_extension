@@ -86,7 +86,7 @@ class GameCodesManager extends GameManager {
         // Insert historic action to block if it was not inserted before
         function(action){
           if (!this.actionIds.has(action.ActionId)) {
-            $('ul.history').prepend(this._historicActionTemplate(action));
+            $('ul.history').prepend(encx_tpl.historicActionTemplate(action));
             this.actionIds.add(action.ActionId);
           }
         },
@@ -152,28 +152,6 @@ class GameCodesManager extends GameManager {
           ? chrome.i18n.getMessage("answerCorrect")
           : chrome.i18n.getMessage("answerIncorrect")
       )
-  }
-
-  _historicActionTemplate(action){
-    return $('<li>')
-      .addClass(action.IsCorrect ? 'correct' : '' )
-      .append(action.LocDateTime)
-      .append('&nbsp;')
-      .append(
-        $('<a>')
-          .attr('href', '/userdetails.aspx?uid=' + action.UserId)
-          .append(action.Login)
-      )
-      .append('&nbsp;')
-      .append(
-        $('<span>').addClass(
-          // data.Level.MixedActions[any].Kind:
-          //   1 - code
-          //   2 - bonus
-          action.IsCorrect ?
-            'color_' + (action.Kind == 1 ? 'correct' : 'bonus') : ''
-        ).append(action.Answer)
-      );
   }
 
   _inputFieldTemplate(data){
