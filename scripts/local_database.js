@@ -27,11 +27,14 @@ var localDB = {
   openIndexedDB(){
     var openDB = indexedDB.open("Codes", 2);
 
-    openDB.onupgradeneeded = function() {
+    openDB.onupgradeneeded = function(event) {
       var db = {};
       db.result = openDB.result;
 
-      db.result.deleteObjectStore("Actions");
+      if (event.oldVersion >= 1){
+        db.result.deleteObjectStore("Actions");
+      }
+
       db.store = db.result.createObjectStore("Actions", {keyPath: "ActionId"});
 
       db.store.createIndex("LevelId", "LevelId", { unique: false });
