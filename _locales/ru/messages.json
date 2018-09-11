@@ -61,6 +61,16 @@
     "description": "Заголовок окна настроек игры"
   },
 
+  "optionsTitleSectors": {
+    "message": "Сектора",
+    "description": "Заголовок группы настроек секторов в меню"
+  },
+
+  "optionsTitleBonuses": {
+    "message": "Бонусы",
+    "description": "Заголовок группы настроек бонусов в меню"
+  },
+
   "optionsGameHistoryDialog": {
     "message": "История кодов",
     "description": "Заголовок окна истории кодов"

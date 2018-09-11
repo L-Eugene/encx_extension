@@ -19,7 +19,8 @@ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
 AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.*/
+SOFTWARE.
+*/
 
 function saveOptions(e) {
   e.preventDefault();
@@ -113,13 +114,6 @@ function addDeniedDomainBtn(e){
   }
 
   saveOptions(e);
-}
-
-function initLocalization(){
-  var elements = document.querySelectorAll("[message-key]"), i;
-  for (i=0; i<elements.length; i++){
-    elements[i].textContent = chrome.i18n.getMessage(elements[i].getAttribute("message-key"));
-  }
 }
 
 initLocalization();

@@ -61,6 +61,16 @@
     "description": "Game preferences window title"
   },
 
+  "optionsTitleSectors": {
+    "message": "Sectors",
+    "description": "Options menu sectors group title"
+  },
+
+  "optionsTitleBonuses": {
+    "message": "Bonuses",
+    "description": "Options menu bonuses group title"
+  },
+
   "optionsGameHistoryDialog": {
     "message": "Codes history",
     "description": "Code history window title"
