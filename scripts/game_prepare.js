@@ -124,7 +124,6 @@ class GamePrepare extends GameManager {
   }
 
   gameOptionsListener(msg, sender, response){
-    console.log(msg.subject);
     if ((msg.from === 'page_action') && (msg.subject === 'get_options')) {
       var data = {
         "hide-disclosed-sectors": localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false,
@@ -135,6 +134,7 @@ class GamePrepare extends GameManager {
       for (var key in msg.data){
         localStorage.setItem(`${this.storage.getGameId()}-${key}`, msg.data[key]);
       }
+      this.storage.update({}, true);
     }
   }
 
