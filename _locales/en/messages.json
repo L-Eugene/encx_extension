@@ -257,6 +257,11 @@
     "description": "Timeout title"
   },
 
+  "levelOnLevelTime": {
+    "message": "<strong>Spent on level</strong> ",
+    "description": "Time spent on current level title"
+  },
+
   "levelAutoUpPenalty": {
     "message": "(penalty $1)",
     "description": "Timeout penalty size"

@@ -78,7 +78,8 @@ var ENEXT = {
 
 function updateTimers(){
   $(".countdown-timer").each(function(index){
-    var sec = $(this).attr("seconds-left") - 1;
+    var diff = $(this).attr("seconds-step") || -1;
+    var sec = parseInt($(this).attr("seconds-left")) + parseInt(diff);
 
     if (!sec) gameStorage.markForUpdate();
 

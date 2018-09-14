@@ -257,6 +257,11 @@
     "description": "Заголовок автоперехода"
   },
 
+  "levelOnLevelTime": {
+    "message": "<strong>На уровне</strong> ",
+    "description": "Время на уровне"
+  },
+
   "levelAutoUpPenalty": {
     "message": "(штраф $1)",
     "description": "Размер штрафа за автопереход"
