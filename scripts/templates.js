@@ -155,6 +155,44 @@ class Templates {
   singleTeamLink(teamURL){
     return `<a href="${teamURL}">${chrome.i18n.getMessage("titleNoTeam")}</a>`;
   }
+
+  documentWritePrepare(){
+    return `
+      <!--- ADDED BY EN.CX Extension -->
+      <script>
+        var documentWriteObjectID = undefined;
+        var originalDocumentWrite = document.write;
+        function myDocumentWrite(content){
+          console.log(documentWriteObjectID);
+          $(\`\$\{documentWriteObjectID\}\`).append(content);
+          console.log(\`document.write: \$\{content\}\`);
+        }
+      </script>
+      <!--- ADDED BY EN.CX Extension -->
+    `;
+  }
+
+  documentWriteOverride(id){
+    return `
+      <!--- ADDED BY EN.CX Extension -->
+      <script>
+        documentWriteObjectID = "${id}";
+        document.write = myDocumentWrite;
+      </script>
+      <!--- ADDED BY EN.CX Extension -->
+    `;
+  }
+
+  documentWriteRollback(){
+    return `
+      <!--- ADDED BY EN.CX Extension -->
+      <script>
+        documentWriteObjectID = undefined;
+        document.write = originalDocumentWrite;
+      </script>
+      <!--- ADDED BY EN.CX Extension -->
+    `;
+  }
 };
 
 var encx_tpl = new Templates();

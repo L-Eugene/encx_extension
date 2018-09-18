@@ -54,6 +54,9 @@ class GamePrepare extends GameManager {
     );
 
     this.userUpdateTime = 0;
+
+    $(".header")
+      .append(encx_tpl.documentWritePrepare());
   }
 
   initialize (storage){

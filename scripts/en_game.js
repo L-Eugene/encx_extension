@@ -73,7 +73,7 @@ var ENEXT = {
       result = chrome.i18n.getMessage("timeSec", [0]);
 
     return $.trim(result);
-  },
+  }
 };
 
 function updateTimers(){

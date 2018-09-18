@@ -195,6 +195,7 @@ class GameBonusManager extends GameManager {
       .attr("id-numeric", bonus.BonusId)
       .attr("delete-mark", false)
       .css("order", bonus.Number)
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId}-task p`))
       .append(
         $("<h3>")
           .addClass(bonus.IsAnswered ? "color_correct" : "color_bonus")
@@ -238,6 +239,7 @@ class GameBonusManager extends GameManager {
       )
       .append(
         $("<div>").addClass("spacer")
-      );
+      )
+      .append(encx_tpl.documentWriteRollback());
   }
 };
