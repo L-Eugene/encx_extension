@@ -60,7 +60,6 @@ class GameBonusManager extends GameManager {
       `${this.storage.getGameId()}-hide-complete-bonus-task`
     ));
     hideBonusTask ? $(".bonus-answered .bonus-task").hide() : $(".bonus-answered .bonus-task").show();
-    console.log(`hideBonusTask: ${hideBonusTask}`);
 
     var hideBonusCode = ENEXT.parseBoolean(localStorage.getItem(
       `${this.storage.getGameId()}-hide-complete-bonus-code`

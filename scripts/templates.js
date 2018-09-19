@@ -163,9 +163,7 @@ class Templates {
         var documentWriteObjectID = undefined;
         var originalDocumentWrite = document.write;
         function myDocumentWrite(content){
-          console.log(documentWriteObjectID);
           $(\`\$\{documentWriteObjectID\}\`).append(content);
-          console.log(\`document.write: \$\{content\}\`);
         }
       </script>
       <!--- ADDED BY EN.CX Extension -->
