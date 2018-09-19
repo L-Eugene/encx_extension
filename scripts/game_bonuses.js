@@ -51,13 +51,21 @@ class GameBonusManager extends GameManager {
     );
     $(".bonus-block[delete-mark=true]").remove();
 
-    if (ENEXT.parseBoolean(
-      localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`)
-    )){
-      $(".bonus-answered").hide();
-    } else {
-      $(".bonus-answered").show();
-    }
+    var hideBonuses = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-hide-complete-bonuses`
+    ));
+    hideBonuses ? $(".bonus-answered").hide() : $(".bonus-answered").show();
+
+    var hideBonusTask = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-hide-complete-bonus-task`
+    ));
+    hideBonusTask ? $(".bonus-answered .bonus-task").hide() : $(".bonus-answered .bonus-task").show();
+    console.log(`hideBonusTask: ${hideBonusTask}`);
+
+    var hideBonusCode = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-hide-complete-bonus-code`
+    ));
+    hideBonusCode ? $(".bonus-answered .bonus-code").hide() : $(".bonus-answered .bonus-code").show();
   }
 
   _bonusInfoTemplate(bonus){
@@ -98,58 +106,36 @@ class GameBonusManager extends GameManager {
 
   _bonusOpenTemplate(bonus){
     return $("<div>")
-      .addClass("tabs")
+      .addClass("bonus")
       .append(
-        $("<ul>")
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleHint"),
-              `#bonus-${bonus.BonusId}-hint`
-            )
-          )
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleTask"),
-              `#bonus-${bonus.BonusId}-task`
-            )
-          )
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleAnswer"),
-              `#bonus-${bonus.BonusId}-answer`
-            )
-          )
+        $("<div>")
+          .addClass("bonus-hint")
+          .attr("id", `bonus-${bonus.BonusId}-hint`)
+          .append(bonus.Task)
       )
       .append(
-        this._tabBodyTemplate(`bonus-${bonus.BonusId}-hint`, bonus.Help)
+        $("<div>")
+          .addClass("bonus-task")
+          .attr("id", `bonus-${bonus.BonusId}-task`)
+          .append(bonus.Task)
       )
       .append(
-        this._tabBodyTemplate(`bonus-${bonus.BonusId}-task`, bonus.Task)
-      )
-      .append(
-        this._tabBodyTemplate(
-          `bonus-${bonus.BonusId}-answer`,
-          bonus.Answer.Answer,
-          "color_correct"
-        )
+        $("<div>")
+          .addClass("bonus-code")
+          .attr("id", `bonus-${bonus.BonusId}-code`)
+          .append(bonus.Answer.Answer)
       );
   }
 
   _bonusClosedTemplate(bonus){
     return $("<div>")
-      .addClass("tabs")
+      .addClass("bonus")
       .append(
-        $("<ul>")
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleTask"),
-              `#bonus-${bonus.BonusId}-task`
-            )
-          )
-      )
-      .append(
-        this._tabBodyTemplate(`bonus-${bonus.BonusId}-task`, bonus.Task)
-      )
+        $("<div>")
+          .addClass("bonus-task")
+          .attr("id", `bonus-${bonus.BonusId}-task`)
+          .append(bonus.Task)
+      );
   }
 
   _bonusExpiredTemplate(bonus){

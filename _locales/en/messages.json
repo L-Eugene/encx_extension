@@ -56,6 +56,14 @@
     "message": "Hide complete bonuses"
   },
 
+  "optionsHideCompleteBonusTask": {
+    "message": "Hide complete bonuses tasks"
+  },
+
+  "optionsHideCompleteBonusCode": {
+    "message": "Hide complete bonuses codes"
+  },
+
   "optionsGameConfigDialog": {
     "message": "Game preferences",
     "description": "Game preferences window title"

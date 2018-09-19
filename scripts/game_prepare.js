@@ -130,7 +130,9 @@ class GamePrepare extends GameManager {
     if ((msg.from === 'page_action') && (msg.subject === 'get_options')) {
       var data = {
         "hide-disclosed-sectors": localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false,
-        "hide-complete-bonuses": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false
+        "hide-complete-bonuses": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false,
+        "hide-complete-bonus-task": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonus-task`) || false,
+        "hide-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonus-code`) || false
       };
       response(data);
     } else if ((msg.from === 'page_action') && (msg.subject === 'set_options')) {

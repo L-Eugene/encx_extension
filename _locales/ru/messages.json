@@ -56,6 +56,14 @@
     "message": "Скрывать выполненные бонусы"
   },
 
+  "optionsHideCompleteBonusTask": {
+    "message": "Скрывать задания выполненных бонусов"
+  },
+
+  "optionsHideCompleteBonusCode": {
+    "message": "Скрывать коды выполненных бонусов"
+  },
+
   "optionsGameConfigDialog": {
     "message": "Настройка игры",
     "description": "Заголовок окна настроек игры"
