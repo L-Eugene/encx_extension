@@ -107,18 +107,21 @@ class GameBonusManager extends GameManager {
   _bonusOpenTemplate(bonus){
     return $("<div>")
       .addClass("bonus")
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-hint`))
       .append(
         $("<div>")
           .addClass("bonus-hint")
           .attr("id", `bonus-${bonus.BonusId}-hint`)
-          .append(bonus.Task)
+          .append(bonus.Help)
       )
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
         $("<div>")
           .addClass("bonus-task")
           .attr("id", `bonus-${bonus.BonusId}-task`)
           .append(bonus.Task)
       )
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-code`))
       .append(
         $("<div>")
           .addClass("bonus-code")
@@ -130,6 +133,7 @@ class GameBonusManager extends GameManager {
   _bonusClosedTemplate(bonus){
     return $("<div>")
       .addClass("bonus")
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
         $("<div>")
           .addClass("bonus-task")
@@ -181,7 +185,6 @@ class GameBonusManager extends GameManager {
       .attr("id-numeric", bonus.BonusId)
       .attr("delete-mark", false)
       .css("order", bonus.Number)
-      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId}-task p`))
       .append(
         $("<h3>")
           .addClass(bonus.IsAnswered ? "color_correct" : "color_bonus")
