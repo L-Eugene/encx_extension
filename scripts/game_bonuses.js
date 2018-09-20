@@ -56,15 +56,15 @@ class GameBonusManager extends GameManager {
     ));
     hideBonuses ? $(".bonus-answered").hide() : $(".bonus-answered").show();
 
-    var hideBonusTask = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-hide-complete-bonus-task`
+    var showBonusTask = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-show-complete-bonus-task`
     ));
-    hideBonusTask ? $(".bonus-answered .bonus-task").hide() : $(".bonus-answered .bonus-task").show();
+    showBonusTask ? $(".bonus-answered .bonus-task").show() : $(".bonus-answered .bonus-task").hide();
 
-    var hideBonusCode = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-hide-complete-bonus-code`
+    var showBonusCode = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-show-complete-bonus-code`
     ));
-    hideBonusCode ? $(".bonus-answered .bonus-code").hide() : $(".bonus-answered .bonus-code").show();
+    showBonusCode ? $(".bonus-answered .bonus-code").show() : $(".bonus-answered .bonus-code").hide();
   }
 
   _bonusInfoTemplate(bonus){

@@ -56,12 +56,12 @@
     "message": "Hide complete bonuses"
   },
 
-  "optionsHideCompleteBonusTask": {
-    "message": "Hide complete bonuses tasks"
+  "optionsShowCompleteBonusTask": {
+    "message": "Show complete bonuses tasks"
   },
 
-  "optionsHideCompleteBonusCode": {
-    "message": "Hide complete bonuses codes"
+  "optionsShowCompleteBonusCode": {
+    "message": "Show complete bonuses codes"
   },
 
   "optionsGameConfigDialog": {

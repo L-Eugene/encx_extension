@@ -56,12 +56,12 @@
     "message": "Скрывать выполненные бонусы"
   },
 
-  "optionsHideCompleteBonusTask": {
-    "message": "Скрывать задания выполненных бонусов"
+  "optionsShowCompleteBonusTask": {
+    "message": "Отображать задания выполненных бонусов"
   },
 
-  "optionsHideCompleteBonusCode": {
-    "message": "Скрывать коды выполненных бонусов"
+  "optionsShowCompleteBonusCode": {
+    "message": "Отображать коды выполненных бонусов"
   },
 
   "optionsGameConfigDialog": {

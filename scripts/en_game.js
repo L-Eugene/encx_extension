@@ -35,8 +35,10 @@ var ENEXT = {
     return d.toLocaleString();
   },
 
-  parseBoolean:function (value){
+  parseBoolean:function (value, bydefault = false){
     switch (typeof value){
+      case 'object':
+        return null === value ? bydefault : Boolean(value);
       case 'number':
         return value != 0;
       case 'string':
