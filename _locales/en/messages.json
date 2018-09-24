@@ -56,9 +56,27 @@
     "message": "Hide complete bonuses"
   },
 
+  "optionsShowCompleteBonusTask": {
+    "message": "Show complete bonuses tasks"
+  },
+
+  "optionsShowCompleteBonusCode": {
+    "message": "Show complete bonuses codes"
+  },
+
   "optionsGameConfigDialog": {
     "message": "Game preferences",
     "description": "Game preferences window title"
+  },
+
+  "optionsTitleSectors": {
+    "message": "Sectors",
+    "description": "Options menu sectors group title"
+  },
+
+  "optionsTitleBonuses": {
+    "message": "Bonuses",
+    "description": "Options menu bonuses group title"
   },
 
   "optionsGameHistoryDialog": {
@@ -247,6 +265,11 @@
     "description": "Timeout title"
   },
 
+  "levelOnLevelTime": {
+    "message": "<strong>Spent on level</strong> ",
+    "description": "Time spent on current level title"
+  },
+
   "levelAutoUpPenalty": {
     "message": "(penalty $1)",
     "description": "Timeout penalty size"
@@ -255,6 +278,10 @@
   "sectorsCount": {
     "message": "There are <span id='sectors-total'>$1</span> sectors [to close: $2] <span class=color_sec>(<span id='sectors-left'>$3</span> left)</span>",
     "description": "Sectors information"
+  },
+
+  "bonusesClosedSummary": {
+    "message": "$1 bonus(es) completed on current level\nBonus time: $2"
   },
 
   "sectorsDisclosed": {

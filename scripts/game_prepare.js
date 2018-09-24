@@ -45,7 +45,18 @@ class GamePrepare extends GameManager {
     // Replace Encounter logo
     $("a.logo").attr("target", "_blank");
 
+    // Enable pageAction
+    chrome.runtime.sendMessage({ "message": "activate_icon" });
+
+    // Getting and setting options for this game
+    chrome.runtime.onMessage.addListener(
+      $.proxy(this.gameOptionsListener, this)
+    );
+
     this.userUpdateTime = 0;
+
+    $(".header")
+      .append(encx_tpl.documentWritePrepare());
   }
 
   initialize (storage){
@@ -96,24 +107,6 @@ class GamePrepare extends GameManager {
           )
       );
 
-    // Add plugin config button
-    $(".enext-options").remove();
-    $(".header ul")
-      .append(
-        $("<li>")
-          .addClass("enext-options")
-          .append(
-            $("<a>")
-              .append($("<i>"))
-              .append($("<span>").append(chrome.i18n.getMessage("menuConfig")))
-              .click(this.showGameConfig)
-          )
-      )
-      .before(
-        this._gameConfigDialogTemplate()
-      );
-    this._prepareConfigDialog();
-
     this.updateUserInfo(storage, true);
 
     $("div.content").empty();
@@ -131,6 +124,23 @@ class GamePrepare extends GameManager {
     );
 
     this.updateUserInfo(storage);
+  }
+
+  gameOptionsListener(msg, sender, response){
+    if ((msg.from === 'page_action') && (msg.subject === 'get_options')) {
+      var data = {
+        "hide-disclosed-sectors": localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false,
+        "hide-complete-bonuses": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false,
+        "show-complete-bonus-task": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-task`) || false,
+        "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false
+      };
+      response(data);
+    } else if ((msg.from === 'page_action') && (msg.subject === 'set_options')) {
+      for (var key in msg.data){
+        localStorage.setItem(`${this.storage.getGameId()}-${key}`, msg.data[key]);
+      }
+      this.storage.update({}, true);
+    }
   }
 
   showLevelStat(event){
@@ -229,85 +239,6 @@ class GamePrepare extends GameManager {
       </table>
     </div>
     `;
-  }
-
-  _gameConfigDialogTemplate(){
-    return $("<div>")
-      .addClass("game-config-box")
-      .attr("id", "game-config-dialog")
-      .attr("title", chrome.i18n.getMessage("optionsGameConfigDialog"))
-      .append(
-        $("<table>")
-          .append(
-            $("<tr>")
-              .append(
-                $("<td>")
-                  .append(
-                    $("<input>")
-                      .attr("id", "hide-disclosed-sectors")
-                      .attr("type", "checkbox")
-                      .attr("checked", false)
-                      .change(
-                        { storage: this.storage },
-                        this.gameConfigDialogUpdate
-                      )
-                  )
-              )
-              .append(
-                $("<td>")
-                  .append(
-                    $("<label>")
-                      .attr("for", "hide-disclosed-sectors")
-                      .append(chrome.i18n.getMessage("optionsHideDisclosedSectors"))
-                  )
-              )
-          )
-        .append(
-          $("<tr>")
-            .append(
-              $("<td>")
-                .append(
-                  $("<input>")
-                    .attr("id", "hide-complete-bonuses")
-                    .attr("type", "checkbox")
-                    .attr("checked", false)
-                    .change(
-                      { storage: this.storage },
-                      this.gameConfigDialogUpdate
-                    )
-                )
-            )
-            .append(
-              $("<td>")
-                .append(
-                  $("<label>")
-                    .attr("for", "hide-complete-bonuses")
-                    .append(chrome.i18n.getMessage("optionsHideCompleteBonuses"))
-                )
-            )
-        )
-      )
-      .hide();
-  }
-
-  _prepareConfigDialog(){
-    $("#game-config-dialog").dialog({
-        autoOpen: false,
-        buttons: [
-          {
-            text: chrome.i18n.getMessage("buttonOk"),
-            click: this.gameConfigDialogClose
-          }
-        ],
-        close: this.gameConfigDialogClose
-    });
-
-    var val;
-    val = localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false;
-    $("#hide-disclosed-sectors").prop('checked', ENEXT.parseBoolean(val));
-
-    val = localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false;
-    $("#hide-complete-bonuses").prop('checked', ENEXT.parseBoolean(val));
   }
 
   _fillHistoryForm(e){
@@ -425,23 +356,8 @@ class GamePrepare extends GameManager {
     )
   }
 
-  gameConfigDialogClose(e){
-    $("#game-config-dialog").dialog("close");
-  }
-
   gameHistoryDialogClose(e){
     $("#game-history-dialog").dialog("close");
-  }
-
-  gameConfigDialogUpdate(e){
-    localStorage.setItem(
-      `${e.data.storage.getGameId()}-${$(e.target).attr("id")}`,
-      $(e.target).prop('checked')
-    )
-  }
-
-  showGameConfig(e){
-    $("#game-config-dialog").dialog("open");
   }
 
   showGameHistory(e){

@@ -35,8 +35,10 @@ var ENEXT = {
     return d.toLocaleString();
   },
 
-  parseBoolean:function (value){
+  parseBoolean:function (value, bydefault = false){
     switch (typeof value){
+      case 'object':
+        return null === value ? bydefault : Boolean(value);
       case 'number':
         return value != 0;
       case 'string':
@@ -73,12 +75,13 @@ var ENEXT = {
       result = chrome.i18n.getMessage("timeSec", [0]);
 
     return $.trim(result);
-  },
+  }
 };
 
 function updateTimers(){
   $(".countdown-timer").each(function(index){
-    var sec = $(this).attr("seconds-left") - 1;
+    var diff = $(this).attr("seconds-step") || -1;
+    var sec = parseInt($(this).attr("seconds-left")) + parseInt(diff);
 
     if (!sec) gameStorage.markForUpdate();
 

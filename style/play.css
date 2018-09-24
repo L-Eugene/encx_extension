@@ -165,39 +165,6 @@ div#level-stat-dialog iframe {
   color: white;
 }
 
-.bonus-block .ui-tab {
-  background-color: #808080;
-  color: #272727;
-  border: 1px solid #989898;
-}
-
-.bonus-block .ui-tabs {
-  background: transparent;
-  border: 0;
-}
-
-.bonus-block .ui-tabs-nav {
-  background: transparent;
-  border: 0;
-  padding: 0;
-}
-
-.bonus-block .ui-tabs-panel {
-  border: 0;
-  padding-left: 0;
-  padding-top: 0;
-  color: white;
-}
-
-.bonus-block .ui-tabs-nav .ui-tabs-anchor {
-  padding: 0.25em 0.5em;
-}
-
-.bonus-block .ui-tabs .ui-widget-header .ui-state-active {
-  border: 1px solid #989898;
-  background-color: #1a7700;
-}
-
 .ui-dialog-content#level-stat-dialog {
   background-color: black;
 }
@@ -220,4 +187,23 @@ div#level-stat-dialog iframe {
 
 .input-incorrect {
   background-color: maroon;
+}
+
+.bonus-answered div {
+  margin: 1px;
+}
+
+.bonus-answered .bonus-task {
+	border: 1px solid grey;
+	border-radius: 7px;
+	padding: 1em;
+	background-color: #636363;
+}
+
+.bonus-answered .bonus-code {
+	border: 1px solid #00ff00;
+	border-radius: 7px;
+	padding: 1em;
+	background-color: #426f42;
+  color: #00ff00;
 }

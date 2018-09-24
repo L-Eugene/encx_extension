@@ -62,8 +62,10 @@ class GameTaskManager extends GameManager {
 
     // Update timeout data
     if (storage.getTimeoutSecondsRemain() > 0){
-      $("#timeout-block .countdown-timer")
+      $("#timeout-block .countdown-timer.backward")
         .attr("seconds-left", storage.getTimeoutSecondsRemain());
+        $("#timeout-block .countdown-timer.forward")
+          .attr("seconds-left", storage.getTimeout() - storage.getTimeoutSecondsRemain());
     }
 
     // Update sectors header
@@ -147,9 +149,18 @@ class GameTaskManager extends GameManager {
       .append(chrome.i18n.getMessage("levelAutoUp"))
       .append(
         $("<span>")
-          .addClass("countdown-timer")
+          .addClass("countdown-timer backward")
           .attr("seconds-left", level.TimeoutSecondsRemain)
           .append(ENEXT.convertTime(level.TimeoutSecondsRemain))
+      )
+      .append(" ")
+      .append(chrome.i18n.getMessage("levelOnLevelTime"))
+      .append(
+        $("<span>")
+          .addClass("countdown-timer forward")
+          .attr("seconds-left", level.Timeout - level.TimeoutSecondsRemain)
+          .attr("seconds-step", +1)
+          .append(ENEXT.convertTime(level.Timeout - level.TimeoutSecondsRemain))
       )
       .append()
       .append(
@@ -240,7 +251,9 @@ class GameTaskManager extends GameManager {
   }
 
   _taskTemplate(level){
-    var result = $("<div>").attr("id", "task")
+    var result = $("<div>")
+      .attr("id", "task")
+      .append(encx_tpl.documentWriteOverride("#task p"));
     if (level.Tasks.length == 0) return result;
 
     return result
@@ -254,6 +267,7 @@ class GameTaskManager extends GameManager {
       .append(
         $("<div>")
           .addClass("spacer")
-      );
+      )
+      .append(encx_tpl.documentWriteRollback());
   }
 }

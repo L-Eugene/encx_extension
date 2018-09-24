@@ -56,9 +56,27 @@
     "message": "Скрывать выполненные бонусы"
   },
 
+  "optionsShowCompleteBonusTask": {
+    "message": "Отображать задания выполненных бонусов"
+  },
+
+  "optionsShowCompleteBonusCode": {
+    "message": "Отображать коды выполненных бонусов"
+  },
+
   "optionsGameConfigDialog": {
     "message": "Настройка игры",
     "description": "Заголовок окна настроек игры"
+  },
+
+  "optionsTitleSectors": {
+    "message": "Сектора",
+    "description": "Заголовок группы настроек секторов в меню"
+  },
+
+  "optionsTitleBonuses": {
+    "message": "Бонусы",
+    "description": "Заголовок группы настроек бонусов в меню"
   },
 
   "optionsGameHistoryDialog": {
@@ -247,6 +265,11 @@
     "description": "Заголовок автоперехода"
   },
 
+  "levelOnLevelTime": {
+    "message": "<strong>На уровне</strong> ",
+    "description": "Время на уровне"
+  },
+
   "levelAutoUpPenalty": {
     "message": "(штраф $1)",
     "description": "Размер штрафа за автопереход"
@@ -265,6 +288,10 @@
   "sectorDisclosed": {
     "message": "код не введён",
     "description": "Пометка, что код в этот сектор не введен"
+  },
+
+  "bonusesClosedSummary": {
+    "message": "На данном уровне выполнено $1 бонус(а,ов)\nБонусное время: $2"
   },
 
   "titleTask": {

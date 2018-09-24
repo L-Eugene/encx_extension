@@ -2,7 +2,7 @@
   "manifest_version": 2,
   "name": "__MSG_extensionName__",
   "short_name": "ENextension",
-  "version": "1.3.1",
+  "version": "1.3.2",
 
   "author": "Eugene Lapeko",
 
@@ -37,7 +37,29 @@
 
   "background": {
     "scripts": [
-      "background/options-init.js"
+      "background/options-init.js",
+      "background/page_action-init.js"
+    ]
+  },
+
+  "page_action": {
+    "browser_style": true,
+    "default_title": "__MSG_extensionName__",
+    "default_popup": "page_action/page_action.html",
+    "default_icon": {
+      "16": "img/logo-16.png",
+      "32": "img/logo-32.png",
+      "48": "img/logo-48.png",
+      "96": "img/logo-96.png",
+      "128": "img/logo-128.png"
+    },
+    "show_matches": [
+      "*://*.en.cx/gameengines/encounter/play/*",
+      "*://*.encounter.cx/gameengines/encounter/play/*",
+      "*://*.encounter.ru/gameengines/encounter/play/*",
+      "*://*.en-world.org/gameengines/encounter/play/*",
+      "*://*.quest.ua/gameengines/encounter/play/*",
+      "*://quest.ua/gameengines/encounter/play/*"
     ]
   },
 

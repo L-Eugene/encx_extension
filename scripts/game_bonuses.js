@@ -51,13 +51,31 @@ class GameBonusManager extends GameManager {
     );
     $(".bonus-block[delete-mark=true]").remove();
 
-    if (ENEXT.parseBoolean(
-      localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`)
-    )){
-      $(".bonus-answered").hide();
-    } else {
-      $(".bonus-answered").show();
-    }
+    // Bonuses on current level summary
+    $("li.enext-bonuses")
+      .attr(
+        "title",
+        chrome.i18n.getMessage(
+          "bonusesClosedSummary",
+          storage.getCompletedBonusesData()
+        )
+      )
+      .tooltip();
+
+    var hideBonuses = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-hide-complete-bonuses`
+    ));
+    hideBonuses ? $(".bonus-answered").hide() : $(".bonus-answered").show();
+
+    var showBonusTask = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-show-complete-bonus-task`
+    ));
+    showBonusTask ? $(".bonus-answered .bonus-task").show() : $(".bonus-answered .bonus-task").hide();
+
+    var showBonusCode = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-show-complete-bonus-code`
+    ));
+    showBonusCode ? $(".bonus-answered .bonus-code").show() : $(".bonus-answered .bonus-code").hide();
   }
 
   _bonusInfoTemplate(bonus){
@@ -98,58 +116,40 @@ class GameBonusManager extends GameManager {
 
   _bonusOpenTemplate(bonus){
     return $("<div>")
-      .addClass("tabs")
+      .addClass("bonus")
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-hint`))
       .append(
-        $("<ul>")
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleHint"),
-              `#bonus-${bonus.BonusId}-hint`
-            )
-          )
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleTask"),
-              `#bonus-${bonus.BonusId}-task`
-            )
-          )
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleAnswer"),
-              `#bonus-${bonus.BonusId}-answer`
-            )
-          )
+        $("<div>")
+          .addClass("bonus-hint")
+          .attr("id", `bonus-${bonus.BonusId}-hint`)
+          .append(bonus.Help)
       )
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
-        this._tabBodyTemplate(`bonus-${bonus.BonusId}-hint`, bonus.Help)
+        $("<div>")
+          .addClass("bonus-task")
+          .attr("id", `bonus-${bonus.BonusId}-task`)
+          .append(bonus.Task)
       )
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-code`))
       .append(
-        this._tabBodyTemplate(`bonus-${bonus.BonusId}-task`, bonus.Task)
-      )
-      .append(
-        this._tabBodyTemplate(
-          `bonus-${bonus.BonusId}-answer`,
-          bonus.Answer.Answer,
-          "color_correct"
-        )
+        $("<div>")
+          .addClass("bonus-code")
+          .attr("id", `bonus-${bonus.BonusId}-code`)
+          .append(bonus.Answer.Answer)
       );
   }
 
   _bonusClosedTemplate(bonus){
     return $("<div>")
-      .addClass("tabs")
+      .addClass("bonus")
+      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
-        $("<ul>")
-          .append(
-            this._tabHeaderTemplate(
-              chrome.i18n.getMessage("bonusTitleTask"),
-              `#bonus-${bonus.BonusId}-task`
-            )
-          )
-      )
-      .append(
-        this._tabBodyTemplate(`bonus-${bonus.BonusId}-task`, bonus.Task)
-      )
+        $("<div>")
+          .addClass("bonus-task")
+          .attr("id", `bonus-${bonus.BonusId}-task`)
+          .append(bonus.Task)
+      );
   }
 
   _bonusExpiredTemplate(bonus){
@@ -238,6 +238,7 @@ class GameBonusManager extends GameManager {
       )
       .append(
         $("<div>").addClass("spacer")
-      );
+      )
+      .append(encx_tpl.documentWriteRollback());
   }
 };
