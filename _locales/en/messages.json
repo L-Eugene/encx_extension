@@ -280,6 +280,10 @@
     "description": "Sectors information"
   },
 
+  "bonusesClosedSummary": {
+    "message": "$1 bonus(es) completed on current level\nBonus time: $2"
+  },
+
   "sectorsDisclosed": {
     "message": "Disclosed sectors: <span id='sectors-left-list'>$1</span>",
     "description": "Disclosed sector list"

@@ -229,6 +229,18 @@ class GameStorage {
     return this.last.Level.Bonuses;
   }
 
+  getCompletedBonusesData(){
+    var result = [0, 0];
+    this.last.Level.Bonuses.forEach(function(bonus){
+      if (ENEXT.parseBoolean(bonus.IsAnswered)){
+        result[0]++;
+        result[1]+=parseInt(bonus.AwardTime);
+      }
+    });
+    result[1] = ENEXT.convertTime(result[1]);
+    return result;
+  }
+
   isBonusNew(bid){
     if (null === this.prev) return true;
     return null === this._findBonus(this.prev.Level.Bonuses, bid);

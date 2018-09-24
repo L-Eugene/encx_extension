@@ -51,6 +51,17 @@ class GameBonusManager extends GameManager {
     );
     $(".bonus-block[delete-mark=true]").remove();
 
+    // Bonuses on current level summary
+    $("li.enext-bonuses")
+      .attr(
+        "title",
+        chrome.i18n.getMessage(
+          "bonusesClosedSummary",
+          storage.getCompletedBonusesData()
+        )
+      )
+      .tooltip();
+
     var hideBonuses = ENEXT.parseBoolean(localStorage.getItem(
       `${this.storage.getGameId()}-hide-complete-bonuses`
     ));
