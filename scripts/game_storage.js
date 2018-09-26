@@ -333,6 +333,11 @@ class GameStorage {
     return this.last.EngineAction;
   }
 
+  // Return level length
+  getTimeout(){
+    return this.last.Level.Timeout;
+  }
+
   // Return seconds to timeout on current level
   getTimeoutSecondsRemain(){
     return this.last.Level.TimeoutSecondsRemain;
