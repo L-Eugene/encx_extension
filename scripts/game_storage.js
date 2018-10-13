@@ -38,6 +38,8 @@ class GameStorage {
     // refresh timer handler
     this.timer = null;
 
+    this.firstRun = true;
+
     this.callbackObjects = [];
     this.errorCallback = undefined;
 
@@ -48,7 +50,7 @@ class GameStorage {
   }
 
   isGameOver(){
-    return [6, 17].includes(this.last.Event);
+    return [6, 17].includes(parseInt(this.last.Event));
   }
 
   isError(){
@@ -56,7 +58,7 @@ class GameStorage {
   }
 
   isFirstLoad(){
-    return null === this.prev;
+    return this.firstRun;
   }
 
   // Return true if LevelId changed since previous data update
@@ -173,6 +175,8 @@ class GameStorage {
   storeAPI(data){
     this.prev = this.last;
     this.last = data;
+
+    this.firstRun = null === this.prev;
 
     if (this.isError()) {
       this.Errors.push(this.getErrorBlock());

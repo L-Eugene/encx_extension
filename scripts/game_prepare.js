@@ -62,10 +62,6 @@ class GamePrepare extends GameManager {
   initialize (storage){
     this.storage = storage;
 
-    if (storage.isLevelUp() && !storage.isFirstLoad()){
-      this.playSound("audio/levelup.mp3");
-    }
-
     // Add history button
     $(".header ul .enext-history").remove();
     $(".header ul")
@@ -122,6 +118,10 @@ class GamePrepare extends GameManager {
         }
       }
     );
+
+    if (storage.isLevelUp() && !storage.isFirstLoad()){
+      this.playSound("audio/levelup.mp3");
+    }
 
     this.updateUserInfo(storage);
   }
