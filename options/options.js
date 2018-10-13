@@ -37,6 +37,7 @@ function restoreOptions() {
   function setCurrentChoice(result) {
     document.querySelector("#selectSentCode").checked = result.selectSentCode;
     document.querySelector("#refreshRate").value = result.refreshRate;
+    document.querySelector("#enableSound").checked = result.enableSound;
     result.deniedDomains.split("|").forEach(
       function(domain){
         if (domain != "") addDeniedDomain(domain);

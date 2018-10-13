@@ -39,6 +39,7 @@ class GameManager {
     chrome.storage.local.get(
       {'enableSound': true},
       function(result){
+        console.log(result);
         if (!result.enableSound) return;
 
         var sound = new Audio();
