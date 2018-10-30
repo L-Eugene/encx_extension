@@ -28,7 +28,8 @@
 
   "web_accessible_resources": [
     "img/*",
-    "style/images/*"
+    "style/images/*",
+    "audio/*"
   ],
 
   "options_ui": {
