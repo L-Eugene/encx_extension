@@ -140,6 +140,10 @@ class GameStorage {
   _doErrorCallback(){
     if (undefined === this.errorCallback) return;
 
+    if (this.isGameOver()){
+      location.reload(true);
+    }
+
     if (this.isLevelUp()){
       this.errorCallback.initialize(this);
     }
