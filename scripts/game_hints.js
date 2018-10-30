@@ -108,7 +108,8 @@ class GameHintManager extends GameManager {
       .attr("id", hint.HelpId)
       .attr("url", this.storage.getCleanURL())
       .attr("confirm", hint.RequestConfirm)
-      .click(function (){
+      .click(
+        function (){
         if (
           $(this).attr("confirm") == "false" ||
           confirm(
@@ -118,7 +119,10 @@ class GameHintManager extends GameManager {
             )
           )
         ){
-          $.get(`${$(this).attr("url")}?pid=${$(this).attr("id")}&pact=1`);
+          var level = gameStorage.isStormGame()
+            ? `&level=${gameStorage.getLevelNumber()}`
+            : '';
+          $.get(`${$(this).attr("url")}?pid=${$(this).attr("id")}&pact=1${level}`);
         }
       })
       .append(
