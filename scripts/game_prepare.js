@@ -119,7 +119,7 @@ class GamePrepare extends GameManager {
       }
     );
 
-    if (storage.isLevelUp() && !storage.isFirstLoad()){
+    if (storage.isLevelUpMessageTime()){
       this.playSound("audio/levelup.mp3");
     }
 

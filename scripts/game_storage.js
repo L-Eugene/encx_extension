@@ -61,6 +61,25 @@ class GameStorage {
     return this.firstRun;
   }
 
+  _countPassedLevels(levels){
+    var result = 0;
+    levels.forEach(
+      function (level){
+        if (level.Dismissed || level.IsPassed) result = result + 1;
+      }
+    );
+    console.log(result);
+    return result;
+  }
+
+  // return true if it's time to play level-up sound
+  isLevelUpMessageTime(){
+    if (this.isFirstLoad()) return false;
+    if (!this.isStormGame()) return this.isLevelUp();
+    if (this.prev.Levels.length != this.last.Levels.length) return true;
+    return this._countPassedLevels(this.prev.Levels) != this._countPassedLevels(this.last.Levels);
+  }
+
   // Return true if LevelId changed since previous data update
   isLevelUp(){
     // This is first data update
