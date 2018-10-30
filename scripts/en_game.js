@@ -23,9 +23,6 @@ SOFTWARE.
 */
 
 var gameStorage = null;
-var dialogWindows = {
-  gameConfig: false
-};
 
 var ENEXT = {
   // Convert Encounter timestamp to readable date
