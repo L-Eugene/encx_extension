@@ -247,11 +247,17 @@ class GameCodesManager extends GameManager {
       var found = undefined;
       cur.onsuccess = function(event){
         var cursor = event.target.result;
+
         if (cursor) {
           if (
-            found === undefined ||
-            (!found.IsCorrect && cursor.value.IsCorrect) || // Correct over incorrect
-            (cursor.value.IsCorrect && cursor.value.Kind < found.Kind) // Codes over bonuses
+            // Skipping keys from another levels
+            cursor.value.LevelId === gameStorage.getLevelId() &&
+            // Compare key with current input
+            (
+              found === undefined ||
+              (!found.IsCorrect && cursor.value.IsCorrect) || // Correct over incorrect
+              (cursor.value.IsCorrect && cursor.value.Kind < found.Kind) // Codes over bonuses
+            )
           ) {
             found = cursor.value;
           }
