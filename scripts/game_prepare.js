@@ -62,46 +62,48 @@ class GamePrepare extends GameManager {
   initialize (storage){
     this.storage = storage;
 
-    // Add history button
-    $(".header ul .enext-history").remove();
-    $(".header ul")
-      .append(
-        $("<li>")
-          .addClass("enext-history")
-          .append(
-            $("<a>")
-              .append($("<i>"))
-              .append($("<span>").append(chrome.i18n.getMessage("menuHistory")))
-              .click(
-                {
-                  gamePrepare: this,
-                  storage: storage
-                },
-                this.showGameHistory
-              )
-          )
-      )
-      .before(
-        this._gameHistoryDialogTemplate()
-      );
-    this._prepareHistoryDialog();
+    if (storage.isFirstLoad()){
+      // Add history button
+      $(".header ul .enext-history").remove();
+      $(".header ul")
+        .append(
+          $("<li>")
+            .addClass("enext-history")
+            .append(
+              $("<a>")
+                .append($("<i>"))
+                .append($("<span>").append(chrome.i18n.getMessage("menuHistory")))
+                .click(
+                  {
+                    gamePrepare: this,
+                    storage: storage
+                  },
+                  this.showGameHistory
+                )
+            )
+        )
+        .before(
+          this._gameHistoryDialogTemplate()
+        );
+      this._prepareHistoryDialog();
 
-    // Add bonuses and penalty button
-    $(".header ul .enext-bonuses").remove();
-    $(".header ul")
-      .append(
-        $("<li>")
-          .addClass("enext-bonuses")
-          .append(
-            $("<a>")
-              .append($("<i>"))
-              .append(
-                $("<span>").append(chrome.i18n.getMessage("menuBonuses"))
-              )
-              .attr("href", storage.getBonusesURL())
-              .attr("target", "_blank")
-          )
-      );
+      // Add bonuses and penalty button
+      $(".header ul .enext-bonuses").remove();
+      $(".header ul")
+        .append(
+          $("<li>")
+            .addClass("enext-bonuses")
+            .append(
+              $("<a>")
+                .append($("<i>"))
+                .append(
+                  $("<span>").append(chrome.i18n.getMessage("menuBonuses"))
+                )
+                .attr("href", storage.getBonusesURL())
+                .attr("target", "_blank")
+            )
+        );
+    }
 
     this.updateUserInfo(storage, true);
 
