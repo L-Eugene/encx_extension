@@ -25,13 +25,21 @@
   color: grey;
 }
 
+.level-block.level-dismissed {
+  color: grey;
+}
+
 .level-block div.line {
   background: #494949;
   height: 5px;
 }
 
 .level-finished div.line {
-    background: #323232;
+  background: #323232;
+}
+
+.level-dismissed div.line {
+  background: #1F1F1F;
 }
 
 #level-list {

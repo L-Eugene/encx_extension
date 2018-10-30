@@ -108,7 +108,6 @@ $(function(){
       if (!domains.includes(location.hostname)){
         gameStorage = new GameStorage();
 
-        gameStorage.addCallbackObject(new GameEventManager());
         gameStorage.addCallbackObject(new GamePrepare());
         gameStorage.addCallbackObject(new GameCodesManager());
         gameStorage.addCallbackObject(new GameLevelListManager());

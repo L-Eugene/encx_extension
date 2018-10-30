@@ -122,7 +122,7 @@ class GameBonusManager extends GameManager {
         $("<div>")
           .addClass("bonus-hint")
           .attr("id", `bonus-${bonus.BonusId}-hint`)
-          .append(bonus.Help)
+          .append((bonus.Help || '').replace(/\r\n/g, "<br>"))
       )
       .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(

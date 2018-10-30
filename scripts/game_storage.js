@@ -38,6 +38,8 @@ class GameStorage {
     // refresh timer handler
     this.timer = null;
 
+    this.firstRun = true;
+
     this.callbackObjects = [];
     this.errorCallback = undefined;
 
@@ -48,7 +50,7 @@ class GameStorage {
   }
 
   isGameOver(){
-    return [6, 17].includes(this.last.Event);
+    return [6, 17].includes(parseInt(this.last.Event));
   }
 
   isError(){
@@ -56,7 +58,26 @@ class GameStorage {
   }
 
   isFirstLoad(){
-    return null === this.prev;
+    return this.firstRun;
+  }
+
+  _countPassedLevels(levels){
+    var result = 0;
+    levels.forEach(
+      function (level){
+        if (level.Dismissed || level.IsPassed) result = result + 1;
+      }
+    );
+    console.log(result);
+    return result;
+  }
+
+  // return true if it's time to play level-up sound
+  isLevelUpMessageTime(){
+    if (this.isFirstLoad()) return false;
+    if (!this.isStormGame()) return this.isLevelUp();
+    if (this.prev.Levels.length != this.last.Levels.length) return true;
+    return this._countPassedLevels(this.prev.Levels) != this._countPassedLevels(this.last.Levels);
   }
 
   // Return true if LevelId changed since previous data update
@@ -119,6 +140,10 @@ class GameStorage {
   _doErrorCallback(){
     if (undefined === this.errorCallback) return;
 
+    if (this.isGameOver()){
+      location.reload(true);
+    }
+
     if (this.isLevelUp()){
       this.errorCallback.initialize(this);
     }
@@ -173,6 +198,8 @@ class GameStorage {
   storeAPI(data){
     this.prev = this.last;
     this.last = data;
+
+    this.firstRun = null === this.prev;
 
     if (this.isError()) {
       this.Errors.push(this.getErrorBlock());
@@ -244,6 +271,14 @@ class GameStorage {
   isBonusNew(bid){
     if (null === this.prev) return true;
     return null === this._findBonus(this.prev.Level.Bonuses, bid);
+  }
+
+  bonusesAppeared(){
+    return (this.prev.Level.Bonuses.length == 0) && (this.last.Level.Bonuses.length > 0)
+  }
+
+  bonusesDisappeared(){
+    return (this.prev.Level.Bonuses.length > 0) && (this.last.Level.Bonuses.length == 0)
   }
 
   isHashChanged(prev, last, keys){

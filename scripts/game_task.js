@@ -66,6 +66,9 @@ class GameTaskManager extends GameManager {
         .attr("seconds-left", storage.getTimeoutSecondsRemain());
         $("#timeout-block .countdown-timer.forward")
           .attr("seconds-left", storage.getTimeout() - storage.getTimeoutSecondsRemain());
+    } else if (storage.isLevelUp() && !storage.getTimeoutSecondsRemain()) {
+      $("#timeout-block")
+        .replaceWith(this._timeoutTemplate(storage.getLevel()));
     }
 
     // Update sectors header
@@ -154,15 +157,6 @@ class GameTaskManager extends GameManager {
           .append(ENEXT.convertTime(level.TimeoutSecondsRemain))
       )
       .append(" ")
-      .append(chrome.i18n.getMessage("levelOnLevelTime"))
-      .append(
-        $("<span>")
-          .addClass("countdown-timer forward")
-          .attr("seconds-left", level.Timeout - level.TimeoutSecondsRemain)
-          .attr("seconds-step", +1)
-          .append(ENEXT.convertTime(level.Timeout - level.TimeoutSecondsRemain))
-      )
-      .append()
       .append(
         level.TimeoutAward != 0
           ? chrome.i18n.getMessage(
@@ -170,6 +164,15 @@ class GameTaskManager extends GameManager {
               [ENEXT.convertTime(-1*level.TimeoutAward)]
             )
           : ""
+      )
+      .append(" ")
+      .append(chrome.i18n.getMessage("levelOnLevelTime"))
+      .append(
+        $("<span>")
+          .addClass("countdown-timer forward")
+          .attr("seconds-left", level.Timeout - level.TimeoutSecondsRemain)
+          .attr("seconds-step", +1)
+          .append(ENEXT.convertTime(level.Timeout - level.TimeoutSecondsRemain))
       )
       .append(
         $("<div>")
