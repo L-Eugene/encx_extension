@@ -61,21 +61,25 @@ class GameCodesManager extends GameManager {
       { type: "Bonus", storage: this.storage },
       this.storage.sendCode
     );
-
-    $('ul.history').empty();
-
-    if (storage.isBlockage() && storage.getBonuses().length > 0){
-      $("#bonus-box").show();
-    } else {
-      $("#bonus-box").hide();
-    }
-
-    this.actionIds.clear();
   }
 
   update(storage){
     var actions = storage.getHistoryActions();
     var engineAction = storage.getEngineAction();
+
+    if (storage.isLevelUp() || storage.bonusesAppeared() || storage.bonusesDisappeared()){
+      // Show or hide bonus box when it is needed
+      if (storage.isBlockage() && storage.getBonuses().length > 0){
+        $("#bonus-box").show();
+      } else {
+        $("#bonus-box").hide();
+      }
+    }
+
+    if (storage.isLevelUp()){
+      $('ul.history').empty();
+      this.actionIds.clear();
+    }
 
     localDB.storeActions(Object.assign({}, actions));
 

@@ -250,6 +250,14 @@ class GameStorage {
     return null === this._findBonus(this.prev.Level.Bonuses, bid);
   }
 
+  bonusesAppeared(){
+    return (this.prev.Level.Bonuses.length == 0) && (this.last.Level.Bonuses.length > 0)
+  }
+
+  bonusesDisappeared(){
+    return (this.prev.Level.Bonuses.length > 0) && (this.last.Level.Bonuses.length == 0)
+  }
+
   isHashChanged(prev, last, keys){
     var k;
     for (k in keys){
