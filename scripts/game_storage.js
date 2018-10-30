@@ -68,7 +68,6 @@ class GameStorage {
         if (level.Dismissed || level.IsPassed) result = result + 1;
       }
     );
-    console.log(result);
     return result;
   }
 

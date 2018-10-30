@@ -29,12 +29,25 @@ class GameBonusManager extends GameManager {
   }
 
   update(storage){
+    this.hideBonuses = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-hide-complete-bonuses`
+    ));
+    this.showBonusTask = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-show-complete-bonus-task`
+    ));
+    this.showBonusCode = ENEXT.parseBoolean(localStorage.getItem(
+      `${this.storage.getGameId()}-show-complete-bonus-code`
+    ));
+
     $(".bonus-block").attr("delete-mark", true);
     storage.getBonuses().forEach(
       function(bonus){
         if (this.storage.isBonusNew(bonus.BonusId)){
           $("div#bonuses").append(this._bonusTemplate(bonus));
-        } else if (this.storage.isBonusChanged(bonus.BonusId)){
+        } else if (
+          this.storage.isBonusChanged(bonus.BonusId) ||
+          $(`div#bonus-${bonus.BonusId}`).attr("update-mark")
+        ){
           $(`div#bonus-${bonus.BonusId}`)
             .replaceWith(this._bonusTemplate(bonus));
         }
@@ -62,20 +75,9 @@ class GameBonusManager extends GameManager {
       )
       .tooltip();
 
-    var hideBonuses = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-hide-complete-bonuses`
-    ));
-    hideBonuses ? $(".bonus-answered").hide() : $(".bonus-answered").show();
-
-    var showBonusTask = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-show-complete-bonus-task`
-    ));
-    showBonusTask ? $(".bonus-answered .bonus-task").show() : $(".bonus-answered .bonus-task").hide();
-
-    var showBonusCode = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-show-complete-bonus-code`
-    ));
-    showBonusCode ? $(".bonus-answered .bonus-code").show() : $(".bonus-answered .bonus-code").hide();
+    this.hideBonuses ? $(".bonus-answered").hide() : $(".bonus-answered").show();
+    this.showBonusTask ? $(".bonus-answered .bonus-task").show() : $(".bonus-answered .bonus-task").hide();
+    this.showBonusCode ? $(".bonus-answered .bonus-code").show() : $(".bonus-answered .bonus-code").hide();
   }
 
   _bonusInfoTemplate(bonus){
@@ -126,17 +128,21 @@ class GameBonusManager extends GameManager {
       )
       .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
-        $("<div>")
-          .addClass("bonus-task")
-          .attr("id", `bonus-${bonus.BonusId}-task`)
-          .append(bonus.Task)
+        this.showBonusTask
+          ? $("<div>")
+              .addClass("bonus-task")
+              .attr("id", `bonus-${bonus.BonusId}-task`)
+              .append(bonus.Task)
+          : ''
       )
       .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-code`))
       .append(
-        $("<div>")
-          .addClass("bonus-code")
-          .attr("id", `bonus-${bonus.BonusId}-code`)
-          .append(bonus.Answer.Answer)
+        this.showBonusCode
+          ? $("<div>")
+              .addClass("bonus-code")
+              .attr("id", `bonus-${bonus.BonusId}-code`)
+              .append(bonus.Answer.Answer)
+          : ''
       );
   }
 

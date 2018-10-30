@@ -141,6 +141,10 @@ class GamePrepare extends GameManager {
       for (var key in msg.data){
         localStorage.setItem(`${this.storage.getGameId()}-${key}`, msg.data[key]);
       }
+      // Mark all bonuses for update because tasks or codes can be
+      // needed to print or to remove
+      $(".bonus-block").attr("update-mark", true);
+
       this.storage.update({}, true);
     }
   }
