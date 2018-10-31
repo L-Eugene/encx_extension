@@ -30,16 +30,27 @@ var localDB = {
     openDB.onupgradeneeded = function(event) {
       var db = {};
       db.result = openDB.result;
+      db.tx = openDB.transaction
 
-      if (event.oldVersion >= 1){
-        db.result.deleteObjectStore("Actions");
+      var migrations = [
+        // Migrate from version 0 to version 1
+        function(){
+          this.result.createObjectStore("Actions", {keyPath: "ActionId"});
+        },
+
+        // Migrate from version 1 to version 2
+        function(){
+          var store = this.tx.objectStore("Actions");
+
+          store.createIndex("LevelId", "LevelId", { unique: false });
+          store.createIndex("Answer", "Answer", { unique: false });
+          store.createIndex("UserId", "UserId", { unique: false });
+        }
+      ]
+
+      for(var i=event.oldVersion; i<migrations.length; i++){
+        migrations[i].call(db);
       }
-
-      db.store = db.result.createObjectStore("Actions", {keyPath: "ActionId"});
-
-      db.store.createIndex("LevelId", "LevelId", { unique: false });
-      db.store.createIndex("Answer", "Answer", { unique: false });
-      db.store.createIndex("UserId", "UserId", { unique: false });
     };
 
     return openDB;
