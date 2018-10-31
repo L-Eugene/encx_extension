@@ -60,6 +60,25 @@ var localDB = {
     return db;
   },
 
+  // Get first available ActionId
+  storeLastAction(action){
+    var openDB = this.openIndexedDB();
+
+    openDB.onsuccess = function(){
+      var db = localDB.getStoreIndexedDB(openDB);
+
+      var keys = db.store.getAllKeys(IDBKeyRange.upperBound(100000));
+      keys.onsuccess = function(){
+        action.ActionId = 1;
+        if (keys.result.length > 0){
+          action.ActionId = keys.result.sort().pop() + 1;
+        }
+
+        localDB.storeActions([ action ]);
+      }
+    }
+  },
+
   // Append new actions to database
   storeActions(actions){
     var openDB = this.openIndexedDB();
@@ -69,13 +88,17 @@ var localDB = {
 
       Object.keys(actions).forEach(function(action_key){
         var action = actions[action_key];
-        var record = db.store.get(action.ActionId);
+        if (0 === action.ActionId){
+          localDB.storeLastAction(action)
+        } else {
+          var record = db.store.get(action.ActionId);
 
-        record.onsuccess = function(){
-          if (record.result === undefined){
-            db.store.put(action);
-          }
-        };
+          record.onsuccess = function(){
+            if (record.result === undefined){
+              db.store.put(action);
+            }
+          };
+        }
       });
 
       db.tx.oncomplete = function(){

@@ -48,7 +48,7 @@ class Templates {
     return $('<li>')
       .addClass(action.IsCorrect ? 'correct' : '' )
       .attr('order', parseInt(action.EnterDateTime.Value))
-      .append(action.LocDateTime)
+      .append(ENEXT.convertTimestamp(action.EnterDateTime.Value))
       .append('&nbsp;')
       .append(
         $('<a>')
