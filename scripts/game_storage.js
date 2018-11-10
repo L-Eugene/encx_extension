@@ -73,8 +73,9 @@ class GameStorage {
 
   // return true if it's time to play level-up sound
   isLevelUpMessageTime(){
-    if (this.isFirstLoad() || null === this.prev) return false;
+    if (this.isFirstLoad()) return false;
     if (!this.isStormGame()) return this.isLevelUp();
+    if (null === this.prev) return false;
     if (this.prev.Levels.length != this.last.Levels.length) return true;
     return this._countPassedLevels(this.prev.Levels) != this._countPassedLevels(this.last.Levels);
   }
