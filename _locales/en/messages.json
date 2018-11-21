@@ -89,6 +89,15 @@
     "description": "Inline hint in code filter input"
   },
 
+
+  "optionsContactUs": {
+    "message": "Contact developer"
+  },
+
+  "optionsTelegramChat": {
+    "message": "Telegram chat"
+  },
+
   "timeSec": {
     "message": "$1 s",
     "description": "Seconds"

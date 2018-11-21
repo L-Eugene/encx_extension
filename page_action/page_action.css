@@ -24,3 +24,8 @@ ul h3, ul div {
 ul h3 {
   background-color: #dddddd;
 }
+
+.contacts a {
+  text-decoration: none;
+  color: black;
+}

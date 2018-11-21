@@ -89,6 +89,14 @@
     "description": "Подсказка в поле ввода фильтра кодов"
   },
 
+  "optionsContactUs": {
+    "message": "Связь с разработчиком"
+  },
+
+  "optionsTelegramChat": {
+    "message": "Чат в Телеграм"
+  },
+
   "timeSec": {
     "message": "$1 c",
     "description": "Секунды"
