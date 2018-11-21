@@ -5,7 +5,7 @@
   },
 
   "extensionDescription": {
-    "message": "Improves Encounter performance and adds additional features.",
+    "message": "Basic functions:\n- Engine works without page reload;\n- Codes history is stored;\n- Sound notifications on levelUp and hint;\n- Watch bonus task and code afted bonus is complete;\n- Open penalty hints without page reload;\n- Show incomplete sectors list.",
     "description": "Extesion description"
   },
 
