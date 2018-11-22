@@ -23,6 +23,30 @@ SOFTWARE.
 */
 
 class Templates {
+  constructor(){
+    this.styles = "";
+    this.scripts = "";
+
+    // saving engine css tags
+    $("link[rel=stylesheet]").each(
+      $.proxy(
+        function(ind, obj){
+          this.styles += obj.outerHTML
+        },
+        this
+      )
+    );
+
+    // saving engine script tags
+    $("head script").each(
+      $.proxy(
+        function(ind, obj){
+          this.scripts += obj.outerHTML
+        },
+        this
+      )
+    );
+  }
   /*
   Template for historic action record.
 
@@ -190,6 +214,42 @@ class Templates {
         document.write = originalDocumentWrite;
       </script>
       <!--- ADDED BY EN.CX Extension -->
+    `;
+  }
+
+  iframeSandbox(content){
+    return $(
+      "<iframe>",
+      {
+        srcdoc: this._iframeSandboxContent(content),
+        frameborder: 0,
+        sandbox: 'allow-scripts allow-same-origin'
+      }
+    );
+  }
+
+  _iframeSandboxContent(content){
+    return `
+      <html>
+        <head>
+          ${this.styles}
+          ${this.scripts}
+          <style>
+            body.iframe { background: 0; min-width: 0; }
+            html, body.iframe { height: auto; width: auto; }
+            body.iframe div.content { margin: 0; padding: 0; }
+          </style>
+        </head>
+        <body class="iframe">
+          <div class="content">
+            <div class="bonuses">
+              <div class="bonus">
+                ${content}
+              </div>
+            </div>
+          </div>
+        </body>
+      </html>
     `;
   }
 };

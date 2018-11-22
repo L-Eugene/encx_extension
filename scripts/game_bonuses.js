@@ -75,9 +75,17 @@ class GameBonusManager extends GameManager {
       )
       .tooltip();
 
+    // Adjust iframe sizes
+    $("div#bonuses iframe").each(
+      function(ind, frame){
+        frame.onload = function(){
+          this.height = this.contentWindow.document.body.scrollHeight;
+          this.width = this.contentWindow.document.body.scrollWidth;
+        }
+      }
+    );
+
     this.hideBonuses ? $(".bonus-answered").hide() : $(".bonus-answered").show();
-    this.showBonusTask ? $(".bonus-answered .bonus-task").show() : $(".bonus-answered .bonus-task").hide();
-    this.showBonusCode ? $(".bonus-answered .bonus-code").show() : $(".bonus-answered .bonus-code").hide();
   }
 
   _bonusInfoTemplate(bonus){
@@ -132,7 +140,11 @@ class GameBonusManager extends GameManager {
           ? $("<div>")
               .addClass("bonus-task")
               .attr("id", `bonus-${bonus.BonusId}-task`)
-              .append((bonus.Task || '').replace(/\r\n/g, "<br>"))
+              .append(
+                encx_tpl.iframeSandbox(
+                  (bonus.Task || '').replace(/\r\n/g, "<br>")
+                )
+              )
           : ''
       )
       .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-code`))
