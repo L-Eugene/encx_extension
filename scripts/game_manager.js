@@ -36,15 +36,13 @@ class GameManager {
   }
 
   playSound(soundUrl){
-    chrome.storage.local.get(
-      {'enableSound': true},
-      function(result){
-        if (!result.enableSound) return;
+    if (!localStorage.getItem(`${this.storage.getGameId()}-enable-sound`)){
+      // Don't play sound if it is disabled in this game
+      return;
+    }
 
-        var sound = new Audio();
-        sound.src = chrome.extension.getURL(soundUrl);
-        sound.play();
-      }
-    );
+    var sound = new Audio();
+    sound.src = chrome.extension.getURL(soundUrl);
+    sound.play();
   }
 };

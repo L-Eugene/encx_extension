@@ -134,7 +134,8 @@ class GamePrepare extends GameManager {
         "hide-disclosed-sectors": localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false,
         "hide-complete-bonuses": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false,
         "show-complete-bonus-task": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-task`) || false,
-        "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false
+        "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false,
+        "enable-sound": localStorage.getItem(`${this.storage.getGameId()}-enable-sound`) || false
       };
       response(data);
     } else if ((msg.from === 'page_action') && (msg.subject === 'set_options')) {

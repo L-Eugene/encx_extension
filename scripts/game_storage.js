@@ -432,7 +432,8 @@ class GameStorage {
   }
 
   getGameId(){
-    return this.last.GameId;
+    if (null !== this.last) return this.last.GameId;
+    return location.pathname.match(/\d+/)[0];
   }
 
   // Return current level ID

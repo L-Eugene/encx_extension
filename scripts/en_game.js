@@ -98,12 +98,21 @@ $(function(){
   if ($(".gameCongratulation").length) return;
 
   chrome.storage.local.get(
-    {'deniedDomains': ""},
+    {
+      'deniedDomains': "",
+      'enableSound': true
+    },
     function (result){
       var domains = result.deniedDomains.split("|");
       // Run extension only on allowed domains
       if (!domains.includes(location.hostname)){
         gameStorage = new GameStorage();
+
+        // Set global value as default
+        localStorage.setItem(
+          `${gameStorage.getGameId()}-enable-sound`,
+          localStorage.getItem(`${gameStorage.getGameId()}-enable-sound`) || result.enableSound
+        );
 
         gameStorage.addCallbackObject(new GamePrepare());
         gameStorage.addCallbackObject(new GameCodesManager());
