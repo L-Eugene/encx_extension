@@ -100,6 +100,7 @@ $(function(){
   chrome.storage.local.get(
     {
       'deniedDomains': "",
+      'refreshRate': 5,
       'enableSound': true
     },
     function (result){
@@ -112,6 +113,10 @@ $(function(){
         localStorage.setItem(
           `${gameStorage.getGameId()}-enable-sound`,
           localStorage.getItem(`${gameStorage.getGameId()}-enable-sound`) || result.enableSound
+        );
+        localStorage.setItem(
+          `${gameStorage.getGameId()}-refresh-rate`,
+          localStorage.getItem(`${gameStorage.getGameId()}-refresh-rate`) || result.refreshRate
         );
 
         gameStorage.addCallbackObject(new GamePrepare());

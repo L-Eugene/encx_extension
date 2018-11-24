@@ -566,8 +566,6 @@ class GameStorage {
 
   // get new API bundle
   update(data = {}, force = false){
-    var that = this;
-
     // Reset Error list
     this.Errors = [];
 
@@ -588,12 +586,11 @@ class GameStorage {
     );
 
     // get update rate from extension options
-    chrome.storage.local.get(
-      {'refreshRate': 5},
-      function (result){
-        that.timer = setTimeout(function(){ that.update() }, 1000 * result.refreshRate);
-        that.needUpdate = false;
-      }
+    var rate = localStorage.getItem(`${gameStorage.getGameId()}-refresh-rate`);
+    this.timer = setTimeout(
+      $.proxy(function(){ this.update(); }, this),
+      1000 * rate
     );
+    this.needUpdate = false;
   }
 };

@@ -35,16 +35,33 @@ function sendMessage(data, callback = undefined){
 
 function initValues(data){
   for (var key in data){
-    document.querySelector(`#${key}`).checked = (data[key] == "true" || data[key] == true);
+    switch (document.querySelector(`#${key}`).type){
+      case 'checkbox':
+        document.querySelector(`#${key}`).checked = (data[key] == "true" || data[key] == true);
+        break;
+      case 'number':
+        document.querySelector(`#${key}`).value = data[key];
+        break;
+    }
+
   }
 }
 
 function saveValues(){
   var result = {};
+
+  // Collect checkbox options
   var objects = document.querySelectorAll("li input[type=checkbox]");
   for (var key in objects){
     if (undefined !== objects[key].id)
       result[objects[key].id] = objects[key].checked;
+  }
+
+  // Collect numeric options
+  objects = document.querySelectorAll("li input[type=number]");
+  for (var key in objects){
+    if (undefined !== objects[key].id)
+      result[objects[key].id] = objects[key].value;
   }
 
   sendMessage({
@@ -64,5 +81,8 @@ window.addEventListener('DOMContentLoaded', function () {
 initLocalization();
 
 document.querySelectorAll("li input[type=checkbox]").forEach(function (object){
+  object.addEventListener("change", saveValues);
+});
+document.querySelectorAll("li input[type=number]").forEach(function (object){
   object.addEventListener("change", saveValues);
 });
