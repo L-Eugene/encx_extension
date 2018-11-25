@@ -5,7 +5,7 @@
   },
 
   "extensionDescription": {
-    "message": "Basic functions:\n- Engine works without page reload;\n- Codes history is stored;\n- Sound notifications on levelUp and hint;\n- Watch bonus task and code afted bonus is complete;\n- Open penalty hints without page reload;\n- Show incomplete sectors list.",
+    "message": "Improves appearance and functionality of Encounter/Quest.Ua game engine.",
     "description": "Extesion description"
   },
 
