@@ -111,6 +111,27 @@
       "js": [
         "scripts/levelstat_refresh.js"
       ]
+    },
+
+    {
+      "matches": [
+        "*://*.en.cx/PhotoGallery.aspx*",
+        "*://*.encounter.cx/PhotoGallery.aspx*",
+        "*://*.encounter.ru/PhotoGallery.aspx*",
+        "*://*.en-world.org/PhotoGallery.aspx*",
+        "*://*.quest.ua/PhotoGallery.aspx*",
+        "*://quest.ua/PhotoGallery.aspx*"
+      ],
+      "css": [
+        "style/fotorama.css",
+        "style/PhotoGallery.css"
+      ],
+      "js": [
+        "lib/jquery.js",
+        "lib/fotorama.js",
+        "scripts/common/util.js",
+        "scripts/gallery/main.js"
+      ]
     }
   ]
 
