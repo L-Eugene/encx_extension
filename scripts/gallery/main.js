@@ -91,13 +91,19 @@ function buildHTML(data){
   });
 }
 
-function startFotorama(){
+function startFotorama(data){
+  // get index of image from URL
+  var index = data["images"].findIndex((element) => {
+    return new RegExp(`${data["current"]}$`).test(element);
+  });
+
   $(".fotorama").fotorama({
     "nav": "thumbs",
     "navposition": "top",
     "auto": false,
     "height": "95%",
-    "width": "100%"
+    "width": "100%",
+    "startindex": index
   });
 }
 
@@ -108,10 +114,14 @@ $(function(){
       return preloadTitle();
     })
     .then((title) => {
-      return prepareDataHash({"title": title});
+      var current = new URLSearchParams(window.location.search).get("pid");
+      return prepareDataHash({
+        "title": title,
+        "current": current
+      });
     })
     .then((data) => {
       buildHTML(data);
-      startFotorama();
+      startFotorama(data);
     });
 });
