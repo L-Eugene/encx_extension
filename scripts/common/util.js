@@ -24,6 +24,11 @@ SOFTWARE.
 
 "use strict";
 
+// Remove unneeded elements from HTML to allow jQuery to parse it.
+function sanitizeHTML(html){
+  return html.replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/ig, '')
+}
+
 function markBodyWithBrowser(){
   $("body").addClass(
     /firefox/.test(navigator.userAgent.toLowerCase())

@@ -25,39 +25,132 @@ SOFTWARE.
 "use strict";
 
 // Get gallery title: name, link to game and link to author.
-function preloadTitle(){
+function preloadTitle(params){
   return new Promise((resolve, reject) => {
-    $(window.frames[0].document).ready(function(){
-      var result = $("td[nowrap=nowrap]", window.frames[0].document).html();
+    $.get(params["urls"]["header"])
+      .done(
+        (data) => {
+          var html = sanitizeHTML(data);
+          var result = $(html).find("td[nowrap=nowrap]").html();
 
-      if (result != undefined){
-        resolve(result);
-      } else {
-        reject(new Error("No title exists."))
-      }
-    });
+          if (result != undefined){
+            resolve($.extend({}, params, {"title": result}));
+          } else {
+            reject(new Error("No title exists."))
+          }
+        }
+      );
   });
 }
 
 // Prepare hash with list of photos and list of stylesheets.
-function prepareDataHash(initial = {}){
+function prepareDataHash(params){
   return new Promise((resolve, reject) => {
-    var result = $.extend({}, initial);
+    var result = $.extend({}, params);
+    $.get(params["urls"]["preview"])
+      .done((data) => {
+        var html = sanitizeHTML(data);
 
-    $(window.frames[1].document).ready(function(){
-      result["images"] = [];
-      $("img", window.frames[1].document).each(
-        (ind, element) => { result["images"].push($(element).attr('src')); }
-      );
+        result["images"] = [];
+        $(html).find("img").each(
+          (ind, element) => { result["images"].push($(element).attr('src')); }
+        );
 
-      result["styles"] = [];
-      $("head link[rel=stylesheet]", window.frames[1].document).each(
-        (ind, element) => { result["styles"].push($(element).attr('href')); }
-      );
+        result["styles"] = [];
+        var links = data.match(/\<link.*\>/g);
+        for (var i=0; i<links.length; i++){
+          if ($(links[i]).attr("rel") == "stylesheet"){
+            result["styles"].push($(links[i]).attr("href"));
+          }
+        }
 
-      resolve(result);
-    });
+        resolve(result);
+      });
   });
+}
+
+function sendComment(event){
+  if (undefined === this) return;
+
+  var glid = new URLSearchParams(window.location.search).get("glid");
+  var pid = $(this).parents("div[data-name]").attr('data-name');
+
+  var params = {
+    "NewComment": $($(this).parents("table")[0]).find("textarea").val(),
+    "AddComment.x": 42,
+    "AddComment.y": 19
+  };
+
+  $.each(this.attributes, (i, a) => {
+    if (a.name.substr(0, 2) == "__"){ params[a.name.toUpperCase()] = a.value; }
+  });
+
+  $.post(`${location.origin}/PhotoGalleryZoom.aspx?glid=${glid}&pid=${pid}`, params)
+    .done((data) => { printComments(extractComments(data)); })
+}
+
+function removeComment(event){
+  event.preventDefault();
+
+  $.get(location.origin + $(this).attr('href'))
+    .done((data) => { printComments(extractComments(data)); });
+}
+
+function loadComments(image){
+  var params = {
+    "glid": new URLSearchParams(window.location.search).get("glid"),
+    "pid": image
+  };
+
+  return new Promise((resolve, reject) => {
+    $.get( `${location.origin}/PhotoGalleryZoom.aspx`, params)
+      .done((data) => {
+        var result = extractComments(data);
+        if (null !== result){
+          resolve(result);
+        } else {
+          reject();
+        }
+      });
+  });
+}
+
+function extractComments(data){
+  var html = sanitizeHTML(data);
+
+  if ($(html).find("div.hr").parents("table").length === 0) return null;
+
+  var text = $($(html).find("div.hr").parents("table")[0])         // Select comments table
+               .find("script").remove().end()                      // Remove all scripts
+               .find("#enhlDeleteComment")
+                 .removeAttr('id').addClass('removeComment').end() // Replace invalid ID with class
+               .html().replace(/\&nbsp;/g, ' ');                   // Replace spaces
+
+  var result = {
+    "text": `<table>${text}</table>`,
+    "parameters": $(html).find("input[type=hidden]").map((index, element) => {
+      return {
+        "name": $(element).attr("name"),
+        "value": $(element).val()
+      };
+    })
+  };
+
+  return result;
+}
+
+function printComments(result){
+  var scope = window.fotorama.data('fotorama').activeFrame.html;
+  $(".gallery-comments", scope).html(null === result ? "" : result["text"]);
+  if (null === result) return;
+
+  $(".gallery-comments input", scope).on('click', sendComment);
+
+  $.each(result["parameters"], (k, v) => {
+    $(".gallery-comments input", scope).attr(v["name"], v["value"]);
+  });
+
+  $(".removeComment").on('click', removeComment)
 }
 
 function buildHTML(data){
@@ -84,9 +177,17 @@ function buildHTML(data){
   markBodyWithBrowser();
 
   data["images"].forEach((photo) => {
+    var filename = /\/([a-zA-Z0-9\.]*)$/.exec(photo)[1];
     $(".fotorama").append(
-      $("<a>", { "href": photo.replace('previews/', '') })
-        .append($("<img>", { "src": photo }))
+      $("<div>", { "data-thumb": photo, "data-name": filename })
+        .addClass("gallery-flexible")
+        .append(
+          $("<img>", {"src": photo.replace('previews/', '')})
+        )
+        .append(
+          $("<div>")
+            .addClass("gallery-comments fotorama__select")
+        )
     );
   });
 }
@@ -97,28 +198,50 @@ function startFotorama(data){
     return new RegExp(`${data["current"]}$`).test(element);
   });
 
-  $(".fotorama").fotorama({
-    "nav": "thumbs",
-    "navposition": "top",
-    "auto": false,
-    "height": "95%",
-    "width": "100%",
-    "startindex": index
-  });
+  window.fotorama = $(".fotorama")
+    .on(
+      "fotorama:show",
+      (e, fotorama, extra) => {
+        if (window.current_photo_name == fotorama.activeFrame.name) return;
+        window.current_photo_name = fotorama.activeFrame.name;
+
+        loadComments(fotorama.activeFrame.name).then(
+          (result) => { printComments(result); },
+          () => { printComments(null); }
+        );
+      }
+    )
+    .fotorama({
+      "nav": "thumbs",
+      "navposition": "top",
+      "auto": false,
+      "height": "95%",
+      "width": "100%",
+      "startindex": index
+    });
 }
 
 $(function(){
+  window.current_photo_name = '';
   isDomainEnabled()
     .then(() => {
-      $("frameset").hide();
-      return preloadTitle();
+      var params = {
+        "urls": {
+          "header": location.origin + $("frame:eq(0)").attr('src'),
+          "preview": location.origin + $("frame:eq(1)").attr('src'),
+          "zoom": location.origin + $("frame:eq(2)").attr('src')
+        }
+      };
+      $("frameset").remove();
+      return preloadTitle(params);
     })
-    .then((title) => {
-      var current = new URLSearchParams(window.location.search).get("pid");
-      return prepareDataHash({
-        "title": title,
-        "current": current
-      });
+    .then((data) => {
+      return prepareDataHash(
+        $.extend(
+          data,
+          { "current": new URLSearchParams(window.location.search).get("pid") }
+        )
+      );
     })
     .then((data) => {
       buildHTML(data);
