@@ -142,6 +142,20 @@ function extractComments(data){
 function printComments(result){
   var scope = window.fotorama.data('fotorama').activeFrame.html;
   $(".gallery-comments", scope).html(null === result ? "" : result["text"]);
+
+  var params = new URLSearchParams(location.search);
+  params.set('pid', window.current_photo_name);
+  $(".gallery-comments", scope).prepend(
+    $("<a>", {
+      "target": "_blank",
+      "title": chrome.i18n.getMessage("sharePhotoLinkTooltip"),
+      "href": location.origin + location.pathname + '?' + params.toString()
+    })
+    .append(
+      $("<img>", { "src": chrome.extension.getURL("img/link.png") })
+    )
+  );
+
   if (null === result) return;
 
   $(".gallery-comments input", scope).on('click', sendComment);

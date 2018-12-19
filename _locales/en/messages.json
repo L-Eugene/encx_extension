@@ -375,5 +375,9 @@
 
   "engineErrorUnknown": {
     "message": "Unknown error ($1)"
+  },
+
+  "sharePhotoLinkTooltip": {
+    "message": "Link to this photo"
   }
 }
