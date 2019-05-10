@@ -84,17 +84,17 @@
         "lib/jquery-ui.js",
         "scripts/local_database.js",
         "scripts/templates.js",
-        "scripts/game_manager.js",
-        "scripts/game_storage.js",
-        "scripts/game_prepare.js",
-        "scripts/game_codes.js",
-        "scripts/game_level_list.js",
-        "scripts/game_task.js",
-        "scripts/game_hints.js",
-        "scripts/game_bonuses.js",
-        "scripts/game_messages.js",
-        "scripts/game_errors.js",
-        "scripts/en_game.js"
+        "scripts/game/game_manager.js",
+        "scripts/game/game_storage.js",
+        "scripts/game/game_prepare.js",
+        "scripts/game/game_codes.js",
+        "scripts/game/game_level_list.js",
+        "scripts/game/game_task.js",
+        "scripts/game/game_hints.js",
+        "scripts/game/game_bonuses.js",
+        "scripts/game/game_messages.js",
+        "scripts/game/game_errors.js",
+        "scripts/game/en_game.js"
       ]
     },
 
