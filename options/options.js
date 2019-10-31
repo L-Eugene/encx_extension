@@ -53,7 +53,7 @@ function restoreOptions() {
     {
       'selectSentCode': true,
       'enableSound': true,
-      'autoFocus': false,
+      'autoFocus': true,
       'refreshRate': 5,
       'deniedDomains': ""
     },

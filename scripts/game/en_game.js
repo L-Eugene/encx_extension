@@ -101,7 +101,7 @@ $(function(){
     {
       'deniedDomains': "",
       'refreshRate': 5,
-      'autoFocus': false,
+      'autoFocus': true,
       'enableSound': true
     },
     function (result){

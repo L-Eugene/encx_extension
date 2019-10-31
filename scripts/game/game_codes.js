@@ -61,6 +61,10 @@ class GameCodesManager extends GameManager {
       { type: "Bonus", storage: this.storage },
       this.storage.sendCode
     );
+
+    $("input").bind('focus', $.proxy(this._clearAutoFocus, this));
+    $("input").bind('blur', $.proxy(this._setAutoFocus, this));
+    this._setAutoFocus(null);
   }
 
   update(storage){
@@ -237,6 +241,30 @@ class GameCodesManager extends GameManager {
           )
       )
       .hide()
+  }
+
+  // Focus on code or bonus import field.
+  _autoFocus(e){
+    var auto_focus = ENEXT.parseBoolean(localStorage.getItem(`${this.storage.getGameId()}-auto-focus`));
+
+    // Do not focus if option is disabled
+    if (!auto_focus) return;
+
+    if ($("#answer-box").is(":visible")){
+      $("#answer-box #Answer").focus();
+    } else if ($("#bonus-box").is(":visible")) {
+      $("#bonus-box #BonusAnswer").focus();
+    }
+  }
+
+  // Remove autofocus listener when focus is captured
+  _clearAutoFocus(e){
+    $('body').unbind('keydown', $.proxy(this._autoFocus, this));
+  }
+
+  // Set autofocus listener when focus is lost
+  _setAutoFocus(e){
+    $('body').bind('keydown', $.proxy(this._autoFocus, this));
   }
 
   _codeInput(e){
