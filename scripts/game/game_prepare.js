@@ -136,6 +136,7 @@ class GamePrepare extends GameManager {
         "show-complete-bonus-task": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-task`) || false,
         "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false,
         "enable-sound": localStorage.getItem(`${this.storage.getGameId()}-enable-sound`) || false,
+        "auto-focus": localStorage.getItem(`${this.storage.getGameId()}-auto-focus`) || false,
         "refresh-rate": localStorage.getItem(`${this.storage.getGameId()}-refresh-rate`)
       };
       response(data);

@@ -27,6 +27,7 @@ function saveOptions(e) {
   chrome.storage.local.set({
     "selectSentCode": document.querySelector("#selectSentCode").checked,
     "enableSound": document.querySelector("#enableSound").checked,
+    "autoFocus": document.querySelector("#autoFocus").checked,
     "refreshRate": document.querySelector("#refreshRate").value,
     "deniedDomains": deniedDomainList().join('|')
   });
@@ -37,11 +38,10 @@ function restoreOptions() {
   function setCurrentChoice(result) {
     document.querySelector("#selectSentCode").checked = result.selectSentCode;
     document.querySelector("#refreshRate").value = result.refreshRate;
+    document.querySelector("#autoFocus").value = result.autoFocus;
     document.querySelector("#enableSound").checked = result.enableSound;
     result.deniedDomains.split("|").forEach(
-      function(domain){
-        if (domain != "") addDeniedDomain(domain);
-      }
+      function(domain){ if (domain != "") addDeniedDomain(domain); }
     );
   }
 
@@ -53,6 +53,7 @@ function restoreOptions() {
     {
       'selectSentCode': true,
       'enableSound': true,
+      'autoFocus': false,
       'refreshRate': 5,
       'deniedDomains': ""
     },
@@ -119,7 +120,7 @@ function addDeniedDomainBtn(e){
 
 initLocalization();
 document.addEventListener("DOMContentLoaded", restoreOptions);
-["#selectSentCode", "#refreshRate", "#enableSound"].forEach(function(id){
+["#selectSentCode", "#refreshRate", "#autoFocus", "#enableSound"].forEach(function(id){
   document.querySelector(id).addEventListener("change", saveOptions)
 });
 document.querySelector("#addDomainButton").addEventListener("click", addDeniedDomainBtn)

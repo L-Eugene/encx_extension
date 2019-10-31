@@ -29,6 +29,13 @@ function sanitizeHTML(html){
   return html.replace(/^[\s\S]*<body.*?>|<\/body>[\s\S]*$/ig, '')
 }
 
+function snakeToCamelCase(str){
+  return str.replace(
+    /[-_][a-zA-Z]+/g,
+    function(word, index){ return word.charAt(1).toUpperCase() + word.slice(2).toLowerCase(); }
+  );
+}
+
 function markBodyWithBrowser(){
   $("body").addClass(
     /firefox/.test(navigator.userAgent.toLowerCase())

@@ -82,6 +82,7 @@
       "js": [
         "lib/jquery.js",
         "lib/jquery-ui.js",
+        "scripts/common/util.js",
         "scripts/local_database.js",
         "scripts/templates.js",
         "scripts/game/game_manager.js",

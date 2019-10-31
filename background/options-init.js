@@ -28,6 +28,7 @@ chrome.runtime.onInstalled.addListener(
         "selectSentCode": true,
         "refreshRate": 5,
         "enableSound": true,
+        "autoFocus": false,
         "deniedDomains": ""
       });
     }

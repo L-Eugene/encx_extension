@@ -43,6 +43,11 @@
     "description": "Sound notification option"
   },
 
+  "optionsAutoFocus": {
+    "message": "Automatically focus on input field",
+    "description": "Autofocus option"
+  },
+
   "optionsSeconds": {
     "message": "second(s)",
     "description": "Refresh rate units, seconds"
