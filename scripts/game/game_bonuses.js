@@ -136,7 +136,7 @@ class GameBonusManager extends GameManager {
       )
       .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
-        this.showBonusTask
+        (this.showBonusTask && (bonus.Task || '').length > 0)
           ? $("<div>")
               .addClass("bonus-task")
               .attr("id", `bonus-${bonus.BonusId}-task`)
