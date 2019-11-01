@@ -7,10 +7,17 @@
   background-color: darkgreen;
   position: fixed;
   top: 0;
+  right: 20px;
 }
 
 .header .userinfo .mailbox .icon {
   font-size: 1.2em;
+}
+
+#lblGameTitle {
+  display: inline-block;
+  width: 55%;
+  overflow-wrap: break-word;
 }
 
 #error-container {
