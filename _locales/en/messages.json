@@ -294,8 +294,27 @@
   },
 
   "sectorsCount": {
-    "message": "There are <span id='sectors-total'>$1</span> sectors [to close: $2] <span class=color_sec>(<span id='sectors-left'>$3</span> left)</span>",
-    "description": "Sectors information"
+    "message": "There are <span id='sectors-total'>$TOTAL$</span> sectors [to close: $TRESHOLD$] <span class=color_sec>(<span id='sectors-left'>$LEFT$</span> left, <span id='sectors-speed'>$SPEED$</span>)</span>",
+    "description": "Sectors information",
+    "placeholders": {
+      "total": {
+        "content": "$1"
+      },
+      "treshold": {
+        "content": "$2"
+      },
+      "left": {
+        "content": "$3"
+      },
+      "speed": {
+        "content": "$4"
+      }
+    }
+  },
+
+  "sectorsSpeed": {
+    "message": "closing 1 sector per $1",
+    "description": "Sector closing speed"
   },
 
   "bonusesClosedSummary": {

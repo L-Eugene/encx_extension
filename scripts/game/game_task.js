@@ -36,6 +36,21 @@ class GameTaskManager extends GameManager {
     return result;
   }
 
+  _sectorsClosingSpeed(storage){
+    return storage.getSectorsClosedNumber() > 0
+      ? chrome.i18n.getMessage(
+          "sectorsSpeed",
+          [
+            ENEXT.convertTime(
+              Math.round(
+                (ENEXT.currentTimestamp() - ENEXT.convertTimestamp(storage.getLevel().StartTime.Value, "unix")) / storage.getSectorsClosedNumber()
+              )
+            )
+          ]
+        )
+      : "∞"
+  }
+
   initialize(storage){
     this.storage = storage;
 
@@ -52,6 +67,10 @@ class GameTaskManager extends GameManager {
   }
 
   update(storage){
+    var start_ts = ENEXT.convertTimestamp(storage.getLevel().StartTime.Value, "unix");
+    var curr_ts = ENEXT.currentTimestamp();
+    console.log(ENEXT.convertTime(curr_ts - start_ts / storage.getSectorsClosedNumber()));
+
     // Update task header
     if (
       this._titleUpdated(storage.getLevelNumber(), storage.getLevelCount())
@@ -78,6 +97,7 @@ class GameTaskManager extends GameManager {
       $("#sectors-left-list").html(
         this._openSectorList(storage.getSectors())
       );
+      $("#sectors-speed").html(this._sectorsClosingSpeed(storage));
       if (ENEXT.parseBoolean(
         localStorage.getItem(`${storage.getGameId()}-hide-disclosed-sectors`)
       )){
@@ -146,6 +166,7 @@ class GameTaskManager extends GameManager {
 
   _timeoutTemplate(level){
     if (level.TimeoutSecondsRemain == 0) return $("<div class='spacer'></div>");
+
     return $("<h3>")
       .addClass("timer")
       .attr("id", "timeout-block")
@@ -190,7 +211,9 @@ class GameTaskManager extends GameManager {
           [
             level.Sectors.length,
             this.storage.getSectorsToClose(),
-            level.SectorsLeftToClose
+            level.SectorsLeftToClose,
+            // Code closing speed
+            this._sectorsClosingSpeed(this.storage)
           ]
         )
       )

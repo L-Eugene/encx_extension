@@ -293,8 +293,27 @@
   },
 
   "sectorsCount": {
-    "message": "На уровне <span id='sectors-total'>$1</span> секторов [порог: $2] <span class=color_sec>(осталось закрыть <span id='sectors-left'>$3</span>)</span>",
-    "description": "Информация о количестве секторов"
+    "message": "На уровне <span id='sectors-total'>$TOTAL$</span> секторов [порог: $TRESHOLD$] <span class=color_sec>(осталось закрыть <span id='sectors-left'>$LEFT$</span>, <span id='sectors-speed'>$SPEED$</span>)</span>",
+    "description": "Информация о количестве секторов",
+    "placeholders": {
+      "total": {
+        "content": "$1"
+      },
+      "treshold": {
+        "content": "$2"
+      },
+      "left": {
+        "content": "$3"
+      },
+      "speed": {
+        "content": "$4"
+      }
+    }
+  },
+
+  "sectorsSpeed": {
+    "message": "закрываем 1 сектор за $1",
+    "description": "Скорость закрытия секторов"
   },
 
   "sectorsDisclosed": {

@@ -26,10 +26,20 @@ var gameStorage = null;
 
 var ENEXT = {
   // Convert Encounter timestamp to readable date
-  convertTimestamp: function (ts){
+  convertTimestamp: function (ts, format='readable'){
     var d = new Date(ts);
     d.setFullYear(d.getFullYear() - 1969);
-    return d.toLocaleString();
+
+    switch (format){
+      case 'readable':
+        return d.toLocaleString();
+      case 'unix':
+        return Math.round(d.getTime() / 1000);
+    }
+  },
+
+  currentTimestamp: function (){
+    return Math.round(new Date().getTime() / 1000);
   },
 
   parseBoolean:function (value, bydefault = false){
