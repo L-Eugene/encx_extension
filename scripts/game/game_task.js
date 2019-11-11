@@ -69,7 +69,6 @@ class GameTaskManager extends GameManager {
   update(storage){
     var start_ts = ENEXT.convertTimestamp(storage.getLevel().StartTime.Value, "unix");
     var curr_ts = ENEXT.currentTimestamp();
-    console.log(ENEXT.convertTime(curr_ts - start_ts / storage.getSectorsClosedNumber()));
 
     // Update task header
     if (
