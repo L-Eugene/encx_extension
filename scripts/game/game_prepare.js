@@ -52,8 +52,6 @@ class GamePrepare extends GameManager {
   }
 
   initialize (storage){
-    this.storage = storage;
-
     if (storage.isFirstLoad()){
       // Add history button
       $(".header ul .enext-history").remove();

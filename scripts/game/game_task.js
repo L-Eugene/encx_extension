@@ -52,8 +52,6 @@ class GameTaskManager extends GameManager {
   }
 
   initialize(storage){
-    this.storage = storage;
-
     $("div.content")
       .append(this._titleTemplate(storage.getGame()))
       .append(this._timeoutTemplate(storage.getLevel()))

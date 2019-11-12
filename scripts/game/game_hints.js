@@ -24,7 +24,6 @@ SOFTWARE.
 
 class GameHintManager extends GameManager {
   initialize(storage){
-    this.storage = storage;
     $("div.content").append("<div id='hints'></div>");
   }
 

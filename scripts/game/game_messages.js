@@ -24,8 +24,6 @@ SOFTWARE.
 
 class GameMessagesManager extends GameManager {
   initialize(storage){
-    this.storage = storage
-
     $(".globalmess").remove();
     $(".header").after(
       $("<p>")

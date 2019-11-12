@@ -31,8 +31,6 @@ class GameCodesManager extends GameManager {
   }
 
   initialize(storage){
-    this.storage = storage;
-
     if ($("input#Answer").length){
       $("input#Answer").parent().remove();
     }

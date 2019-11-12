@@ -24,7 +24,6 @@ SOFTWARE.
 
 class GameBonusManager extends GameManager {
   initialize(storage){
-    this.storage = storage;
     $("div.content").append("<div id='bonuses'></div>");
   }
 
