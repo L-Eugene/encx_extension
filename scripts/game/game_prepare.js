@@ -45,14 +45,6 @@ class GamePrepare extends GameManager {
     // Replace Encounter logo
     $("a.logo").attr("target", "_blank");
 
-    // Enable pageAction
-    chrome.runtime.sendMessage({ "message": "activate_icon" });
-
-    // Getting and setting options for this game
-    chrome.runtime.onMessage.addListener(
-      $.proxy(this.gameOptionsListener, this)
-    );
-
     this.userUpdateTime = 0;
 
     $(".header")
@@ -126,30 +118,6 @@ class GamePrepare extends GameManager {
     }
 
     this.updateUserInfo(storage);
-  }
-
-  gameOptionsListener(msg, sender, response){
-    if ((msg.from === 'page_action') && (msg.subject === 'get_options')) {
-      var data = {
-        "hide-disclosed-sectors": localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false,
-        "hide-complete-bonuses": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false,
-        "show-complete-bonus-task": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-task`) || false,
-        "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false,
-        "enable-sound": localStorage.getItem(`${this.storage.getGameId()}-enable-sound`) || false,
-        "auto-focus": localStorage.getItem(`${this.storage.getGameId()}-auto-focus`) || true,
-        "refresh-rate": localStorage.getItem(`${this.storage.getGameId()}-refresh-rate`)
-      };
-      response(data);
-    } else if ((msg.from === 'page_action') && (msg.subject === 'set_options')) {
-      for (var key in msg.data){
-        localStorage.setItem(`${this.storage.getGameId()}-${key}`, msg.data[key]);
-      }
-      // Mark all bonuses for update because tasks or codes can be
-      // needed to print or to remove
-      $(".bonus-block").attr("update-mark", true);
-
-      this.storage.update({}, true);
-    }
   }
 
   showLevelStat(event){

@@ -119,9 +119,6 @@ $(function(){
 
       var domains = result.deniedDomains.split("|");
 
-      // Run extension only on allowed domains
-      if (domains.includes(location.hostname)) return;
-
       // Set global values as default
       var option_key;
       var option_list = ['enable-sound', 'refresh-rate', 'auto-focus'];
@@ -131,6 +128,11 @@ $(function(){
           localStorage.getItem(`${gameStorage.getGameId()}-${option_list[option_key]}`) || eval(`result.${snakeToCamelCase(option_list[option_key])}`)
         );
       }
+
+      gameStorage.addCallbackObject(new GamePageAction());
+
+      // Run extension only on allowed domains
+      if (domains.includes(location.hostname)) return;
 
       gameStorage.addCallbackObject(new GamePrepare());
       gameStorage.addCallbackObject(new GameCodesManager());

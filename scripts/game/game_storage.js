@@ -175,6 +175,7 @@ class GameStorage {
 
   // add an objetc to callback list
   addCallbackObject(obj){
+    obj.storage = this;
     this.callbackObjects.push(obj);
   }
 

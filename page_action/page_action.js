@@ -34,17 +34,28 @@ function sendMessage(data, callback = undefined){
 }
 
 function initValues(data){
-  for (var key in data){
-    switch (document.querySelector(`#${key}`).type){
-      case 'checkbox':
-        document.querySelector(`#${key}`).checked = (data[key] == "true" || data[key] == true);
-        break;
-      case 'number':
-        document.querySelector(`#${key}`).value = data[key];
-        break;
-    }
+  chrome.storage.local.get(
+    { 'deniedDomains': "" },
+    (result) => {
+      // disable-domain is calculated here, not sent from game page script
+      data["disable-domain"] = result.deniedDomains.split("|").includes(data["domain"]);
 
-  }
+      // hostname is sent from page to get it's domain
+      // no need to set it somewhere on menu
+      delete data["domain"];
+
+      for (var key in data){
+        switch (document.querySelector(`#${key}`).type){
+          case 'checkbox':
+            document.querySelector(`#${key}`).checked = (data[key] == "true" || data[key] == true);
+            break;
+          case 'number':
+            document.querySelector(`#${key}`).value = data[key];
+            break;
+        }
+      }
+    }
+  )
 }
 
 function saveValues(){

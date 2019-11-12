@@ -87,6 +87,7 @@
         "scripts/templates.js",
         "scripts/game/game_manager.js",
         "scripts/game/game_storage.js",
+        "scripts/game/game_page_action.js",
         "scripts/game/game_prepare.js",
         "scripts/game/game_codes.js",
         "scripts/game/game_level_list.js",

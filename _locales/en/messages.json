@@ -48,6 +48,11 @@
     "description": "Autofocus option"
   },
 
+  "optionsDisableDomain": {
+    "message": "Disable current domain",
+    "description": "Disable extension for current domain option"
+  },
+
   "optionsSeconds": {
     "message": "second(s)",
     "description": "Refresh rate units, seconds"
