@@ -54,6 +54,16 @@ function getStorageLocal(request){
   });
 }
 
+function isOptionTruePromise(optionName){
+  return new Promise((resolve, reject) => {
+    isOptionTrue(optionName) ? resolve() : reject();
+  });
+}
+
+function isOptionTrue(optionName){
+  return ENEXT.parseBoolean(localStorage.getItem(optionName) || false)
+}
+
 // Check if current domain is in disable list or not
 function isDomainEnabled(){
   return getStorageLocal({ 'deniedDomains': "" })

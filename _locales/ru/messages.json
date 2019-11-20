@@ -53,6 +53,11 @@
     "description": "Опция отключения расширения на текущем домене"
   },
 
+  "optionsDisableChat": {
+    "message": "Скрыть чат",
+    "description": "Опция скрытия игрового чата"
+  },
+
   "optionsSeconds": {
     "message": "секунд(ы)",
     "description": "Единица измерения интервала обновления, секунды"
@@ -83,8 +88,8 @@
     "description": "Заголовок окна настроек игры"
   },
 
-  "optionsTitleSectors": {
-    "message": "Сектора",
+  "optionsTitleSectorsBonuses": {
+    "message": "Сектора и бонусы",
     "description": "Заголовок группы настроек секторов в меню"
   },
 

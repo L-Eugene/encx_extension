@@ -48,6 +48,7 @@ class GamePageAction extends GameManager {
         "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false,
         "enable-sound": localStorage.getItem(`${this.storage.getGameId()}-enable-sound`) || false,
         "auto-focus": localStorage.getItem(`${this.storage.getGameId()}-auto-focus`) || true,
+        "disable-chat": localStorage.getItem(`${this.storage.getGameId()}-disable-chat`) || false,
         "refresh-rate": localStorage.getItem(`${this.storage.getGameId()}-refresh-rate`),
         "domain": location.hostname
       };

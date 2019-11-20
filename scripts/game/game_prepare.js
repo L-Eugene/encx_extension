@@ -116,6 +116,11 @@ class GamePrepare extends GameManager {
     }
 
     this.updateUserInfo(storage);
+
+    isOptionTruePromise(`${this.storage.getGameId()}-disable-chat`).then(
+      () => { $('#ChatForm, #ChatFrame').hide(); },
+      () => { $('#ChatForm, #ChatFrame').show(); }
+    );
   }
 
   showLevelStat(event){

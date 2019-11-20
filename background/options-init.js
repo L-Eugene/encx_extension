@@ -29,6 +29,7 @@ chrome.runtime.onInstalled.addListener(
         "refreshRate": 5,
         "enableSound": true,
         "autoFocus": true,
+        "disableChat": false,
         "deniedDomains": ""
       });
     }
