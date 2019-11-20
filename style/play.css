@@ -90,6 +90,10 @@ body.gc a.logo img {
   background: url("chrome-extension://__MSG_@@extension_id__/img/logo-48.png");
 }
 
+#game-history-download-csv {
+  display: none;
+}
+
 #game-history-codes {
   display: flex;
   flex-direction: column;

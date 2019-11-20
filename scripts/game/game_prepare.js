@@ -197,6 +197,7 @@ class GamePrepare extends GameManager {
   _gameHistoryDialogTemplate(){
     return `
     <div class="game-history-box" id="game-history-dialog" title="${chrome.i18n.getMessage("optionsGameHistoryDialog")}">
+      <textarea id="game-history-download-csv"></textarea>
       <table>
         <tr>
           <td>
@@ -283,6 +284,9 @@ class GamePrepare extends GameManager {
         : [parseInt($("#game-history-level").val())];
       $("#game-history-codes li").remove();
 
+      // Create CSV header
+      $("#game-history-download-csv").text("LevelNumber,Login,Time,Answer,IsCorrect\n");
+
       db.store.openCursor().onsuccess = function(event){
         var cursor = event.target.result;
         if (cursor){
@@ -299,8 +303,15 @@ class GamePrepare extends GameManager {
               $("#game-history-filter").val().toLowerCase()
             )
           ){
+            // Put code to form list
             $("#game-history-codes").append(
               encx_tpl.historicActionTemplate(cursor.value)
+            );
+
+            // Put code to csv
+            $("#game-history-download-csv").text(
+              $("#game-history-download-csv").text() +
+              `"${cursor.value.LevelNumber}","${cursor.value.Login}","${cursor.value.LocDateTime}","${cursor.value.Answer}","${cursor.value.IsCorrect}"\n`
             );
           }
           cursor.continue();
@@ -313,6 +324,10 @@ class GamePrepare extends GameManager {
     $("#game-history-dialog").dialog({
         autoOpen: false,
         buttons: [
+          {
+            text: chrome.i18n.getMessage("buttonDownload"),
+            click: this.gameHistoryDialogDownload
+          },
           {
             text: chrome.i18n.getMessage("buttonOk"),
             click: this.gameHistoryDialogClose
@@ -338,6 +353,28 @@ class GamePrepare extends GameManager {
 
   gameHistoryDialogClose(e){
     $("#game-history-dialog").dialog("close");
+  }
+
+  gameHistoryDialogDownload(e){
+    var element = document.createElement('a');
+
+    element.setAttribute(
+      'href',
+      URL.createObjectURL(
+        new Blob(
+          [$("#game-history-download-csv").text()],
+          {type: "text/csv"}
+        )
+      )
+    );
+    element.setAttribute('download', 'game_monitoring.csv');
+
+    element.style.display = 'none';
+    document.body.appendChild(element);
+
+    element.click();
+
+    document.body.removeChild(element);
   }
 
   showGameHistory(e){
