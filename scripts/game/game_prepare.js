@@ -285,7 +285,7 @@ class GamePrepare extends GameManager {
       $("#game-history-codes li").remove();
 
       // Create CSV header
-      $("#game-history-download-csv").text("LevelNumber,Login,Time,Answer,IsCorrect\n");
+      $("#game-history-download-csv").text("LevelNumber,Login,Time,Type,Answer,IsCorrect\n");
 
       db.store.openCursor().onsuccess = function(event){
         var cursor = event.target.result;
@@ -311,7 +311,7 @@ class GamePrepare extends GameManager {
             // Put code to csv
             $("#game-history-download-csv").text(
               $("#game-history-download-csv").text() +
-              `"${cursor.value.LevelNumber}","${cursor.value.Login}","${cursor.value.LocDateTime}","${cursor.value.Answer}","${cursor.value.IsCorrect}"\n`
+              `"${cursor.value.LevelNumber}","${cursor.value.Login}","${cursor.value.LocDateTime}","${cursor.value.Kind == 2 ? 'Bonus' : 'Code'}","${cursor.value.Answer}","${cursor.value.IsCorrect}"\n`
             );
           }
           cursor.continue();
