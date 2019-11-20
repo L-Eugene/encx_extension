@@ -243,7 +243,7 @@ class GameCodesManager extends GameManager {
 
   // Focus on code or bonus import field.
   _autoFocus(e){
-    var auto_focus = ENEXT.parseBoolean(localStorage.getItem(`${this.storage.getGameId()}-auto-focus`));
+    var auto_focus = isOptionTrue(`${this.storage.getGameId()}-auto-focus`);
 
     // Do not move focus anywhere if any input is focused now.
     if ($(':focus').is('input')){

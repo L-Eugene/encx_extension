@@ -36,10 +36,8 @@ class GameManager {
   }
 
   playSound(soundUrl){
-    if (!localStorage.getItem(`${this.storage.getGameId()}-enable-sound`)){
-      // Don't play sound if it is disabled in this game
-      return;
-    }
+    // Don't play sound if it is disabled in this game
+    if (!isOptionTrue(`${this.storage.getGameId()}-enable-sound`)) return;
 
     var sound = new Audio();
     sound.src = chrome.extension.getURL(soundUrl);

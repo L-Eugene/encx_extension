@@ -95,9 +95,7 @@ class GameTaskManager extends GameManager {
         this._openSectorList(storage.getSectors())
       );
       $("#sectors-speed").html(this._sectorsClosingSpeed(storage));
-      if (ENEXT.parseBoolean(
-        localStorage.getItem(`${storage.getGameId()}-hide-disclosed-sectors`)
-      )){
+      if (isOptionTrue(`${storage.getGameId()}-hide-disclosed-sectors`)){
         $("#sectors-left-list-block").hide();
       } else {
         $("#sectors-left-list-block").show();

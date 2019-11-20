@@ -28,15 +28,9 @@ class GameBonusManager extends GameManager {
   }
 
   update(storage){
-    this.hideBonuses = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-hide-complete-bonuses`
-    ));
-    this.showBonusTask = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-show-complete-bonus-task`
-    ));
-    this.showBonusCode = ENEXT.parseBoolean(localStorage.getItem(
-      `${this.storage.getGameId()}-show-complete-bonus-code`
-    ));
+    this.hideBonuses = isOptionTrue(`${this.storage.getGameId()}-hide-complete-bonuses`);
+    this.showBonusTask = isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-task`);
+    this.showBonusCode = isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-code`);
 
     $(".bonus-block").attr("delete-mark", true);
     storage.getBonuses().forEach(
