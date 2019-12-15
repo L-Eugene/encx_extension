@@ -5,6 +5,7 @@
   min-width: 80px;
   cursor: pointer;
   border-radius: 15px;
+  border: 2px solid transparent;
 }
 
 .level-block:hover {
@@ -43,73 +44,6 @@
 }
 
 #level-list {
-    border:solid 1px rgba(0,0,0,0.3);
-    border-radius:4px;
-    box-shadow:0 0 0 4px rgba(125,125,125,0.1);
-    margin:40px 20px;
-    overflow:hidden;
-    padding:0;
-    position:relative;
-    width:auto;
-}
-
-/* navigation items */
-#level-list .navigation {
-    background:rgba(0,0,0,0.1);
-    color:rgba(255,255,255,0.1);
-    display: block;
-    padding-top:40px;
-    text-decoration: none;
-    font-family:verdana,sans-serif;
-    font-size:3em;
-    height:100%;
-    position:absolute;
-    text-align:center;
-    text-shadow:rgba(0,0,0,0.1);
-    width:30px;
-    -moz-transition:all 0.4s;
-    -ms-transition:all 0.4s;
-    -webkit-transition:all 0.4s;
-    -o-transition:all 0.4s;
-    transition:all 0.4s;
-    -moz-user-select: none;
-    user-select: none;
-}
-
-#level-list:hover .navigation {
-    background:rgba(0,0,0,0.3);
-    color:rgba(255,255,255,0.8);
-    text-shadow:rgba(0,0,0,0.7);
-}
-
-#level-list .navigation:hover {
-    background:rgba(0,0,0,0.5);
-}
-
-#level-list .previous {
-    left:0;
-}
-
-#level-list .next {
-    right:0;
-}
-
-/* carousel container */
-#level-list ul {
-    -moz-box-orient:horizontal;
-    -ms-box-orient:horizontal;
-    -webkit-box-orient:horizontal;
-    -o-box-orient:horizontal;
-    box-orient:horizontal;
-
-    display:-moz-box;
-    display:-ms-box;
-    display:-webkit-box;
-    display:-o-box;
-    display:box;
-
-    list-style-type:none;
-    margin:5px;
-    margin-left:0px;
-    padding:0;
+  width: auto;
+  margin: 40px 20px; 
 }
