@@ -1,3 +1,7 @@
+.container .header {
+  padding-right: 50%;
+}
+
 .header .userinfo {
   text-align: center;
   font-size: x-small;
@@ -16,7 +20,6 @@
 
 #lblGameTitle {
   display: inline-block;
-  width: 55%;
   overflow-wrap: break-word;
 }
 
