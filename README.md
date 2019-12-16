@@ -20,9 +20,9 @@
 * Игровые скрипты, рассчитанные на определенную последовательность исполнения (порядок прогрузки бонусов, например), могут работать некорректно.
 
 ## Как установить?
-На текущий момент доступно в [магазине приложений Chrome](https://chrome.google.com/webstore/detail/%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%B2%D0%B8%D0%B6%D0%BA%D0%B0-encx/ifmagkfplnbpeandhkhiigbglofgihfl).
+На текущий момент доступно в [магазине приложений Chrome](https://chrome.google.com/webstore/detail/%D1%80%D0%B0%D1%81%D1%88%D0%B8%D1%80%D0%B5%D0%BD%D0%B8%D0%B5-%D0%B4%D0%B2%D0%B8%D0%B6%D0%BA%D0%B0-encx/ifmagkfplnbpeandhkhiigbglofgihfl) и в [Mozilla add-ons](https://addons.mozilla.org/ru/firefox/addon/en-cx-extension/).
 
-Для других браузеров устанавливается из файлов, которые можно скачать по [ссылке](https://github.com/L-Eugene/encx_extension/releases/latest).
+Также есть возможность установки из файлов, которые можно скачать по [ссылке](https://github.com/L-Eugene/encx_extension/releases/latest).
 
 **Mozilla Firefox** - файл .xpi
 
