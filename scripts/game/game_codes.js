@@ -254,6 +254,9 @@ class GameCodesManager extends GameManager {
     // Do not focus if option is disabled
     if (!auto_focus) return;
 
+    // Do not focus if user is casting hotkey
+    if (e.ctrlKey || e.altKey) return;
+
     if ($("#answer-box").is(":visible")){
       $("#answer-box #Answer").focus();
     } else if ($("#bonus-box").is(":visible")) {
