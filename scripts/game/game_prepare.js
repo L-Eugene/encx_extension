@@ -313,6 +313,9 @@ class GamePrepare extends GameManager {
             );
           }
           cursor.continue();
+        } else {
+          // Scroll to top of history list
+          $("#game-history-codes").scrollTop(0);
         }
       }
     });
