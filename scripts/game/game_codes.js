@@ -275,8 +275,7 @@ class GameCodesManager extends GameManager {
   }
 
   _codeInput(e){
-    var codeDB = localDB.openIndexedDB();
-    codeDB.onsuccess = function(){
+    localDB.openIndexedDB().then((codeDB) => {
       var db = localDB.getStoreIndexedDB(codeDB);
       var cur = db.ind.answer.openCursor(IDBKeyRange.only(e.target.value));
       var found = undefined;
@@ -313,6 +312,6 @@ class GameCodesManager extends GameManager {
           }
         }
       };
-    };
+    });
   }
 };

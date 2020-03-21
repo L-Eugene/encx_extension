@@ -23,43 +23,59 @@ SOFTWARE.
 */
 
 var localDB = {
+  odb_cache: undefined,
+
   // initialize storages
   openIndexedDB(){
-    var openDB = indexedDB.open("Codes", 2);
-
-    openDB.onupgradeneeded = function(event) {
-      var db = {};
-      db.result = openDB.result;
-      db.tx = openDB.transaction
-
-      var migrations = [
-        // Migrate from version 0 to version 1
-        function(){
-          this.result.createObjectStore("Actions", {keyPath: "ActionId"});
-        },
-
-        // Migrate from version 1 to version 2
-        function(){
-          var store = this.tx.objectStore("Actions");
-
-          store.createIndex("LevelId", "LevelId", { unique: false });
-          store.createIndex("Answer", "Answer", { unique: false });
-          store.createIndex("UserId", "UserId", { unique: false });
-        }
-      ]
-
-      for(var i=event.oldVersion; i<migrations.length; i++){
-        migrations[i].call(db);
+    return new Promise((resolve, reject) => {
+      if (localDB.odb_cache != undefined && localDB.odb_cache.readyState != "done"){
+        resolve(localDB.odb_cache);
+        return;
       }
-    };
 
-    return openDB;
+      var openDB = indexedDB.open("Codes", 2);
+
+      openDB.onupgradeneeded = function(event) {
+        var db = {};
+        db.result = openDB.result;
+        db.tx = openDB.transaction
+
+        var migrations = [
+          // Migrate from version 0 to version 1
+          function(){
+            this.result.createObjectStore("Actions", {keyPath: "ActionId"});
+          },
+
+          // Migrate from version 1 to version 2
+          function(){
+            var store = this.tx.objectStore("Actions");
+
+            store.createIndex("LevelId", "LevelId", { unique: false });
+            store.createIndex("Answer", "Answer", { unique: false });
+            store.createIndex("UserId", "UserId", { unique: false });
+          }
+        ]
+
+        for(var i=event.oldVersion; i<migrations.length; i++){
+          migrations[i].call(db);
+        }
+      };
+
+      openDB.onsuccess = function(event) {
+        localDB.odb_cache = event.target.result;
+        resolve(localDB.odb_cache);
+      }
+
+      openDB.onerror = function(event){
+        reject(event.target.result);
+      }
+    });
   },
 
   // Prepare indexes
   getStoreIndexedDB(openDB){
     var db = {};
-    db.result = openDB.result;
+    db.result = openDB;
     db.tx = db.result.transaction("Actions", "readwrite");
     db.store = db.tx.objectStore("Actions");
     db.ind = {
@@ -71,36 +87,23 @@ var localDB = {
     return db;
   },
 
-  // Get first available ActionId
-  storeLastAction(action){
-    var openDB = this.openIndexedDB();
-
-    openDB.onsuccess = function(){
-      var db = localDB.getStoreIndexedDB(openDB);
-
-      var keys = db.store.getAllKeys(IDBKeyRange.upperBound(100000));
-      keys.onsuccess = function(){
-        action.ActionId = 1;
-        if (keys.result.length > 0){
-          action.ActionId = keys.result.sort().pop() + 1;
-        }
-
-        localDB.storeActions([ action ]);
-      }
-    }
-  },
-
   // Append new actions to database
   storeActions(actions){
-    var openDB = this.openIndexedDB();
-
-    openDB.onsuccess = function(){
+    this.openIndexedDB().then((openDB) => {
       var db = localDB.getStoreIndexedDB(openDB);
 
       Object.keys(actions).forEach(function(action_key){
         var action = actions[action_key];
         if (0 === action.ActionId){
-          localDB.storeLastAction(action)
+          // Last action of level
+          var keys = db.store.getAllKeys(IDBKeyRange.upperBound(100000));
+          keys.onsuccess = function(){
+            action.ActionId = 1;
+            if (keys.result.length > 0){
+              action.ActionId = keys.result.sort().pop() + 1;
+            }
+            db.store.put(action);
+          }
         } else {
           var record = db.store.get(action.ActionId);
 
@@ -111,10 +114,6 @@ var localDB = {
           };
         }
       });
-
-      db.tx.oncomplete = function(){
-        db.result.close();
-      };
-    }
+    });
   }
 }
