@@ -118,6 +118,7 @@ var localDB = {
           var keys = db.store.getAllKeys(IDBKeyRange.upperBound(100000));
           keys.onsuccess = function(){
             action.ActionId = 1;
+            action.Kind = 1;
             if (keys.result.length > 0){
               action.ActionId = keys.result.sort().pop() + 1;
             }
