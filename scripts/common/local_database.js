@@ -33,12 +33,12 @@ var localDB = {
         return;
       }
 
-      var openDB = indexedDB.open("Codes", 2);
+      var openDB = indexedDB.open("Codes", 3);
 
       openDB.onupgradeneeded = function(event) {
         var db = {};
         db.result = openDB.result;
-        db.tx = openDB.transaction
+        db.tx = openDB.transaction;
 
         var migrations = [
           // Migrate from version 0 to version 1
@@ -53,6 +53,27 @@ var localDB = {
             store.createIndex("LevelId", "LevelId", { unique: false });
             store.createIndex("Answer", "Answer", { unique: false });
             store.createIndex("UserId", "UserId", { unique: false });
+          },
+
+          // Migrate from version 2 to version 3
+          // Add uppercase field for code comparision
+          function(){
+            var store = this.tx.objectStore("Actions");
+
+            store.openCursor().onsuccess = function(event){
+              var cursor = event.target.result;
+              if (!cursor) return;
+
+              var value = cursor.value;
+              // Adding capitalized answer to impelement case-insensibility
+              value.AnswerCaps = value.Answer.toUpperCase();
+
+              event.target.source.put(value);
+
+              cursor.continue();
+            }
+
+            store.createIndex("AnswerCaps", "AnswerCaps", { unique: false });
           }
         ]
 
@@ -78,11 +99,6 @@ var localDB = {
     db.result = openDB;
     db.tx = db.result.transaction("Actions", "readwrite");
     db.store = db.tx.objectStore("Actions");
-    db.ind = {
-      level_id: db.store.index("LevelId"),
-      answer: db.store.index("Answer"),
-      user_id: db.store.index("UserId")
-    };
 
     return db;
   },
@@ -94,6 +110,9 @@ var localDB = {
 
       Object.keys(actions).forEach(function(action_key){
         var action = actions[action_key];
+
+        // Adding capitalized answer to impelement case-insensibility
+        action.AnswerCaps = action.Answer.toUpperCase();
         if (0 === action.ActionId){
           // Last action of level
           var keys = db.store.getAllKeys(IDBKeyRange.upperBound(100000));

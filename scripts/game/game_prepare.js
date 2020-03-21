@@ -253,7 +253,7 @@ class GamePrepare extends GameManager {
           ? e.data.storage.getLevelIds()
           : [parseInt($("#game-history-level").val())];
         var added = [];
-        db.ind.user_id.openCursor(null, "next").onsuccess = function(event){
+        db.store.index("UserId").openCursor(null, "next").onsuccess = function(event){
           var cursor = event.target.result;
           if (cursor){
             if (

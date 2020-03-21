@@ -277,7 +277,7 @@ class GameCodesManager extends GameManager {
   _codeInput(e){
     localDB.openIndexedDB().then((codeDB) => {
       var db = localDB.getStoreIndexedDB(codeDB);
-      var cur = db.ind.answer.openCursor(IDBKeyRange.only(e.target.value));
+      var cur = db.store.index("AnswerCaps").openCursor(IDBKeyRange.only(e.target.value.toUpperCase()));
       var found = undefined;
       cur.onsuccess = function(event){
         var cursor = event.target.result;
