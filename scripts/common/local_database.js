@@ -33,7 +33,7 @@ var localDB = {
         return;
       }
 
-      var openDB = indexedDB.open("Codes", 3);
+      var openDB = indexedDB.open("Codes", 4);
 
       openDB.onupgradeneeded = function(event) {
         var db = {};
@@ -74,6 +74,14 @@ var localDB = {
             }
 
             store.createIndex("AnswerCaps", "AnswerCaps", { unique: false });
+          },
+
+          // Remove unused indexes
+          function(){
+            var store = this.tx.objectStore("Actions");
+
+            store.deleteIndex("Answer");
+            store.deleteIndex("LevelId");
           }
         ]
 
