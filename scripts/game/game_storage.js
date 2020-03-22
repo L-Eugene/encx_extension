@@ -541,13 +541,9 @@ class GameStorage {
     );
 
     // Select sent code only if option is set in extension config
-    chrome.storage.local.get(
-      'selectSentCode',
-      function (result){
-        if (result.selectSentCode)
-          $(event.target).find("input.placeholder").select();
-      }
-    );
+    if (isOptionTrue(`${event.data.storage.getGameId()}-select-sent-code`)){
+      $(event.target).find("input.placeholder").select();
+    }
   }
 
   markForUpdate(){

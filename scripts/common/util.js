@@ -60,8 +60,10 @@ function isOptionTruePromise(optionName){
   });
 }
 
-function isOptionTrue(optionName){
-  return ENEXT.parseBoolean(localStorage.getItem(optionName) || false)
+function isOptionTrue(optionName, defaultVal = false){
+  var val = localStorage.getItem(optionName);
+  if (val == null || val == undefined) val = defaultVal;
+  return ENEXT.parseBoolean(val);
 }
 
 // Check if current domain is in disable list or not

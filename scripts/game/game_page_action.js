@@ -42,13 +42,14 @@ class GamePageAction extends GameManager {
   gameOptionsListener(msg, sender, response){
     if ((msg.from === 'page_action') && (msg.subject === 'get_options')) {
       var data = {
-        "hide-disclosed-sectors": localStorage.getItem(`${this.storage.getGameId()}-hide-disclosed-sectors`) || false,
-        "hide-complete-bonuses": localStorage.getItem(`${this.storage.getGameId()}-hide-complete-bonuses`) || false,
-        "show-complete-bonus-task": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-task`) || false,
-        "show-complete-bonus-code": localStorage.getItem(`${this.storage.getGameId()}-show-complete-bonus-code`) || false,
-        "enable-sound": localStorage.getItem(`${this.storage.getGameId()}-enable-sound`) || false,
-        "auto-focus": localStorage.getItem(`${this.storage.getGameId()}-auto-focus`) || true,
-        "disable-chat": localStorage.getItem(`${this.storage.getGameId()}-disable-chat`) || false,
+        "hide-disclosed-sectors": isOptionTrue(`${this.storage.getGameId()}-hide-disclosed-sectors`),
+        "hide-complete-bonuses": isOptionTrue(`${this.storage.getGameId()}-hide-complete-bonuses`),
+        "show-complete-bonus-task": isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-task`),
+        "show-complete-bonus-code": isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-code`),
+        "enable-sound": isOptionTrue(`${this.storage.getGameId()}-enable-sound`),
+        "auto-focus": isOptionTrue(`${this.storage.getGameId()}-auto-focus`, true),
+        "select-sent-code": isOptionTrue(`${this.storage.getGameId()}-select-sent-code`, true),
+        "disable-chat": isOptionTrue(`${this.storage.getGameId()}-disable-chat`),
         "refresh-rate": localStorage.getItem(`${this.storage.getGameId()}-refresh-rate`),
         "domain": location.hostname
       };

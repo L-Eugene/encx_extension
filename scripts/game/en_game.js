@@ -112,6 +112,7 @@ $(function(){
       'deniedDomains': "",
       'refreshRate': 5,
       'autoFocus': true,
+      'selectSentCode': true,
       'enableSound': true
     },
     function (result){
@@ -121,7 +122,7 @@ $(function(){
 
       // Set global values as default
       var option_key;
-      var option_list = ['enable-sound', 'refresh-rate', 'auto-focus'];
+      var option_list = ['enable-sound', 'refresh-rate', 'auto-focus', 'select-sent-code'];
       for (option_key in option_list){
         localStorage.setItem(
           `${gameStorage.getGameId()}-${option_list[option_key]}`,
