@@ -24,6 +24,22 @@ SOFTWARE.
 
 var tabId;
 
+function showMenuPage(pageName){
+  document.querySelectorAll("li").forEach((item) => {
+    var dp = item.getAttribute("data-page");
+    if (dp != null && dp != ""){
+      item.hidden = dp == pageName ? false : true;
+    }
+  });
+
+  document.querySelectorAll(`div.menu-button`).forEach((item) => {
+    item.classList.remove("active");
+    if (item.getAttribute("data-page") == pageName){
+      item.classList.add("active");
+    }
+  });
+}
+
 function sendMessage(data, callback = undefined){
   chrome.tabs.query({
     active: true,
@@ -89,6 +105,7 @@ window.addEventListener('DOMContentLoaded', function () {
   )
 });
 
+showMenuPage('engine');
 initLocalization();
 
 document.querySelectorAll("li input[type=checkbox]").forEach(function (object){
@@ -96,4 +113,10 @@ document.querySelectorAll("li input[type=checkbox]").forEach(function (object){
 });
 document.querySelectorAll("li input[type=number]").forEach(function (object){
   object.addEventListener("change", saveValues);
+});
+
+document.querySelectorAll("div.menu .menu-button").forEach(function (object){
+  object.addEventListener("click", (event) => {
+    showMenuPage(event.target.getAttribute("data-page"));
+  });
 });
