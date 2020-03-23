@@ -11,30 +11,76 @@
     <form>
       <table>
         <tr>
+          <td colspan=2 class=disclaimer>
+            <span message-key="optionsEngineOptionsDisclaimer"> </span>
+          </td>
+        </tr>
+        <tr>
           <td colspan=2><h2 message-key="optionsEngineOptions"></h2></td>
         </tr>
         <tr>
-          <td><label message-key="optionsSelectSentCode" for="selectSentCode"></label></td>
-          <td><input type="checkbox" id="selectSentCode"></td>
+          <td><label message-key="optionsRefreshRate" for="refreshRate"></label></td>
+          <td><input class="option" type="number" id="refreshRate" min="3" max="60"> <span message-key="optionsSeconds"></span></td>
         </tr>
         <tr>
-          <td><label message-key="optionsRefreshRate" for="refreshRate"></label></td>
-          <td><input type="number" id="refreshRate" min="3" max="60"> <span message-key="optionsSeconds"></span></td>
+          <td><label message-key="optionsSelectSentCode" for="selectSentCode"></label></td>
+          <td><input class="option" type="checkbox" id="selectSentCode"></td>
         </tr>
         <tr>
           <td><label message-key="optionsAutoFocus" for="autoFocus"></label></td>
-          <td><input type="checkbox" id="autoFocus"></td>
+          <td><input class="option" type="checkbox" id="autoFocus"></td>
         </tr>
         <tr>
           <td><label message-key="optionsEnableSound" for="enableSound"></label></td>
-          <td><input type="checkbox" id="enableSound"></td>
+          <td><input class="option" type="checkbox" id="enableSound"></td>
         </tr>
+        <tr>
+          <td><label message-key="optionsDisableChat" for="disableChat"></label></td>
+          <td><input class="option" type="checkbox" id="disableChat"></td>
+        </tr>
+
+        <tr>
+          <td colspan=2><h2 message-key="optionsTitleSectorsBonuses"></h2></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsHideDisclosedSectors" for="hideDisclosedSectors"></label></td>
+          <td><input class="option" type="checkbox" id="hideDisclosedSectors"></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsHideCompleteBonuses" for="hideCompleteBonuses"></label></td>
+          <td><input class="option" type="checkbox" id="hideCompleteBonuses"></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsShowCompleteBonusTask" for="showCompleteBonusTask"></label></td>
+          <td><input class="option" type="checkbox" id="showCompleteBonusTask"></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsShowCompleteBonusCode" for="showCompleteBonusCode"></label></td>
+          <td><input class="option" type="checkbox" id="showCompleteBonusCode"></td>
+        </tr>
+
+        <tr>
+          <td colspan=2><h2 message-key="optionsMenuOptions"></h2></td>
+        </tr>
+        <tr>
+          <td><label message-key="optionsDefaultPageActionTab" for="defaultPageActionTab"></label></td>
+          <td>
+            <select class="option" type="checkbox" id="defaultPageActionTab">
+              <option value="keys" message-key="optionsTitleSectorsBonuses"> </option>
+              <option value="notifications" message-key="optionsNotifications"> </option>
+              <option value="engine" message-key="optionsEngineOptions" selected> </option>
+              <option value="contacts" message-key="optionsContactUs">contacts</option>
+            </select>
+          </td>
+        </tr>
+
         <tr>
           <td colspan=2><h2 message-key="optionsExceptionsOptions"></h2></td>
         </tr>
         <tr>
-          <td><label message-key="optionsDeniedDomains" for="addDomainName"></label></td>
-          <td>
+          <td colspan=2>
+            <label message-key="optionsDeniedDomains" for="addDomainName"></label>
+            <br>
             <div class="domain-list">
               <input type=text id="addDomainName">
               <button id="addDomainButton">+</button>

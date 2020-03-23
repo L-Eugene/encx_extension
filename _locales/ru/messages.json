@@ -24,9 +24,21 @@
     "description": "Настройки игрового движка"
   },
 
+  "optionsEngineOptionsDisclaimer": {
+    "message": "Здесь вы можете задать значения по умолчанию для всех настроек. В дальнейшем вы сможете изменить эти значения индивидуально для каждой игры с помощью меню."
+  },
+
+  "optionsMenuOptions": {
+    "message": "Настройки игрового меню"
+  },
+
   "optionsExceptionsOptions": {
     "message": "Настройки исключений",
     "description": "Настройки исключений"
+  },
+
+  "optionsDefaultPageActionTab": {
+    "message": "Вкладка по умолчанию в игровом меню"
   },
 
   "optionsSelectSentCode": {

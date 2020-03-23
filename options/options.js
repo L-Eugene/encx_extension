@@ -24,11 +24,21 @@ SOFTWARE.
 
 function saveOptions(e) {
   e.preventDefault();
+
   chrome.storage.local.set({
     "selectSentCode": document.querySelector("#selectSentCode").checked,
     "enableSound": document.querySelector("#enableSound").checked,
     "autoFocus": document.querySelector("#autoFocus").checked,
     "refreshRate": document.querySelector("#refreshRate").value,
+    "disableChat": document.querySelector("#disableChat").checked,
+
+    "hideDisclosedSectors": document.querySelector("#hideDisclosedSectors").checked,
+    "hideCompleteBonuses": document.querySelector("#hideCompleteBonuses").checked,
+    "showCompleteBonusTask": document.querySelector("#showCompleteBonusTask").checked,
+    "showCompleteBonusCode": document.querySelector("#showCompleteBonusCode").checked,
+
+    "defaultPageActionTab": document.querySelector("#defaultPageActionTab").value,
+
     "deniedDomains": deniedDomainList().join('|')
   });
 }
@@ -40,6 +50,15 @@ function restoreOptions() {
     document.querySelector("#refreshRate").value = result.refreshRate;
     document.querySelector("#autoFocus").value = result.autoFocus;
     document.querySelector("#enableSound").checked = result.enableSound;
+    document.querySelector("#disableChat").checked = result.disableChat;
+
+    document.querySelector("#hideDisclosedSectors").checked = result.hideDisclosedSectors;
+    document.querySelector("#hideCompleteBonuses").checked = result.hideCompleteBonuses;
+    document.querySelector("#showCompleteBonusTask").checked = result.showCompleteBonusTask;
+    document.querySelector("#showCompleteBonusCode").checked = result.showCompleteBonusCode;
+
+    document.querySelector("#defaultPageActionTab").value = result.defaultPageActionTab;
+
     result.deniedDomains.split("|").forEach(
       function(domain){ if (domain != "") addDeniedDomain(domain); }
     );
@@ -51,11 +70,20 @@ function restoreOptions() {
 
   chrome.storage.local.get(
     {
-      'selectSentCode': true,
-      'enableSound': true,
-      'autoFocus': true,
-      'refreshRate': 5,
-      'deniedDomains': ""
+      "selectSentCode": true,
+      "refreshRate": 5,
+      "autoFocus": true,
+      "enableSound": true,
+      "disableChat": false,
+
+      "hideDisclosedSectors": false,
+      "hideCompleteBonuses": false,
+      "showCompleteBonusTask": false,
+      "showCompleteBonusCode": false,
+
+      "defaultPageActionTab": "engine",
+
+      "deniedDomains": ""
     },
     setCurrentChoice
   )
@@ -120,7 +148,7 @@ function addDeniedDomainBtn(e){
 
 initLocalization();
 document.addEventListener("DOMContentLoaded", restoreOptions);
-["#selectSentCode", "#refreshRate", "#autoFocus", "#enableSound"].forEach(function(id){
-  document.querySelector(id).addEventListener("change", saveOptions)
+document.querySelectorAll(".option").forEach(function(element){
+  element.addEventListener("change", saveOptions);
 });
 document.querySelector("#addDomainButton").addEventListener("click", addDeniedDomainBtn)

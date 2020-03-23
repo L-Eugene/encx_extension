@@ -1,3 +1,7 @@
+body {
+  min-width: 40em;
+}
+
 form {
   font-size: 14px;
 }
@@ -5,6 +9,18 @@ form {
 form td {
   padding: 5px;
   vertical-align: top;
+}
+
+td:nth-last-child(2) {
+  text-align: right;
+}
+
+td:only-child {
+  text-align: center;
+}
+
+form table {
+  width: 100%;
 }
 
 .submit-button {
@@ -33,4 +49,13 @@ form td {
 
 .errorneous {
   box-shadow: 0 0 3px #CC0000;
+}
+
+td.disclaimer {
+  background-color: sandybrown;
+  border: 1px solid black;
+  border-radius: 10px;
+  text-align: justify;
+  text-indent: 1em;
+  padding: 1em;
 }

@@ -27,9 +27,17 @@ chrome.runtime.onInstalled.addListener(
       chrome.storage.local.set({
         "selectSentCode": true,
         "refreshRate": 5,
-        "enableSound": true,
         "autoFocus": true,
+        "enableSound": true,
         "disableChat": false,
+
+        "hideDisclosedSectors": false,
+        "hideCompleteBonuses": false,
+        "showCompleteBonusTask": false,
+        "showCompleteBonusCode": false,
+
+        "defaultPageActionTab": "engine",
+
         "deniedDomains": ""
       });
     }

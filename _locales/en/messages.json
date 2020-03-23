@@ -24,9 +24,21 @@
     "description": "Game engine preferences"
   },
 
+  "optionsEngineOptionsDisclaimer": {
+    "message": "You can define default values for extension options here. You can redefine them for each game using page menu."
+  },
+
+  "optionsMenuOptions": {
+    "message": "Game menu options"
+  },
+
   "optionsExceptionsOptions": {
     "message": "Exclusions",
     "description": "Exclusions"
+  },
+
+  "optionsDefaultPageActionTab": {
+    "message": "Вкладка по умолчанию в игровом меню"
   },
 
   "optionsSelectSentCode": {
