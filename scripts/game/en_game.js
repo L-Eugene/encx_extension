@@ -109,11 +109,20 @@ $(function(){
 
   chrome.storage.local.get(
     {
-      'deniedDomains': "",
-      'refreshRate': 5,
-      'autoFocus': true,
       'selectSentCode': true,
-      'enableSound': true
+      'enableSound': true,
+      'autoFocus': true,
+      'refreshRate': 5,
+      'disableChat': false,
+
+      'hideDisclosedSectors': false,
+      'hideCompleteBonuses': false,
+      'showCompleteBonusTask': false,
+      'showCompleteBonusCode': false,
+
+      'defaultPageActionTab': "engine",
+
+      'deniedDomains': ""
     },
     function (result){
       gameStorage = new GameStorage();
@@ -122,11 +131,25 @@ $(function(){
 
       // Set global values as default
       var option_key;
-      var option_list = ['enable-sound', 'refresh-rate', 'auto-focus', 'select-sent-code'];
+      var option_list = [
+        'enable-sound',
+        'refresh-rate',
+        'auto-focus',
+        'select-sent-code',
+        'disable-chat',
+
+        'hide-disclosed-sectors',
+        'hide-complete-bonuses',
+        'show-complete-bonus-task',
+        'show-complete-bonus-code',
+
+        'default-page-action-tab'
+      ];
       for (option_key in option_list){
+        var value = localStorage.getItem(`${gameStorage.getGameId()}-${option_list[option_key]}`);
         localStorage.setItem(
           `${gameStorage.getGameId()}-${option_list[option_key]}`,
-          localStorage.getItem(`${gameStorage.getGameId()}-${option_list[option_key]}`) || eval(`result.${snakeToCamelCase(option_list[option_key])}`)
+          value != null ? value : eval(`result.${snakeToCamelCase(option_list[option_key])}`)
         );
       }
 
