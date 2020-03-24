@@ -51,6 +51,7 @@ class GamePageAction extends GameManager {
         "select-sent-code": isOptionTrue(`${this.storage.getGameId()}-select-sent-code`, true),
         "disable-chat": isOptionTrue(`${this.storage.getGameId()}-disable-chat`),
         "refresh-rate": localStorage.getItem(`${this.storage.getGameId()}-refresh-rate`),
+        "default-page-action-tab": localStorage.getItem(`${this.storage.getGameId()}-default-page-action-tab`),
         "domain": location.hostname
       };
 

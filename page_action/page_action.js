@@ -24,7 +24,7 @@ SOFTWARE.
 
 var tabId;
 
-function showMenuPage(pageName){
+function showMenuPage(pageName, saveData = true){
   document.querySelectorAll("li").forEach((item) => {
     var dp = item.getAttribute("data-page");
     if (dp != null && dp != ""){
@@ -38,6 +38,10 @@ function showMenuPage(pageName){
       item.classList.add("active");
     }
   });
+
+  document.querySelector("#default-page-action-tab").value = pageName;
+
+  if (saveData) { saveValues(); }
 }
 
 function sendMessage(data, callback = undefined){
@@ -70,6 +74,8 @@ function initValues(data){
             break;
         }
       }
+
+      showMenuPage(data["default-page-action-tab"], false);
     }
   )
 }
@@ -85,7 +91,7 @@ function saveValues(){
   }
 
   // Collect numeric options
-  objects = document.querySelectorAll("li input[type=number]");
+  objects = document.querySelectorAll("li input[type=number], li input[type=hidden]");
   for (var key in objects){
     if (undefined !== objects[key].id)
       result[objects[key].id] = objects[key].value;
@@ -105,7 +111,6 @@ window.addEventListener('DOMContentLoaded', function () {
   )
 });
 
-showMenuPage('engine');
 initLocalization();
 
 document.querySelectorAll("li input[type=checkbox]").forEach(function (object){
