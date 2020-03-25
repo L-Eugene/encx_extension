@@ -99,7 +99,7 @@ body.gc a.logo img {
 
 #game-history-codes {
   display: flex;
-  flex-direction: column-reverse;
+  flex-direction: column;
   width: 100%;
   height: 200px;
   overflow-y: auto;
