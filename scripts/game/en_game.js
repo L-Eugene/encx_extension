@@ -33,6 +33,20 @@ var ENEXT = {
     switch (format){
       case 'readable':
         return d.toLocaleString();
+      case 'encounter':
+        var time = `${d.getHours().toString().padStart(2, '0')}:` +
+                   `${d.getMinutes().toString().padStart(2, '0')}:` +
+                   `${d.getSeconds().toString().padStart(2, '0')}`;
+        var date = `${d.getDate().toString().padStart(2, '0')}.` +
+                   `${(d.getMonth() + 1).toString().padStart(2, '0')}`;
+        var diff = Math.floor((Date.now() - d) / (1000*60*60*24)); // Measured in days
+        if (diff > 180){ // Show full date if more than 6 month ago
+          return `${date}.${d.getFullYear()} ${time}`;
+        } else if (diff > 0) { // Show day and month if more than 24 hours ago
+          return `${date} ${time}`;
+        } else { // Just Time
+          return time;
+        }
       case 'unix':
         return Math.round(d.getTime() / 1000);
     }
