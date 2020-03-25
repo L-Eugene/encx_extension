@@ -43,6 +43,22 @@ form table {
   overflow-y: scroll;
 }
 
+.add-domain input {
+  width: 85%;
+}
+
+.single-domain {
+  text-align: left;
+}
+
+.single-domain:nth-child(2n) {
+  background-color: lightgrey;
+}
+
+.single-domain button {
+  margin: 0 20px;
+}
+
 .single-domain span {
   margin-left: 5px;
 }
