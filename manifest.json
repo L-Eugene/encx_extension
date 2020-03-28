@@ -104,6 +104,33 @@
     },
 
     {
+      "matches": [
+        "*://*.en.cx/gameenginecaching.aspx*",
+        "*://*.encounter.cx/gameenginecaching.aspx*",
+        "*://*.encounter.ru/gameenginecaching.aspx*",
+        "*://*.en-world.org/gameenginecaching.aspx*",
+        "*://*.quest.ua/gameenginecaching.aspx*",
+        "*://quest.ua/gameenginecaching.aspx*",
+        "*://*.en.cx/GameEngineCaching.aspx*",
+        "*://*.encounter.cx/GameEngineCaching.aspx*",
+        "*://*.encounter.ru/GameEngineCaching.aspx*",
+        "*://*.en-world.org/GameEngineCaching.aspx*",
+        "*://*.quest.ua/GameEngineCaching.aspx*",
+        "*://quest.ua/GameEngineCaching.aspx*"
+      ],
+      "css": [
+        "style/mapbox.uncompressed.css",
+        "style/caching.css"
+      ],
+      "js": [
+        "lib/jquery.js",
+        "lib/mapbox.uncompressed.js",
+        "scripts/common/util.js",
+        "scripts/caching/en_caching.js"
+      ]
+    },
+
+    {
       "all_frames": true,
       "matches": [
         "*://*.en.cx/LevelStat.aspx*",
