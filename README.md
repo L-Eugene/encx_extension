@@ -1,6 +1,4 @@
 # EN.CX webextension
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/59bd6c037b9046b2b02349fb1522c260)](https://www.codacy.com/app/L-Eugene/encx_extension?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=L-Eugene/encx_extension&amp;utm_campaign=Badge_Grade)
-
 Расширение для браузера, улучшающее игровой процесс на движке en.cx и quest.ua.
 Работает во всех популярных браузерах (Google Chrome, Mozilla Firefox, Opera)
 
