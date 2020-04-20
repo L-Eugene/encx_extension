@@ -163,7 +163,7 @@ $(function(){
         var value = localStorage.getItem(`${gameStorage.getGameId()}-${option_list[option_key]}`);
         localStorage.setItem(
           `${gameStorage.getGameId()}-${option_list[option_key]}`,
-          value != null ? value : eval(`result.${snakeToCamelCase(option_list[option_key])}`)
+          value != null ? value : result[snakeToCamelCase(option_list[option_key])]
         );
       }
 
