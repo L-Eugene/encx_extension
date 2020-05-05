@@ -231,30 +231,34 @@ class GameTaskManager extends GameManager {
   }
 
   _completeSectorTemplate(sector){
-    return $("<span>")
-      .addClass("color_correct")
-      .append(sector.Answer.Answer)
-      .append("&nbsp;")
-      .append(
-        $("<span>")
-          .addClass("color_sec")
-          .append("(")
-          .append(ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Value))
-          .append("&nbsp;")
-          .append(
-            $("<a>")
-              .attr("href", `/userdetails.aspx?uid=${sector.Answer.UserId}`)
-              .attr("target", "_blank")
-              .append(sector.Answer.Login)
-          )
-          .append(")")
-      )
+    return [
+      `${sector.Name}: `,
+      $("<span>")
+        .addClass("color_correct")
+        .append(sector.Answer.Answer),
+      "&nbsp;",
+      $("<span>")
+        .addClass("color_sec")
+        .append("(")
+        .append(ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Value))
+        .append("&nbsp;")
+        .append(
+          $("<a>")
+            .attr("href", `/userdetails.aspx?uid=${sector.Answer.UserId}`)
+            .attr("target", "_blank")
+            .append(sector.Answer.Login)
+        )
+        .append(")")
+    ];
   }
 
   _incompleteSectorTemplate(sector){
-    return $("<span>")
-      .addClass("color_dis")
-      .append(chrome.i18n.getMessage("sectorDisclosed"));
+    return [
+      `${sector.Name}: `,
+      $("<span>")
+        .addClass("color_dis")
+        .append(chrome.i18n.getMessage("sectorDisclosed"))
+    ];
   }
 
   _sectorTemplate(sector){
@@ -263,7 +267,6 @@ class GameTaskManager extends GameManager {
       .attr("id", `sector-${sector.SectorId}`)
       .attr("id-numeric", sector.SectorId)
       .attr("delete-mark", false)
-      .append(`${sector.Name}: `)
       .append(
         sector.IsAnswered
           ? this._completeSectorTemplate(sector)
