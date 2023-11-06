@@ -23,6 +23,8 @@ SOFTWARE.
 */
 
 class GameLevelListManager extends GameManager {
+  /* Indicates if subscription on slick arrows already happened */
+  _subscribed = false;
   constructor(){
     super();
     this.activeLevel = -1;
@@ -33,31 +35,34 @@ class GameLevelListManager extends GameManager {
       this.activeLevel = storage.getLevelId();
       $("div.content")
         .append(this._levelListTemplate(storage.getGame()));
-      $('#level-list').on('init', (e, slick) => {
-        $('.slick-arrow').on('mouseover', (e) => {
-          $(e.currentTarget).attr('autoscroll', true);
-          var Interval = setInterval(
-            () => {
-              switch ($(e.currentTarget).attr('aria-label')){
-                case 'Previous':
-                  $('#level-list').slick('slickPrev');
-                  break;
-                case 'Next':
-                  $('#level-list').slick('slickNext');
-                  break;
-              }
+      if (!this._subscribed) {
+        this._subscribed = true;
+        $('#level-list').on('init', (e, slick) => {
+          $('body').on('mouseover', '.slick-arrow', (e) => {
+            $(e.currentTarget).attr('autoscroll', true);
+            var Interval = setInterval(
+              () => {
+                switch ($(e.currentTarget).attr('aria-label')){
+                  case 'Previous':
+                    $('#level-list').slick('slickPrev');
+                    break;
+                  case 'Next':
+                    $('#level-list').slick('slickNext');
+                    break;
+                }
 
-              if ($(e.currentTarget).attr('autoscroll') == undefined){
-                clearInterval(Interval);
-              }
-            },
-            250
-          );
+                if ($(e.currentTarget).attr('autoscroll') == undefined){
+                  clearInterval(Interval);
+                }
+              },
+              250
+            );
+          });
+          $('body').on('mouseout', '.slick-arrow', (e) => {
+            $(e.currentTarget).removeAttr('autoscroll');
+          });
         });
-        $('.slick-arrow').on('mouseout', (e) => {
-          $(e.currentTarget).removeAttr('autoscroll');
-        });
-      })
+      }
       $('#level-list').slick({
         slidesToShow: 9,
         slidesToScroll: 5,
