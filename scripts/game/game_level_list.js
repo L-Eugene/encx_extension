@@ -34,8 +34,7 @@ class GameLevelListManager extends GameManager {
       $("div.content")
         .append(this._levelListTemplate(storage.getGame()));
       $('#level-list').on('init', (e, slick) => {
-        console.log(e, slick);
-        $('body').on('mouseover', '.slick-arrow', (e) => {
+        $('.slick-arrow').on('mouseover', (e) => {
           $(e.currentTarget).attr('autoscroll', true);
           var Interval = setInterval(
             () => {
@@ -55,7 +54,7 @@ class GameLevelListManager extends GameManager {
             250
           );
         });
-        $('body').on('mouseout', '.slick-arrow', (e) => {
+        $('.slick-arrow').on('mouseout', (e) => {
           $(e.currentTarget).removeAttr('autoscroll');
         });
       })
