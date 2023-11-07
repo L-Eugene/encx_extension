@@ -47,16 +47,14 @@ class GameStorage {
 
     // Flag to show that we need an update
     this.needUpdate = false;
-    if (this.isStormGame()) {
-      addEventListener('popstate', (event) => {
-        if (!event.state?.levelHash) {
-          return;
-        }
-  
-        const state = event.state.levelHash;
-        this.changeLevel(state.LevelId, state.LevelNumber, true);
-      });
-    }
+    addEventListener('popstate', (event) => {
+      if (!event.state?.levelHash || !this.isStormGame()) {
+        return;
+      }
+
+      const state = event.state.levelHash;
+      this.changeLevel(state.LevelId, state.LevelNumber, true);
+    });
   }
 
   isGameOver(){
