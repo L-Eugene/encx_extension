@@ -47,6 +47,14 @@ class GameStorage {
 
     // Flag to show that we need an update
     this.needUpdate = false;
+    addEventListener('popstate', (event) => {
+      if (!event.state?.levelHash || !this.isStormGame()) {
+        return;
+      }
+
+      const state = event.state.levelHash;
+      this.changeLevel(state.LevelId, state.LevelNumber, true);
+    });
   }
 
   isGameOver(){
@@ -554,9 +562,15 @@ class GameStorage {
     if (this.needUpdate) this.update({}, true);
   }
 
-  changeLevel(lid, ln){
+  changeLevel(lid, ln, skipPush = false){
     this.levelHash.LevelId = lid;
     this.levelHash.LevelNumber = ln;
+
+    if (this.isStormGame() && !skipPush) {
+      const url = new URL(location);
+      url.searchParams.set('level', ln);
+      history.pushState({ levelHash: { ...this.levelHash } }, '', url);
+    }
 
     this.update({}, true);
   }
