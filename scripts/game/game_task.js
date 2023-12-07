@@ -43,7 +43,7 @@ class GameTaskManager extends GameManager {
           [
             ENEXT.convertTime(
               Math.round(
-                (ENEXT.currentTimestamp() - ENEXT.convertTimestamp(storage.getLevel().StartTime.Value, "unix")) / storage.getSectorsClosedNumber()
+                (ENEXT.currentTimestamp() - ENEXT.convertTimestamp(storage.getLevel().StartTime.Timestamp, "unix")) / storage.getSectorsClosedNumber()
               )
             )
           ]
@@ -65,7 +65,7 @@ class GameTaskManager extends GameManager {
   }
 
   update(storage){
-    var start_ts = ENEXT.convertTimestamp(storage.getLevel().StartTime.Value, "unix");
+    var start_ts = ENEXT.convertTimestamp(storage.getLevel().StartTime.Timestamp, "unix");
     var curr_ts = ENEXT.currentTimestamp();
 
     // Update task header
@@ -240,7 +240,7 @@ class GameTaskManager extends GameManager {
       $("<span>")
         .addClass("color_sec")
         .append("(")
-        .append(ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Value))
+        .append(ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Timestamp))
         .append("&nbsp;")
         .append(
           $("<a>")

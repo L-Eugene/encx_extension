@@ -84,7 +84,7 @@ class GameBonusManager extends GameManager {
   _bonusInfoTemplate(bonus){
     return $("<span>")
       .addClass("color_sec")
-      .append(`(${ENEXT.convertTimestamp(bonus.Answer.AnswerDateTime.Value)} `)
+      .append(`(${ENEXT.convertTimestamp(bonus.Answer.AnswerDateTime.Timestamp)} `)
       .append(
         $("<a>")
           .attr("href", `/userdetails.aspx?uid=${bonus.Answer.UserId}`)
