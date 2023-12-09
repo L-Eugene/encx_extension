@@ -27,8 +27,7 @@ var gameStorage = null;
 var ENEXT = {
   // Convert Encounter timestamp to readable date
   convertTimestamp: function (ts, format='readable'){
-    var d = new Date(ts);
-    d.setFullYear(d.getFullYear() - 1969);
+    var d = new Date(ts * 1000);
 
     switch (format){
       case 'readable':
