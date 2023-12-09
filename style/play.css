@@ -221,3 +221,7 @@ div#level-stat-dialog iframe {
 	background-color: #426f42;
   color: #00ff00;
 }
+
+.ui-tooltip {
+  white-space: pre-line;
+}
