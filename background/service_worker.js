@@ -1,7 +1,7 @@
 /*
 MIT License
 
-Copyright (c) 2018-2019 Eugene Lapeko
+Copyright (c) 2023 Eugene Lapeko
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -21,10 +21,33 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.*/
 
-chrome.runtime.onMessage.addListener(
-  function(request, sender, sendResponse) {
-    if (request.message === "activate_icon") {
-      chrome.pageAction.show(sender.tab.id);
+chrome.runtime.onInstalled.addListener(
+    function (details){
+      if (details.reason == "install"){
+        chrome.storage.local.set({
+          "selectSentCode": true,
+          "refreshRate": 5,
+          "autoFocus": true,
+          "enableSound": true,
+          "disableChat": false,
+  
+          "hideDisclosedSectors": false,
+          "hideCompleteBonuses": false,
+          "showCompleteBonusTask": false,
+          "showCompleteBonusCode": false,
+  
+          "defaultPageActionTab": "engine",
+  
+          "deniedDomains": ""
+        });
+      }
     }
-  }
+);
+
+chrome.runtime.onMessage.addListener(
+    function(request, sender, sendResponse) {
+      if (request.message === "activate_icon") {
+        chrome.pageAction.show(sender.tab.id);
+      }
+    }
 );
