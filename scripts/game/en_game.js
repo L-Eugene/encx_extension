@@ -126,7 +126,6 @@ $(function(){
       'enableSound': true,
       'autoFocus': true,
       'refreshRate': 5,
-      'disableChat': false,
 
       'hideDisclosedSectors': false,
       'hideCompleteBonuses': false,
@@ -149,7 +148,6 @@ $(function(){
         'refresh-rate',
         'auto-focus',
         'select-sent-code',
-        'disable-chat',
 
         'hide-disclosed-sectors',
         'hide-complete-bonuses',
