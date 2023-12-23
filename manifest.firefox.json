@@ -57,10 +57,7 @@
     "show_matches": [
       "*://*.en.cx/gameengines/encounter/play/*",
       "*://*.encounter.cx/gameengines/encounter/play/*",
-      "*://*.encounter.ru/gameengines/encounter/play/*",
-      "*://*.en-world.org/gameengines/encounter/play/*",
-      "*://*.quest.ua/gameengines/encounter/play/*",
-      "*://quest.ua/gameengines/encounter/play/*"
+      "*://*.encounter.ru/gameengines/encounter/play/*"
     ]
   },
 
@@ -69,10 +66,7 @@
       "matches": [
         "*://*.en.cx/gameengines/encounter/play/*",
         "*://*.encounter.cx/gameengines/encounter/play/*",
-        "*://*.encounter.ru/gameengines/encounter/play/*",
-        "*://*.en-world.org/gameengines/encounter/play/*",
-        "*://*.quest.ua/gameengines/encounter/play/*",
-        "*://quest.ua/gameengines/encounter/play/*"
+        "*://*.encounter.ru/gameengines/encounter/play/*"
       ],
       "css": [
         "style/jquery-ui.css",
@@ -108,15 +102,9 @@
         "*://*.en.cx/gameenginecaching.aspx*",
         "*://*.encounter.cx/gameenginecaching.aspx*",
         "*://*.encounter.ru/gameenginecaching.aspx*",
-        "*://*.en-world.org/gameenginecaching.aspx*",
-        "*://*.quest.ua/gameenginecaching.aspx*",
-        "*://quest.ua/gameenginecaching.aspx*",
         "*://*.en.cx/GameEngineCaching.aspx*",
         "*://*.encounter.cx/GameEngineCaching.aspx*",
-        "*://*.encounter.ru/GameEngineCaching.aspx*",
-        "*://*.en-world.org/GameEngineCaching.aspx*",
-        "*://*.quest.ua/GameEngineCaching.aspx*",
-        "*://quest.ua/GameEngineCaching.aspx*"
+        "*://*.encounter.ru/GameEngineCaching.aspx*"
       ],
       "css": [
         "style/mapbox.uncompressed.css",
@@ -135,10 +123,7 @@
       "matches": [
         "*://*.en.cx/LevelStat.aspx*",
         "*://*.encounter.cx/LevelStat.aspx*",
-        "*://*.encounter.ru/LevelStat.aspx*",
-        "*://*.en-world.org/LevelStat.aspx*",
-        "*://*.quest.ua/LevelStat.aspx*",
-        "*://quest.ua/LevelStat.aspx*"
+        "*://*.encounter.ru/LevelStat.aspx*"
       ],
       "js": [
         "scripts/levelstat_refresh.js"
@@ -149,10 +134,7 @@
       "matches": [
         "*://*.en.cx/PhotoGallery.aspx*",
         "*://*.encounter.cx/PhotoGallery.aspx*",
-        "*://*.encounter.ru/PhotoGallery.aspx*",
-        "*://*.en-world.org/PhotoGallery.aspx*",
-        "*://*.quest.ua/PhotoGallery.aspx*",
-        "*://quest.ua/PhotoGallery.aspx*"
+        "*://*.encounter.ru/PhotoGallery.aspx*"
       ],
       "css": [
         "style/fotorama.css",
