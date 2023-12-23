@@ -214,14 +214,6 @@ div#level-stat-dialog iframe {
 	background-color: #636363;
 }
 
-.bonus-answered .bonus-code {
-	border: 1px solid #00ff00;
-	border-radius: 7px;
-	padding: 1em;
-	background-color: #426f42;
-  color: #00ff00;
-}
-
 .ui-tooltip {
   white-space: pre-line;
 }

@@ -130,7 +130,6 @@ $(function(){
       'hideDisclosedSectors': false,
       'hideCompleteBonuses': false,
       'showCompleteBonusTask': false,
-      'showCompleteBonusCode': false,
 
       'defaultPageActionTab': "engine",
 
@@ -152,7 +151,6 @@ $(function(){
         'hide-disclosed-sectors',
         'hide-complete-bonuses',
         'show-complete-bonus-task',
-        'show-complete-bonus-code',
 
         'default-page-action-tab'
       ];
