@@ -40,7 +40,7 @@ class GameManager {
     if (!isOptionTrue(`${this.storage.getGameId()}-enable-sound`)) return;
 
     var sound = new Audio();
-    sound.src = chrome.extension.getURL(soundUrl);
+    sound.src = chrome.runtime.getURL(soundUrl);
     sound.play();
   }
 };
