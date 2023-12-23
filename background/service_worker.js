@@ -29,7 +29,6 @@ chrome.runtime.onInstalled.addListener(
           "refreshRate": 5,
           "autoFocus": true,
           "enableSound": true,
-          "disableChat": false,
   
           "hideDisclosedSectors": false,
           "hideCompleteBonuses": false,

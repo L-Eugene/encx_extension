@@ -30,7 +30,6 @@ function saveOptions(e) {
     "enableSound": document.querySelector("#enableSound").checked,
     "autoFocus": document.querySelector("#autoFocus").checked,
     "refreshRate": document.querySelector("#refreshRate").value,
-    "disableChat": document.querySelector("#disableChat").checked,
 
     "hideDisclosedSectors": document.querySelector("#hideDisclosedSectors").checked,
     "hideCompleteBonuses": document.querySelector("#hideCompleteBonuses").checked,
@@ -50,7 +49,6 @@ function restoreOptions() {
     document.querySelector("#refreshRate").value = result.refreshRate;
     document.querySelector("#autoFocus").value = result.autoFocus;
     document.querySelector("#enableSound").checked = result.enableSound;
-    document.querySelector("#disableChat").checked = result.disableChat;
 
     document.querySelector("#hideDisclosedSectors").checked = result.hideDisclosedSectors;
     document.querySelector("#hideCompleteBonuses").checked = result.hideCompleteBonuses;
@@ -74,7 +72,6 @@ function restoreOptions() {
       "refreshRate": 5,
       "autoFocus": true,
       "enableSound": true,
-      "disableChat": false,
 
       "hideDisclosedSectors": false,
       "hideCompleteBonuses": false,
