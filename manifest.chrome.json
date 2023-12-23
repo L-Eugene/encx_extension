@@ -42,7 +42,7 @@
     "service_worker": "background/service_worker.js"
   },
 
-  "page_action": {
+  "action": {
     "default_title": "__MSG_extensionName__",
     "default_popup": "page_action/page_action.html",
     "default_icon": {
