@@ -124,7 +124,7 @@ class GameBonusManager extends GameManager {
           .append(
             $("<span>")
               .addClass("color_bonus")
-              .append(bonus.Answer.Answer)
+              .text(bonus.Answer.Answer)
           )
           .append(" ]"),
 
