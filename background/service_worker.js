@@ -34,8 +34,6 @@ chrome.runtime.onInstalled.addListener(
           "hideCompleteBonuses": false,
           "showCompleteBonusTask": false,
   
-          "defaultPageActionTab": "engine",
-  
           "deniedDomains": ""
         });
       }

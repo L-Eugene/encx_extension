@@ -37,17 +37,13 @@
     "description": "Настройки исключений"
   },
 
-  "optionsDefaultPageActionTab": {
-    "message": "Вкладка по умолчанию в игровом меню"
-  },
-
   "optionsSelectSentCode": {
     "message": "Выделять код после отправки",
     "description": "Опция поведения строки ввода"
   },
 
   "optionsRefreshRate": {
-    "message": "Обновлять данные игры через",
+    "message": "Обновлять данные каждые",
     "description": "Опция интервала обновления данных игры"
   },
 
@@ -71,7 +67,7 @@
   },
 
   "optionsSeconds": {
-    "message": "секунд(ы)",
+    "message": "сек.",
     "description": "Единица измерения интервала обновления, секунды"
   },
 

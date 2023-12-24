@@ -35,8 +35,6 @@ function saveOptions(e) {
     "hideCompleteBonuses": document.querySelector("#hideCompleteBonuses").checked,
     "showCompleteBonusTask": document.querySelector("#showCompleteBonusTask").checked,
 
-    "defaultPageActionTab": document.querySelector("#defaultPageActionTab").value,
-
     "deniedDomains": deniedDomainList().join('|')
   });
 }
@@ -52,8 +50,6 @@ function restoreOptions() {
     document.querySelector("#hideDisclosedSectors").checked = result.hideDisclosedSectors;
     document.querySelector("#hideCompleteBonuses").checked = result.hideCompleteBonuses;
     document.querySelector("#showCompleteBonusTask").checked = result.showCompleteBonusTask;
-
-    document.querySelector("#defaultPageActionTab").value = result.defaultPageActionTab;
 
     result.deniedDomains.split("|").forEach(
       function(domain){ if (domain != "") addDeniedDomain(domain); }
@@ -74,8 +70,6 @@ function restoreOptions() {
       "hideDisclosedSectors": false,
       "hideCompleteBonuses": false,
       "showCompleteBonusTask": false,
-
-      "defaultPageActionTab": "engine",
 
       "deniedDomains": ""
     },

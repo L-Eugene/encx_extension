@@ -49,7 +49,6 @@ class GamePageAction extends GameManager {
         "auto-focus": isOptionTrue(`${this.storage.getGameId()}-auto-focus`, true),
         "select-sent-code": isOptionTrue(`${this.storage.getGameId()}-select-sent-code`, true),
         "refresh-rate": localStorage.getItem(`${this.storage.getGameId()}-refresh-rate`),
-        "default-page-action-tab": localStorage.getItem(`${this.storage.getGameId()}-default-page-action-tab`),
         "domain": location.hostname
       };
 
