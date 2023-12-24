@@ -186,7 +186,7 @@
   },
 
   "bonusNumberName": {
-    "message": "Бонус $1: $2&nbsp;",
+    "message": "Бонус $1: $2 ",
     "description": "Бонус с номером и названием"
   },
 
@@ -341,7 +341,7 @@
   },
 
   "sectorsDisclosed": {
-    "message": "Незакрытые сектора: <span id='sectors-left-list'>$1</span>",
+    "message": "Незакрытые сектора",
     "description": "Список незакрытых секторов"
   },
 
