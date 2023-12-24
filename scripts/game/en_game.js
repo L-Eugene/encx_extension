@@ -131,8 +131,6 @@ $(function(){
       'hideCompleteBonuses': false,
       'showCompleteBonusTask': false,
 
-      'defaultPageActionTab': "engine",
-
       'deniedDomains': ""
     },
     function (result){
@@ -150,9 +148,7 @@ $(function(){
 
         'hide-disclosed-sectors',
         'hide-complete-bonuses',
-        'show-complete-bonus-task',
-
-        'default-page-action-tab'
+        'show-complete-bonus-task'
       ];
       for (option_key in option_list){
         var value = localStorage.getItem(`${gameStorage.getGameId()}-${option_list[option_key]}`);

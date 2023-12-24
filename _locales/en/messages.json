@@ -37,17 +37,13 @@
     "description": "Exclusions"
   },
 
-  "optionsDefaultPageActionTab": {
-    "message": "Вкладка по умолчанию в игровом меню"
-  },
-
   "optionsSelectSentCode": {
     "message": "Select code after submit",
     "description": "Code input field behavior option"
   },
 
   "optionsRefreshRate": {
-    "message": "Game data refresh rate",
+    "message": "Refresh data every",
     "description": "Game data refresh rate option"
   },
 
@@ -71,7 +67,7 @@
   },
 
   "optionsSeconds": {
-    "message": "second(s)",
+    "message": "sec.",
     "description": "Refresh rate units, seconds"
   },
 
