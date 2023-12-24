@@ -82,14 +82,18 @@ class GameBonusManager extends GameManager {
 
   _bonusInfoTemplate(bonus){
     return $("<span>")
-      .addClass("color_sec")
+      .addClass(bonus.Negative ? "color_pen" : "color_sec")
       .append("(")
       .append(chrome.i18n.getMessage("bonusCompleted"))
-      .append(
-        bonus.AwardTime > 0
-          ? `, ${chrome.i18n.getMessage("bonusReward")} ${ENEXT.convertTime(bonus.AwardTime)}`
-          : ""
-      )
+      .append(() => {
+        if (bonus.AwardTime === 0) {
+          return "";
+        }
+
+        const prefix = chrome.i18n.getMessage(bonus.Negative ? "bonusPenalty" : "bonusReward");
+        const time = ENEXT.convertTime(bonus.AwardTime);
+        return `, ${prefix} ${time}`;
+      })
       .append(")");
   }
 
