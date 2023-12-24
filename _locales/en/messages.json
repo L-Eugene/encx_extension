@@ -151,8 +151,13 @@
   },
 
   "bonusReward": {
-    "message": "bonus",
-    "description": "Bonus reward"
+    "message": "award",
+    "description": "Bonus award/penalty"
+  },
+
+  "bonusPenalty": {
+    "message": "penalty",
+    "description": "Bonus award/penalty"
   },
 
   "bonusTitleHint": {

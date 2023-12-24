@@ -156,7 +156,12 @@
 
   "bonusReward": {
     "message": "награда",
-    "description": "Награда за бонус"
+    "description": "Награда/штраф за бонус"
+  },
+
+  "bonusPenalty": {
+    "message": "штраф",
+    "description": "Награда/штраф за бонус"
   },
 
   "bonusTitleHint": {
