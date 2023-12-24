@@ -87,7 +87,7 @@ class Templates {
           //   2 - bonus
           action.IsCorrect ?
             'color_' + (action.Kind == 1 ? 'correct' : action.Negative ? 'pen' : 'bonus') : ''
-        ).append(action.Answer)
+        ).text(action.Answer)
       );
   }
 

@@ -91,7 +91,7 @@ class GameTaskManager extends GameManager {
     if (storage.getSectorNumber() > 1){
       $("#sectors-total").html(storage.getSectorNumber());
       $("#sectors-left").html(storage.getSectorsLeft());
-      $("#sectors-left-list").html(
+      $("#sectors-left-list").text(
         this._openSectorList(storage.getSectors())
       );
       $("#sectors-speed").html(this._sectorsClosingSpeed(storage));
@@ -216,11 +216,11 @@ class GameTaskManager extends GameManager {
       .append(
         $("<div>")
           .attr("id", "sectors-left-list-block")
+          .append(`${chrome.i18n.getMessage("sectorsDisclosed")}: `)
           .append(
-            chrome.i18n.getMessage(
-              "sectorsDisclosed",
-              [this._openSectorList(level.Sectors)]
-            )
+            $("<span>")
+              .attr("id", "sectors-left-list")
+              .text(this._openSectorList(level.Sectors))
           )
       )
   }
@@ -232,16 +232,14 @@ class GameTaskManager extends GameManager {
 
   _completeSectorTemplate(sector){
     return [
-      `${sector.Name}: `,
+      document.createTextNode(`${sector.Name}: `),
       $("<span>")
         .addClass("color_correct")
-        .append(sector.Answer.Answer),
-      "&nbsp;",
+        .text(sector.Answer.Answer),
       $("<span>")
         .addClass("color_sec")
         .append("(")
-        .append(ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Timestamp))
-        .append("&nbsp;")
+        .append(`${ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Timestamp)} `)
         .append(
           $("<a>")
             .attr("href", `/userdetails.aspx?uid=${sector.Answer.UserId}`)
@@ -254,7 +252,7 @@ class GameTaskManager extends GameManager {
 
   _incompleteSectorTemplate(sector){
     return [
-      `${sector.Name}: `,
+      document.createTextNode(`${sector.Name}: `),
       $("<span>")
         .addClass("color_dis")
         .append(chrome.i18n.getMessage("sectorDisclosed"))

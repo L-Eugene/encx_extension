@@ -182,7 +182,7 @@
   },
 
   "bonusNumberName": {
-    "message": "Bonus $1: $2&nbsp;",
+    "message": "Bonus $1: $2 ",
     "description": "'Bonus' word with name and number"
   },
 
@@ -341,7 +341,7 @@
   },
 
   "sectorsDisclosed": {
-    "message": "Disclosed sectors: <span id='sectors-left-list'>$1</span>",
+    "message": "Disclosed sectors",
     "description": "Disclosed sector list"
   },
 

@@ -219,10 +219,10 @@ class GameBonusManager extends GameManager {
           .addClass(bonus.IsAnswered ? "color_correct" : "color_bonus")
           .append(
             bonus.Name != null
-            ? chrome.i18n.getMessage(
+            ? document.createTextNode(chrome.i18n.getMessage(
                 "bonusNumberName",
                 [bonus.Number, bonus.Name]
-              )
+              ))
             : chrome.i18n.getMessage(
                 "bonusNumber",
                 [bonus.Number]
