@@ -149,9 +149,14 @@
     "description": "Заголовок окна статистики уровня"
   },
 
+  "bonusCompleted": {
+    "message": "выполнен",
+    "description": "Бонус выполнен"
+  },
+
   "bonusReward": {
-    "message": "выполнен, награда ",
-    "description": "Описание бонуса"
+    "message": "награда",
+    "description": "Награда за бонус"
   },
 
   "bonusTitleHint": {

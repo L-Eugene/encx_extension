@@ -145,9 +145,14 @@
     "description": "Level statistics window title"
   },
 
+  "bonusCompleted": {
+    "message": "completed",
+    "description": "Bonus completed"
+  },
+
   "bonusReward": {
-    "message": "completed, bonus ",
-    "description": "Bonus short description"
+    "message": "bonus",
+    "description": "Bonus reward"
   },
 
   "bonusTitleHint": {

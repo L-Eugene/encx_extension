@@ -84,9 +84,11 @@ class GameBonusManager extends GameManager {
     return $("<span>")
       .addClass("color_sec")
       .append("(")
-      .append(chrome.i18n.getMessage("bonusReward"))
+      .append(chrome.i18n.getMessage("bonusCompleted"))
       .append(
-        ENEXT.convertTime(bonus.AwardTime)
+        bonus.AwardTime > 0
+          ? `, ${chrome.i18n.getMessage("bonusReward")} ${ENEXT.convertTime(bonus.AwardTime)}`
+          : ""
       )
       .append(")");
   }
