@@ -33,7 +33,6 @@ chrome.runtime.onInstalled.addListener(
           "hideDisclosedSectors": false,
           "hideCompleteBonuses": false,
           "showCompleteBonusTask": false,
-          "showCompleteBonusCode": false,
   
           "defaultPageActionTab": "engine",
   

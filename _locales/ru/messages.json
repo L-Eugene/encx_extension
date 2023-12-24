@@ -91,10 +91,6 @@
     "message": "Отображать задания выполненных бонусов"
   },
 
-  "optionsShowCompleteBonusCode": {
-    "message": "Отображать коды выполненных бонусов"
-  },
-
   "optionsGameConfigDialog": {
     "message": "Настройка игры",
     "description": "Заголовок окна настроек игры"
@@ -153,9 +149,14 @@
     "description": "Заголовок окна статистики уровня"
   },
 
+  "bonusCompleted": {
+    "message": "выполнен",
+    "description": "Бонус выполнен"
+  },
+
   "bonusReward": {
-    "message": ", награда ",
-    "description": "Описание бонуса"
+    "message": "награда",
+    "description": "Награда за бонус"
   },
 
   "bonusTitleHint": {

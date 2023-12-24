@@ -30,7 +30,6 @@ class GameBonusManager extends GameManager {
   update(storage){
     this.hideBonuses = isOptionTrue(`${this.storage.getGameId()}-hide-complete-bonuses`);
     this.showBonusTask = isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-task`);
-    this.showBonusCode = isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-code`);
 
     $(".bonus-block").attr("delete-mark", true);
     storage.getBonuses().forEach(
@@ -84,16 +83,12 @@ class GameBonusManager extends GameManager {
   _bonusInfoTemplate(bonus){
     return $("<span>")
       .addClass("color_sec")
-      .append(`(${ENEXT.convertTimestamp(bonus.Answer.AnswerDateTime.Timestamp)} `)
+      .append("(")
+      .append(chrome.i18n.getMessage("bonusCompleted"))
       .append(
-        $("<a>")
-          .attr("href", `/userdetails.aspx?uid=${bonus.Answer.UserId}`)
-          .attr("target", "_blank")
-          .append(bonus.Answer.Login)
-      )
-      .append(chrome.i18n.getMessage("bonusReward"))
-      .append(
-        ENEXT.convertTime(bonus.AwardTime)
+        bonus.AwardTime > 0
+          ? `, ${chrome.i18n.getMessage("bonusReward")} ${ENEXT.convertTime(bonus.AwardTime)}`
+          : ""
       )
       .append(")");
   }
@@ -118,37 +113,46 @@ class GameBonusManager extends GameManager {
   }
 
   _bonusOpenTemplate(bonus){
-    return $("<div>")
-      .addClass("bonus")
-      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-hint`))
-      .append(
-        $("<div>")
-          .addClass("bonus-hint")
-          .attr("id", `bonus-${bonus.BonusId}-hint`)
-          .append((bonus.Help || '').replace(/\r\n/g, "<br>"))
-      )
-      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
-      .append(
-        (this.showBonusTask && (bonus.Task || '').length > 0)
-          ? $("<div>")
-              .addClass("bonus-task")
-              .attr("id", `bonus-${bonus.BonusId}-task`)
-              .append(
-                encx_tpl.iframeSandbox(
-                  (bonus.Task || '').replace(/\r\n/g, "<br>")
+    return [
+      $("<div>")
+        .addClass("spacer_answer"),
+
+      $("<span>")
+          .addClass("answer_bonus")
+          .append(`✅ `)
+          .append(` ${ENEXT.convertTimestamp(bonus.Answer.AnswerDateTime.Timestamp)} `)
+          .append(bonus.Answer.Login)
+          .append(" [ ")
+          .append(
+            $("<span>")
+              .addClass("color_bonus")
+              .text(bonus.Answer.Answer)
+          )
+          .append(" ]"),
+
+      $("<div>")
+        .addClass("bonus")
+        .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-hint`))
+        .append(
+          $("<div>")
+            .addClass("bonus-hint")
+            .attr("id", `bonus-${bonus.BonusId}-hint`)
+            .append((bonus.Help || '').replace(/\r\n/g, "<br>"))
+        )
+        .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
+        .append(
+          (this.showBonusTask && (bonus.Task || '').length > 0)
+            ? $("<div>")
+                .addClass("bonus-task")
+                .attr("id", `bonus-${bonus.BonusId}-task`)
+                .append(
+                  encx_tpl.iframeSandbox(
+                    (bonus.Task || '').replace(/\r\n/g, "<br>")
+                  )
                 )
-              )
-          : ''
-      )
-      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-code`))
-      .append(
-        this.showBonusCode
-          ? $("<div>")
-              .addClass("bonus-code")
-              .attr("id", `bonus-${bonus.BonusId}-code`)
-              .append(bonus.Answer.Answer)
-          : ''
-      );
+            : ''
+        )
+      ];
   }
 
   _bonusClosedTemplate(bonus){
@@ -236,9 +240,7 @@ class GameBonusManager extends GameManager {
           )
           .append(
             bonus.IsAnswered
-              ? $("<span>")
-                  .addClass("color_sec")
-                  .append(this._bonusInfoTemplate(bonus))
+              ? this._bonusInfoTemplate(bonus)
               : ""
           )
       )

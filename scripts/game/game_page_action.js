@@ -45,7 +45,6 @@ class GamePageAction extends GameManager {
         "hide-disclosed-sectors": isOptionTrue(`${this.storage.getGameId()}-hide-disclosed-sectors`),
         "hide-complete-bonuses": isOptionTrue(`${this.storage.getGameId()}-hide-complete-bonuses`),
         "show-complete-bonus-task": isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-task`),
-        "show-complete-bonus-code": isOptionTrue(`${this.storage.getGameId()}-show-complete-bonus-code`),
         "enable-sound": isOptionTrue(`${this.storage.getGameId()}-enable-sound`),
         "auto-focus": isOptionTrue(`${this.storage.getGameId()}-auto-focus`, true),
         "select-sent-code": isOptionTrue(`${this.storage.getGameId()}-select-sent-code`, true),

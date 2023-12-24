@@ -34,7 +34,6 @@ function saveOptions(e) {
     "hideDisclosedSectors": document.querySelector("#hideDisclosedSectors").checked,
     "hideCompleteBonuses": document.querySelector("#hideCompleteBonuses").checked,
     "showCompleteBonusTask": document.querySelector("#showCompleteBonusTask").checked,
-    "showCompleteBonusCode": document.querySelector("#showCompleteBonusCode").checked,
 
     "defaultPageActionTab": document.querySelector("#defaultPageActionTab").value,
 
@@ -53,7 +52,6 @@ function restoreOptions() {
     document.querySelector("#hideDisclosedSectors").checked = result.hideDisclosedSectors;
     document.querySelector("#hideCompleteBonuses").checked = result.hideCompleteBonuses;
     document.querySelector("#showCompleteBonusTask").checked = result.showCompleteBonusTask;
-    document.querySelector("#showCompleteBonusCode").checked = result.showCompleteBonusCode;
 
     document.querySelector("#defaultPageActionTab").value = result.defaultPageActionTab;
 
@@ -76,7 +74,6 @@ function restoreOptions() {
       "hideDisclosedSectors": false,
       "hideCompleteBonuses": false,
       "showCompleteBonusTask": false,
-      "showCompleteBonusCode": false,
 
       "defaultPageActionTab": "engine",
 

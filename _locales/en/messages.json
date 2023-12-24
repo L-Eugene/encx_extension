@@ -91,10 +91,6 @@
     "message": "Show complete bonuses tasks"
   },
 
-  "optionsShowCompleteBonusCode": {
-    "message": "Show complete bonuses codes"
-  },
-
   "optionsGameConfigDialog": {
     "message": "Game preferences",
     "description": "Game preferences window title"
@@ -149,9 +145,14 @@
     "description": "Level statistics window title"
   },
 
+  "bonusCompleted": {
+    "message": "completed",
+    "description": "Bonus completed"
+  },
+
   "bonusReward": {
-    "message": ", bonus ",
-    "description": "Bonus short description"
+    "message": "bonus",
+    "description": "Bonus reward"
   },
 
   "bonusTitleHint": {
