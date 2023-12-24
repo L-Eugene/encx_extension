@@ -91,10 +91,6 @@
     "message": "Отображать задания выполненных бонусов"
   },
 
-  "optionsShowCompleteBonusCode": {
-    "message": "Отображать коды выполненных бонусов"
-  },
-
   "optionsGameConfigDialog": {
     "message": "Настройка игры",
     "description": "Заголовок окна настроек игры"

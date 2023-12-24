@@ -91,10 +91,6 @@
     "message": "Show complete bonuses tasks"
   },
 
-  "optionsShowCompleteBonusCode": {
-    "message": "Show complete bonuses codes"
-  },
-
   "optionsGameConfigDialog": {
     "message": "Game preferences",
     "description": "Game preferences window title"
