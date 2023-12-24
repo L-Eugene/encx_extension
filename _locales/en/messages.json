@@ -146,7 +146,7 @@
   },
 
   "bonusReward": {
-    "message": ", bonus ",
+    "message": "completed, bonus ",
     "description": "Bonus short description"
   },
 

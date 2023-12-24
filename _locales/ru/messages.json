@@ -150,7 +150,7 @@
   },
 
   "bonusReward": {
-    "message": ", награда ",
+    "message": "выполнен, награда ",
     "description": "Описание бонуса"
   },
 
