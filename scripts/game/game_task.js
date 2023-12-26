@@ -238,7 +238,7 @@ class GameTaskManager extends GameManager {
         .text(sector.Answer.Answer),
       $("<span>")
         .addClass("color_sec")
-        .append("(")
+        .append(" (")
         .append(`${ENEXT.convertTimestamp(sector.Answer.AnswerDateTime.Timestamp)} `)
         .append(
           $("<a>")
