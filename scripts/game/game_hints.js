@@ -58,7 +58,6 @@ class GameHintManager extends GameManager {
       .attr("delete-mark", false)
       // Penalty hints should go last
       .css("order", hint.Number + (hint.IsPenalty ? 10000 : 0))
-      .append(encx_tpl.documentWriteOverride(`#hint-${hint.HelpId} p`))
       .append(
         $(hint.RemainSeconds ? "<b>" : "<h3>")
           .append(
@@ -74,8 +73,7 @@ class GameHintManager extends GameManager {
       )
       .append(
         $("<div>").addClass("spacer")
-      )
-      .append(encx_tpl.documentWriteRollback());
+      );
   }
 
   _bodyTemplate(hint){

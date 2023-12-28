@@ -42,9 +42,6 @@ class GamePrepare extends GameManager {
     $("a.logo").attr("target", "_blank");
 
     this.userUpdateTime = 0;
-
-    $(".header")
-      .append(encx_tpl.documentWritePrepare());
   }
 
   initialize (storage){
