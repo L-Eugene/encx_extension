@@ -275,7 +275,6 @@ class GameTaskManager extends GameManager {
   _taskTemplate(level){
     var result = $("<div>")
       .attr("id", "task")
-      .append(encx_tpl.documentWriteOverride("#task p"));
     if (level.Tasks.length == 0) return result;
 
     return result
@@ -289,7 +288,6 @@ class GameTaskManager extends GameManager {
       .append(
         $("<div>")
           .addClass("spacer")
-      )
-      .append(encx_tpl.documentWriteRollback());
+      );
   }
 }

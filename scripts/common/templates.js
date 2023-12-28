@@ -181,42 +181,6 @@ class Templates {
     return `<a href="${teamURL}">${chrome.i18n.getMessage("titleNoTeam")}</a>`;
   }
 
-  documentWritePrepare(){
-    return `
-      <!--- ADDED BY EN.CX Extension -->
-      <script>
-        var documentWriteObjectID = undefined;
-        var originalDocumentWrite = document.write;
-        function myDocumentWrite(content){
-          $(\`\$\{documentWriteObjectID\}\`).append(content);
-        }
-      </script>
-      <!--- ADDED BY EN.CX Extension -->
-    `;
-  }
-
-  documentWriteOverride(id){
-    return `
-      <!--- ADDED BY EN.CX Extension -->
-      <script>
-        documentWriteObjectID = "${id}";
-        document.write = myDocumentWrite;
-      </script>
-      <!--- ADDED BY EN.CX Extension -->
-    `;
-  }
-
-  documentWriteRollback(){
-    return `
-      <!--- ADDED BY EN.CX Extension -->
-      <script>
-        documentWriteObjectID = undefined;
-        document.write = originalDocumentWrite;
-      </script>
-      <!--- ADDED BY EN.CX Extension -->
-    `;
-  }
-
   iframeSandbox(content){
     return $(
       "<iframe>",

@@ -136,14 +136,12 @@ class GameBonusManager extends GameManager {
 
       $("<div>")
         .addClass("bonus")
-        .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-hint`))
         .append(
           $("<div>")
             .addClass("bonus-hint")
             .attr("id", `bonus-${bonus.BonusId}-hint`)
             .append((bonus.Help || '').replace(/\r\n/g, "<br>"))
         )
-        .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
         .append(
           (this.showBonusTask && (bonus.Task || '').length > 0)
             ? $("<div>")
@@ -162,7 +160,6 @@ class GameBonusManager extends GameManager {
   _bonusClosedTemplate(bonus){
     return $("<div>")
       .addClass("bonus")
-      .append(encx_tpl.documentWriteOverride(`#bonus-${bonus.BonusId} .bonus-task`))
       .append(
         $("<div>")
           .addClass("bonus-task")
@@ -255,7 +252,6 @@ class GameBonusManager extends GameManager {
       )
       .append(
         $("<div>").addClass("spacer")
-      )
-      .append(encx_tpl.documentWriteRollback());
+      );
   }
 };
