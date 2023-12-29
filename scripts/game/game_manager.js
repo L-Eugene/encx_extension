@@ -24,6 +24,11 @@ SOFTWARE.
 
 // Base class for all managers
 class GameManager {
+  /**
+   * Current queue for scripts extracted from HTML
+   * to be executed after attaaching elements to DOM
+   */
+  queue = [];
   _timerTemplate(seconds, text = chrome.i18n.getMessage("timerWillBeIn")){
     return $("<span>")
       .append(text)
@@ -42,5 +47,34 @@ class GameManager {
     var sound = new Audio();
     sound.src = chrome.runtime.getURL(soundUrl);
     sound.play();
+  }
+
+  /**
+   * Strip all scripts from html
+   * @param {string} html HTML-content to strip
+   * @param {string} id Script will be appended to element with this id
+   * @param {boolean} queue Add scripts to queue
+   * @returns Stripped html
+   */
+  extractScripts(html, id, queue = true) {
+    const div = document.createElement('div');
+    div.innerHTML = html;
+    const scripts = div.getElementsByTagName('script');
+    let i = scripts.length;
+    while (i--) {
+      if (queue)
+        this.queue.push({ text: scripts[i].innerText, src: scripts[i].src, id });
+      scripts[i].parentNode.removeChild(scripts[i]);
+    }
+    return div.innerHTML;
+  }
+
+  /**
+   * Attaches current scripts to DOM via `service_worker.js`
+   */
+  attachScripts() {
+    const scripts = [...this.queue];
+    this.queue.splice(0, this.queue.length);
+    chrome.runtime.sendMessage({ scripts });
   }
 };

@@ -47,3 +47,41 @@ chrome.runtime.onMessage.addListener(
       }
     }
 );
+
+chrome.runtime.onMessage.addListener(function (request, sender, sendResponse) {
+  if (request.scripts) {
+    try {
+      chrome.scripting.executeScript({
+        target: { tabId: sender.tab.id },
+        func: attachToDOM,
+        world: 'MAIN',
+        args: [request.scripts],
+      });
+    } catch {
+      // looks like we are in firefox
+      // try without `world`
+      chrome.scripting.executeScript({
+        target: { tabId: sender.tab.id },
+        func: attachToDOM,
+        args: [request.scripts],
+      });
+    }
+  }
+});
+
+/**
+ * Attaches script to DOM
+ * @param {{text?: string, src?: string, id: string}[]} value Script definition to attach to DOM
+ */
+function attachToDOM(value) {
+  value.forEach((script) => {
+    const tag = document.createElement('script');
+    if (script.text) {
+      tag.textContent = script.text;
+    } else if (script.src) {
+      tag.src = script.src;
+    }
+    const target = document.getElementById(script.id);
+    target.appendChild(tag);
+  });
+}

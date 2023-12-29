@@ -59,7 +59,7 @@ class GameTaskManager extends GameManager {
       .append(this._sectorsTemplate(storage.getLevel()))
       .append($("<div>").addClass("spacer"))
       .append(this._taskTemplate(storage.getLevel()));
-
+    this.attachScripts();
     this.task = storage.getTaskText();
     this.title = `${storage.getLevelNumber()}/${storage.getLevelCount()}`;
   }
@@ -127,6 +127,7 @@ class GameTaskManager extends GameManager {
     // Update task text
     if (storage.getTaskText() != this.task){
       $("#task").replaceWith(this._taskTemplate(storage.getLevel()));
+      this.attachScripts();
     }
   }
 
@@ -273,8 +274,9 @@ class GameTaskManager extends GameManager {
   }
 
   _taskTemplate(level){
+    const id = "task";
     var result = $("<div>")
-      .attr("id", "task")
+      .attr("id", id)
     if (level.Tasks.length == 0) return result;
 
     return result
@@ -283,7 +285,7 @@ class GameTaskManager extends GameManager {
       )
       .append(
         $("<p>")
-          .append(level.Tasks[0].TaskTextFormatted)
+          .append(this.extractScripts(level.Tasks[0].TaskTextFormatted, id))
       )
       .append(
         $("<div>")
