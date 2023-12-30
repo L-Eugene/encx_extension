@@ -152,7 +152,7 @@ function printComments(result){
       "href": location.origin + location.pathname + '?' + params.toString()
     })
     .append(
-      $("<img>", { "src": chrome.extension.getURL("img/link.png") })
+      $("<img>", { "src": chrome.runtime.getURL("img/link.png") })
     )
   );
 
