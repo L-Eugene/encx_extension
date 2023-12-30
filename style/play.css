@@ -14,10 +14,6 @@
   right: 20px;
 }
 
-.header .userinfo .mailbox .icon {
-  font-size: 1.2em;
-}
-
 #lblGameTitle {
   display: inline-block;
   overflow-wrap: break-word;

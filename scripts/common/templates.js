@@ -156,29 +156,28 @@ class Templates {
   }
 
   /*
-  Block for username and mailbox watch
+  Block for username+team
   */
   userinfoBlock(data){
     return $("<div>")
       .addClass("userinfo")
-      .append(data["user"])
-      .append(" (")
-      .append(data["team"])
-      .append(") ")
       .append(
-        $("<span>")
-          .addClass("mailbox")
-          .append(
-            $("<span>")
-              .addClass("icon")
-              .append("&#x2709; ")
-          )
-          .append(data["mail"])
-      );
+        $("<a>")
+          .attr("href", "/UserDetails.aspx")
+          .attr("target", "_blank")
+          .text(data["user"])
+        )
+      .append(" (")
+      .append(this.teamLink(data["teamId"], data["team"]))
+      .append(") ")
+      ;
   }
 
-  singleTeamLink(teamURL){
-    return `<a href="${teamURL}">${chrome.i18n.getMessage("titleNoTeam")}</a>`;
+  teamLink(tid, name) {
+    return $("<a>")
+        .attr("href", `/Teams/TeamDetails.aspx${tid ? (`?tid=${tid}`) : ''}`)
+        .attr("target", "_blank")
+        .text(name ?? chrome.i18n.getMessage("titleNoTeam"));
   }
 
   iframeSandbox(content){

@@ -484,10 +484,6 @@ class GameStorage {
     return this.last.Level.Sectors;
   }
 
-  getMyTeamURL(){
-    return `${location.protocol}//${location.hostname}/Teams/TeamDetails.aspx`;
-  }
-
   getBonusesURL(){
     return `${location.protocol}//${location.hostname}/GameBonusPenaltyTime.aspx?gid=${this.getGameId()}`
   }

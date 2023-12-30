@@ -88,7 +88,7 @@ class GamePrepare extends GameManager {
         );
     }
 
-    this.updateUserInfo(storage, true);
+    this.updateUserInfo(storage);
 
     $("div.content").empty();
   }
@@ -107,8 +107,6 @@ class GamePrepare extends GameManager {
     if (storage.isLevelUpMessageTime()){
       this.playSound("audio/levelup.mp3");
     }
-
-    this.updateUserInfo(storage);
   }
 
   showLevelStat(event){
@@ -135,43 +133,20 @@ class GamePrepare extends GameManager {
       });
   }
 
-  updateUserInfo(storage, force = false){
-    // Refresh every minute
-    if (
-      !force &&
-      (Date.now() - this.userUpdateTime) < 1000 * 60
-    ) return;
-
-    // Display player info
-    $.get(
-      storage.getMyTeamURL(),
-      function(result){
-        var userinfo = $(result)
-            .find("#tblUserBox tr:first td:first a[href='/UserDetails.aspx']");
-
-        var teaminfo = $(result).find("a#lnkTeamName");
-        if (0 === teaminfo.length){
-          teaminfo = [ encx_tpl.singleTeamLink(storage.getMyTeamURL()) ];
-        }
-
-        var mailinfo = $(result).find("#spanUnreadMails");
-        $(mailinfo[0]).show();
-        if ($(mailinfo[0]).find("a").text() === ""){
-          $(mailinfo[0]).find("a").text("0");
-        }
-
-        $("div.header .userinfo").remove();
-        $("div.header")
-          .append(encx_tpl.userinfoBlock({
-            "user": userinfo[0],
-            "team": teaminfo[0],
-            "mail": mailinfo[0]
-          }));
-        $("div.userinfo a").attr("target", "_blank");
-      }
+  /**
+   * 
+   * @param {GameStorage} storage 
+   * @returns 
+   */
+  updateUserInfo(storage) {
+    const game = storage.getGame();
+    $('div.header').append(
+      encx_tpl.userinfoBlock({
+        user: game.Login,
+        team: game.TeamName,
+        teamId: game.TeamId,
+      })
     );
-
-    this.userUpdateTime = Date.now();
   }
 
   _historyLevelList(){
