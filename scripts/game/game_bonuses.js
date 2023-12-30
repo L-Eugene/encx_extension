@@ -142,7 +142,7 @@ class GameBonusManager extends GameManager {
           $("<div>")
             .addClass("bonus-hint")
             .attr("id", id)
-            .append(this.extractScripts(bonus.Help, id).replace(/\r\n/g, "<br>"))
+            .append(this.extractScripts(bonus.Help, id).replace(/\r?\n/g, "<br>"))
         )
         .append(
           (this.showBonusTask && (bonus.Task || '').length > 0)
@@ -151,7 +151,7 @@ class GameBonusManager extends GameManager {
                 .attr("id", `bonus-${bonus.BonusId}-task`)
                 .append(
                   encx_tpl.iframeSandbox(
-                    (bonus.Task || '').replace(/\r\n/g, "<br>")
+                    (bonus.Task || '').replace(/\r?\n/g, "<br>")
                   )
                 )
             : ''
@@ -167,7 +167,7 @@ class GameBonusManager extends GameManager {
         $("<div>")
           .addClass("bonus-task")
           .attr("id", id)
-          .append(this.extractScripts(bonus.Task || '', id).replace(/\r\n/g, "<br>"))
+          .append(this.extractScripts(bonus.Task || '', id).replace(/\r?\n/g, "<br>"))
       );
   }
 
