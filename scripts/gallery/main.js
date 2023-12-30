@@ -178,7 +178,10 @@ function buildHTML(data){
           .append(data["title"])
       )
       .append(
-        $("<div>").addClass("fotorama")
+        $("<div>")
+          .addClass("fotorama")
+          .attr("data-keyboard", "true")
+          .attr("data-transition", "crossfade")
       )
   );
 
