@@ -33,8 +33,10 @@ class GameHintManager extends GameManager {
       function(hint){
         if (this.storage.isHintNew(hint.HelpId)){
           $("div#hints").append(this._hintTemplate(hint));
+          this.attachScripts();
         } else if (this.storage.isHintChanged(hint.HelpId)) {
           $(`#hint-${hint.HelpId}`).replaceWith(this._hintTemplate(hint));
+          this.attachScripts();
 
           this.playSound("audio/hint.mp3");
         }
@@ -50,10 +52,11 @@ class GameHintManager extends GameManager {
   }
 
   _hintTemplate(hint){
+    const id = `hint-${hint.HelpId}`;
     return $("<div>")
       .addClass("hint-block")
       .addClass(hint.RemainSeconds ? "color_dis" : "")
-      .attr("id", `hint-${hint.HelpId}`)
+      .attr("id", id)
       .attr("id-numeric", hint.HelpId)
       .attr("delete-mark", false)
       // Penalty hints should go last
@@ -69,23 +72,28 @@ class GameHintManager extends GameManager {
       .append(
         hint.RemainSeconds
           ? this._timerTemplate(hint.RemainSeconds)
-          : this._bodyTemplate(hint)
+          : this._bodyTemplate(hint, id)
       )
       .append(
         $("<div>").addClass("spacer")
       );
   }
 
-  _bodyTemplate(hint){
-    if (!hint.IsPenalty) return $("<p>").append(hint.HelpText);
+  _bodyTemplate(hint, id){
+    const text = this.extractScripts(hint.HelpText, id);
+    if (!hint.IsPenalty) return $("<p>").append(text);
 
+    // originally description is not shown after penalty hint is opened
+    // so strip scripts from description (and do not execute scripts)
+    const isOpened = (hint.HelpText ?? '').length > 0;
+    const description = this.extractScripts(hint.PenaltyComment, id, !isOpened);
     return $("<p>")
       .append(
         $("<p>")
           .append(
             chrome.i18n.getMessage(
               "hintPenaltyDescription",
-              [hint.PenaltyComment]
+              [description]
             )
           )
           .append(
@@ -94,7 +102,7 @@ class GameHintManager extends GameManager {
       )
       .append(
         hint.HelpText
-          ? hint.HelpText
+          ? text
           : this._openPenaltyTemplate(hint)
       );
   }

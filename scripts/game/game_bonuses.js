@@ -36,12 +36,14 @@ class GameBonusManager extends GameManager {
       function(bonus){
         if (this.storage.isBonusNew(bonus.BonusId)){
           $("div#bonuses").append(this._bonusTemplate(bonus));
+          this.attachScripts();
         } else if (
           this.storage.isBonusChanged(bonus.BonusId) ||
           $(`div#bonus-${bonus.BonusId}`).attr("update-mark")
         ){
           $(`div#bonus-${bonus.BonusId}`)
             .replaceWith(this._bonusTemplate(bonus));
+          this.attachScripts();
         }
 
         $(`#bonus-${bonus.BonusId}`).attr("delete-mark", false);
@@ -117,6 +119,7 @@ class GameBonusManager extends GameManager {
   }
 
   _bonusOpenTemplate(bonus){
+    const id = `bonus-${bonus.BonusId}-hint`;
     return [
       $("<div>")
         .addClass("spacer_answer"),
@@ -133,14 +136,13 @@ class GameBonusManager extends GameManager {
               .text(bonus.Answer.Answer)
           )
           .append(" ]"),
-
       $("<div>")
         .addClass("bonus")
         .append(
           $("<div>")
             .addClass("bonus-hint")
-            .attr("id", `bonus-${bonus.BonusId}-hint`)
-            .append((bonus.Help || '').replace(/\r\n/g, "<br>"))
+            .attr("id", id)
+            .append(this.extractScripts(bonus.Help, id).replace(/\r?\n/g, "<br>"))
         )
         .append(
           (this.showBonusTask && (bonus.Task || '').length > 0)
@@ -149,7 +151,7 @@ class GameBonusManager extends GameManager {
                 .attr("id", `bonus-${bonus.BonusId}-task`)
                 .append(
                   encx_tpl.iframeSandbox(
-                    (bonus.Task || '').replace(/\r\n/g, "<br>")
+                    (bonus.Task || '').replace(/\r?\n/g, "<br>")
                   )
                 )
             : ''
@@ -158,13 +160,14 @@ class GameBonusManager extends GameManager {
   }
 
   _bonusClosedTemplate(bonus){
+    const id = `bonus-${bonus.BonusId}-task`;
     return $("<div>")
       .addClass("bonus")
       .append(
         $("<div>")
           .addClass("bonus-task")
-          .attr("id", `bonus-${bonus.BonusId}-task`)
-          .append((bonus.Task || '').replace(/\r\n/g, "<br>"))
+          .attr("id", id)
+          .append(this.extractScripts(bonus.Task || '', id).replace(/\r?\n/g, "<br>"))
       );
   }
 

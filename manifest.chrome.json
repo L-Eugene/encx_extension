@@ -25,8 +25,12 @@
 
   "description": "__MSG_extensionDescription__",
 
-  "permissions": ["storage"],
-
+  "permissions": ["storage", "scripting"],
+  "host_permissions": [
+    "*://*.en.cx/gameengines/encounter/play/*",
+    "*://*.encounter.cx/gameengines/encounter/play/*",
+    "*://*.encounter.ru/gameengines/encounter/play/*"
+  ],
   "web_accessible_resources": [
     {
       "resources": [ "img/*", "style/images/*", "audio/*" ],

@@ -38,8 +38,10 @@ class GameMessagesManager extends GameManager {
       function(message){
         if (this.storage.isMessageNew(message.MessageId)){
           $(".globalmess").append(this._messageTemplate(message));
+          this.attachScripts();
         } else if (this.storage.isMessageChanged(message.MessageId)){
           $(`#message-${message.MessageId}`).replaceWith(this._messageTemplate(message));
+          this.attachScripts();
         }
 
         $(`#message-${message.MessageId}`).attr("delete-mark", false);
@@ -56,9 +58,10 @@ class GameMessagesManager extends GameManager {
   }
 
   _messageTemplate(message){
+    const id = `message-${message.MessageId}`;
     return $("<div>")
       .addClass("message-block")
-      .attr("id", `message-${message.MessageId}`)
+      .attr("id", id)
       .attr("id-numeric", message.MessageId)
       .attr("delete-mark", false)
       .append(
@@ -70,7 +73,7 @@ class GameMessagesManager extends GameManager {
         $("<span>")
           .append(": ")
       )
-      .append(message.WrappedText)
+      .append(this.extractScripts(message.WrappedText, id))
       .append(
         $("<br>")
       );
