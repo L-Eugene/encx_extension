@@ -74,23 +74,9 @@
   background-image: url("chrome-extension://__MSG_@@extension_id__/img/history.png");
 }
 
-a.logo {
-  width: 48px;
-  height: 48px;
-  overflow: hidden;
-}
-
-a.logo img {
-  width: 0;
-  height: 0;
-  padding: 48px 48px 0px 0px
-}
-
-body.ff a.logo img {
-  background: url("moz-extension://__MSG_@@extension_id__/img/logo-48.png");
-}
-body.gc a.logo img {
-  background: url("chrome-extension://__MSG_@@extension_id__/img/logo-48.png");
+.ff a.logo img,
+.gc a.logo img {
+  filter: brightness(0.5) grayscale(1);
 }
 
 #game-history-download-csv {
