@@ -46,16 +46,10 @@
   background-repeat: no-repeat;
 }
 
-.header .enext-options {
-  background-position-x: 22px;
-  background-position-y: -5px;
-  background-repeat: no-repeat;
-}
-
-.ff .header .enext-options, .ff .header .enext-bonuses  {
+.ff .header .enext-bonuses  {
   background-image: url("moz-extension://__MSG_@@extension_id__/img/menu.png");
 }
-.gc .header .enext-options, .gc .header .enext-bonuses {
+.gc .header .enext-bonuses {
   background-image: url("chrome-extension://__MSG_@@extension_id__/img/menu.png");
 }
 
