@@ -1,0 +1,39 @@
+.container .header {
+  padding-right: 50%;
+}
+
+#lblGameTitle {
+  display: inline-block;
+  overflow-wrap: break-word;
+}
+
+.ff a.logo img,
+.gc a.logo img {
+  filter: brightness(0.5) grayscale(1);
+}
+
+.aside {
+  position: fixed;
+}
+
+.history li {
+  word-break: break-all;
+}
+
+#sectors .color_sec {
+  white-space: nowrap;
+}
+
+div.content #hints,
+div.content #bonuses {
+  display: flex;
+  flex-direction: column;
+}
+
+.aside form label {
+  visibility: hidden;
+}
+
+.aside form:focus-within label {
+  visibility: visible;
+}

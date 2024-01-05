@@ -1,7 +1,3 @@
-.container .header {
-  padding-right: 50%;
-}
-
 .header .userinfo {
   text-align: center;
   font-size: x-small;
@@ -12,11 +8,6 @@
   position: fixed;
   top: 0;
   right: 20px;
-}
-
-#lblGameTitle {
-  display: inline-block;
-  overflow-wrap: break-word;
 }
 
 #error-container {
@@ -64,11 +55,6 @@
   background-image: url("chrome-extension://__MSG_@@extension_id__/img/history.png");
 }
 
-.ff a.logo img,
-.gc a.logo img {
-  filter: brightness(0.5) grayscale(1);
-}
-
 #game-history-download-csv {
   display: none;
 }
@@ -105,13 +91,6 @@
   padding-bottom: 5px;
 }
 
-.aside {
-  position: fixed;
-}
-
-.history li {
-  word-break: break-all;
-}
 
 div.content .sectors-column {
   column-count: 3;
@@ -123,14 +102,6 @@ div.content .sectors-column {
   word-break: break-all;
 }
 
-#sectors .color_sec {
-  white-space: nowrap;
-}
-
-div.content #hints, div.content #bonuses {
-  display: flex;
-  flex-direction: column;
-}
 
 div#level-stat-dialog iframe {
   width: 100%;
@@ -144,14 +115,6 @@ div#level-stat-dialog iframe {
 
 .ui-dialog-content#level-stat-dialog {
   background-color: black;
-}
-
-.aside form label {
-  visibility: hidden;
-}
-
-.aside form:focus-within label {
-  visibility: visible;
 }
 
 .input-correct-1 {
