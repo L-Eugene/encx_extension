@@ -1,39 +1,38 @@
-.container .header {
+.extension .container .header {
   padding-right: 50%;
 }
 
-#lblGameTitle {
+.extension #lblGameTitle {
   display: inline-block;
   overflow-wrap: break-word;
 }
 
-.ff a.logo img,
-.gc a.logo img {
+.extension a.logo img {
   filter: brightness(0.5) grayscale(1);
 }
 
-.aside {
+.extension .aside {
   position: fixed;
 }
 
-.history li {
+.extension .history li {
   word-break: break-all;
 }
 
-#sectors .color_sec {
+.extension #sectors .color_sec {
   white-space: nowrap;
 }
 
-div.content #hints,
-div.content #bonuses {
+.extension div.content #hints,
+.extension div.content #bonuses {
   display: flex;
   flex-direction: column;
 }
 
-.aside form label {
+.extension .aside form label {
   visibility: hidden;
 }
 
-.aside form:focus-within label {
+.extension .aside form:focus-within label {
   visibility: visible;
 }
