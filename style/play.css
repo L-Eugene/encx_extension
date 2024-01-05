@@ -105,19 +105,6 @@
   padding-bottom: 5px;
 }
 
-#game-config-dialog table td {
-  border: 0;
-  color: black;
-}
-
-#game-config-dialog label {
-  color: black;
-}
-
-#game-config-dialog input {
-  width: auto;
-}
-
 .aside {
   position: fixed;
 }
