@@ -1,0 +1,38 @@
+.extension .container .header {
+  padding-right: 50%;
+}
+
+.extension #lblGameTitle {
+  display: inline-block;
+  overflow-wrap: break-word;
+}
+
+.extension a.logo img {
+  filter: brightness(0.5) grayscale(1);
+}
+
+.extension .aside {
+  position: fixed;
+}
+
+.extension .history li {
+  word-break: break-all;
+}
+
+.extension #sectors .color_sec {
+  white-space: nowrap;
+}
+
+.extension div.content #hints,
+.extension div.content #bonuses {
+  display: flex;
+  flex-direction: column;
+}
+
+.extension .aside form label {
+  visibility: hidden;
+}
+
+.extension .aside form:focus-within label {
+  visibility: visible;
+}

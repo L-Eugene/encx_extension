@@ -41,7 +41,8 @@ function markBodyWithBrowser(){
     /firefox/.test(navigator.userAgent.toLowerCase())
       ? "ff"
       : "gc"
-  );
+  )
+  .addClass("extension");
 }
 
 // Get data from chrome.storage.local and return Promise
