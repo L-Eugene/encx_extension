@@ -73,7 +73,7 @@ class GameBonusManager extends GameManager {
     $("div#bonuses iframe").each(
       function(ind, frame){
         frame.onload = function(){
-          this.height = this.contentWindow.document.body.scrollHeight;
+          this.height = this.contentWindow.document.body.scrollHeight + 1;
           this.width = this.contentWindow.document.body.scrollWidth;
         }
       }
