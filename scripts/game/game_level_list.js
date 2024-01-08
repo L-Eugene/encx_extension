@@ -90,13 +90,13 @@ class GameLevelListManager extends GameManager {
       );
 
       if (storage.isLevelUp()){
-        this._scrollToActive();
+        this._scrollToActive(storage);
       }
     }
   }
 
-  _scrollToActive (){
-    var index = parseInt($(`.level-active`).attr('data-slick-index'));
+  _scrollToActive (storage){
+    const index = storage.getLevel().Number - 1;
 
     $("#level-list").slick('slickGoTo', index, true);
   }
