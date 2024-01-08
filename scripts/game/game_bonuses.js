@@ -70,7 +70,7 @@ class GameBonusManager extends GameManager {
       .tooltip();
 
     // Adjust iframe sizes
-    $("div#bonuses iframe").each(
+    $("div#bonuses iframe.bonus-task-frame").each(
       function(ind, frame){
         frame.onload = function(){
           this.height = this.contentWindow.document.body.scrollHeight;

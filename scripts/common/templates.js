@@ -188,7 +188,7 @@ class Templates {
         frameborder: 0,
         sandbox: 'allow-scripts allow-same-origin'
       }
-    );
+    ).addClass('bonus-task-frame');
   }
 
   _iframeSandboxContent(content){
