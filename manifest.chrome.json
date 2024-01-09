@@ -72,8 +72,6 @@
       ],
       "css": [
         "style/jquery-ui.css",
-        "style/slick.css",
-        "style/slick-theme.css",
         "style/level-carousel.css",
         "style/play.css",
         "style/engine-override.css"
@@ -81,7 +79,6 @@
       "js": [
         "lib/jquery.js",
         "lib/jquery-ui.js",
-        "lib/slick.js",
         "scripts/common/util.js",
         "scripts/common/local_database.js",
         "scripts/common/templates.js",
