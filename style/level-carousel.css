@@ -1,10 +1,9 @@
 .level-block {
   text-align: center;
-  margin: 1px;
   min-height: 50px;
   min-width: 80px;
   cursor: pointer;
-  border-radius: 15px;
+  border-radius: 5px;
   border: 2px solid transparent;
 }
 
@@ -36,7 +35,7 @@
 }
 
 .level-finished div.line {
-  background: #323232;
+  background: #2a2a2a;
 }
 
 .level-dismissed div.line {
@@ -44,6 +43,8 @@
 }
 
 #level-list {
-  width: auto;
-  margin: 40px 20px; 
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: flex-start;
 }

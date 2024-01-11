@@ -23,8 +23,6 @@ SOFTWARE.
 */
 
 class GameLevelListManager extends GameManager {
-  /* Indicates if subscription on slick arrows already happened */
-  _subscribed = false;
   constructor(){
     super();
     this.activeLevel = -1;
@@ -35,42 +33,6 @@ class GameLevelListManager extends GameManager {
       this.activeLevel = storage.getLevelId();
       $("div.content")
         .append(this._levelListTemplate(storage.getGame()));
-      if (!this._subscribed) {
-        this._subscribed = true;
-        $('#level-list').on('init', (e, slick) => {
-          $('body').on('mouseover', '.slick-arrow', (e) => {
-            $(e.currentTarget).attr('autoscroll', true);
-            var Interval = setInterval(
-              () => {
-                switch ($(e.currentTarget).attr('aria-label')){
-                  case 'Previous':
-                    $('#level-list').slick('slickPrev');
-                    break;
-                  case 'Next':
-                    $('#level-list').slick('slickNext');
-                    break;
-                }
-
-                if ($(e.currentTarget).attr('autoscroll') == undefined){
-                  clearInterval(Interval);
-                }
-              },
-              250
-            );
-          });
-          $('body').on('mouseout', '.slick-arrow', (e) => {
-            $(e.currentTarget).removeAttr('autoscroll');
-          });
-        });
-      }
-      $('#level-list').slick({
-        slidesToShow: 9,
-        slidesToScroll: 5,
-        variableWidth: true,
-        waitForAnimate: false,
-        speed: 150,
-        centerMode: true
-      });
     }
   }
 
@@ -79,35 +41,24 @@ class GameLevelListManager extends GameManager {
       storage.getLevels().forEach(
         function(level){
           if (this.storage.isLevelNew(level.LevelId)){
-            $("#level-list").slick('slickAdd', this._levelTemplate(level))
+            $("#level-list").append(this._levelTemplate(level));
           } else if (this.storage.isLevelChanged(level.LevelId)) {
-            var index = parseInt($(`#level-${level.LevelId}`).attr('data-slick-index'));
-            $("#level-list").slick('slickRemove', index);
-            $("#level-list").slick('slickAdd', this._levelTemplate(level), index, true);
+            $(`#level-${level.LevelId}`).replaceWith(this._levelTemplate(level));
           }
         },
         this
       );
-
-      if (storage.isLevelUp()){
-        this._scrollToActive(storage);
-      }
     }
   }
 
-  _scrollToActive (storage){
-    const index = storage.getLevel().Number - 1;
-
-    $("#level-list").slick('slickGoTo', index, true);
-  }
-
   _levelListTemplate (game){
-    return $("<div>")
+    return $("<ul>")
       .attr("id", "level-list")
+      .attr("class", "section level");
   }
 
   _levelTemplate (level){
-    return $("<div>")
+    return $("<li>")
       .addClass("level-block")
       .addClass(this.activeLevel == level.LevelId ? "level-active" : "")
       .addClass(level.Dismissed == true ? "level-dismissed" : "")
@@ -124,8 +75,8 @@ class GameLevelListManager extends GameManager {
           .addClass("line")
       )
       .append(
-        $("<p>")
-          .append(level.LevelName)
+        $("<i>")
+          .text(level.LevelName)
       )
       .click(
         { storage: this.storage },
