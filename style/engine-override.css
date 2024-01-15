@@ -11,10 +11,6 @@
   filter: brightness(0.5) grayscale(1);
 }
 
-.extension .aside {
-  position: fixed;
-}
-
 .extension .history li {
   word-break: break-all;
 }
