@@ -142,7 +142,7 @@ class GameBonusManager extends GameManager {
           $("<div>")
             .addClass("bonus-hint")
             .attr("id", id)
-            .append(this.extractScripts(bonus.Help, id).replace(/\r?\n/g, "<br>"))
+            .append(this.extractScripts((bonus.Help || '').replace(/\r?\n/g, "<br>"), id))
         )
         .append(
           (this.showBonusTask && (bonus.Task || '').length > 0)
@@ -167,7 +167,7 @@ class GameBonusManager extends GameManager {
         $("<div>")
           .addClass("bonus-task")
           .attr("id", id)
-          .append(this.extractScripts(bonus.Task || '', id).replace(/\r?\n/g, "<br>"))
+          .append(this.extractScripts((bonus.Task || '').replace(/\r?\n/g, "<br>"), id))
       );
   }
 
