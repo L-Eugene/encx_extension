@@ -85,7 +85,7 @@ class GameBonusManager extends GameManager {
   _bonusInfoTemplate(bonus){
     return $("<span>")
       .addClass(bonus.Negative ? "color_pen" : "color_sec")
-      .append("(")
+      .append(" (")
       .append(chrome.i18n.getMessage("bonusCompleted"))
       .append(() => {
         if (bonus.AwardTime === 0) {
