@@ -66,8 +66,7 @@ class GameBonusManager extends GameManager {
           "bonusesClosedSummary",
           storage.getCompletedBonusesData()
         )
-      )
-      .tooltip();
+      );
 
     // Adjust iframe sizes
     $("div#bonuses iframe.bonus-task-frame").each(
