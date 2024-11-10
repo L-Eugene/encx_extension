@@ -884,7 +884,6 @@ body .ui-tooltip {
 /* Component containers
 ----------------------------------*/
 .ui-widget {
-	font-family: Arial,Helvetica,sans-serif;
 	font-size: 1em;
 }
 .ui-widget .ui-widget {
@@ -894,28 +893,24 @@ body .ui-tooltip {
 .ui-widget select,
 .ui-widget textarea,
 .ui-widget button {
-	font-family: Arial,Helvetica,sans-serif;
 	font-size: 1em;
 }
-.ui-widget.ui-widget-content {
-	border: 1px solid #c5c5c5;
-}
 .ui-widget-content {
-	border: 1px solid #dddddd;
-	background: #ffffff;
-	color: #333333;
+	border: 1px solid #414141;
+	background: #1d1d1d;
+	color: #808080;
 }
 .ui-widget-content a {
-	color: #333333;
+	color: #808080;
 }
 .ui-widget-header {
-	border: 1px solid #dddddd;
-	background: #e9e9e9;
-	color: #333333;
+	border: 1px solid #414141;
+	background: #282828;
+	color: #d8d8d8;
 	font-weight: bold;
 }
 .ui-widget-header a {
-	color: #333333;
+	color: #d8d8d8;
 }
 
 /* Interaction states
@@ -930,9 +925,9 @@ works properly when clicked or hovered */
 html .ui-button.ui-state-disabled:hover,
 html .ui-button.ui-state-disabled:active {
 	border: 1px solid #c5c5c5;
-	background: #f6f6f6;
+	background: #333333;
 	font-weight: normal;
-	color: #454545;
+	color: #ffffff;
 }
 .ui-state-default a,
 .ui-state-default a:link,
@@ -941,7 +936,7 @@ a.ui-button,
 a:link.ui-button,
 a:visited.ui-button,
 .ui-button {
-	color: #454545;
+	color: #ffffff;
 	text-decoration: none;
 }
 .ui-state-hover,
@@ -953,9 +948,9 @@ a:visited.ui-button,
 .ui-button:hover,
 .ui-button:focus {
 	border: 1px solid #cccccc;
-	background: #ededed;
+	background: #535353;
 	font-weight: normal;
-	color: #2b2b2b;
+	color: #ffffff;
 }
 .ui-state-hover a,
 .ui-state-hover a:hover,
@@ -967,7 +962,7 @@ a:visited.ui-button,
 .ui-state-focus a:visited,
 a.ui-button:hover,
 a.ui-button:focus {
-	color: #2b2b2b;
+	color: #ffffff;
 	text-decoration: none;
 }
 
@@ -980,14 +975,14 @@ a.ui-button:focus {
 a.ui-button:active,
 .ui-button:active,
 .ui-button.ui-state-active:hover {
-	border: 1px solid #003eff;
-	background: #007fff;
+	border: 1px solid #197300;
+	background: #0D3B00;
 	font-weight: normal;
 	color: #ffffff;
 }
 .ui-icon-background,
 .ui-state-active .ui-icon-background {
-	border: #003eff;
+	border: #197300;
 	background-color: #ffffff;
 }
 .ui-state-active a,
