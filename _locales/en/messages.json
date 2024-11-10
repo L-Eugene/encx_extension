@@ -103,7 +103,7 @@
   },
 
   "optionsGameHistoryDialog_partOfCode": {
-    "message": "Code beginning",
+    "message": "Enter code ir its part...",
     "description": "Inline hint in code filter input"
   },
 

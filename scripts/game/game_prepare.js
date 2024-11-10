@@ -259,8 +259,8 @@ class GamePrepare extends GameManager {
               $("#game-history-player").val() === "All" ||
               parseInt($("#game-history-player").val()) === cursor.value.UserId
             ) &&
-            // Code starts with given string
-            cursor.value.Answer.toLowerCase().startsWith(
+            // Code contains given string
+            cursor.value.Answer.toLowerCase().includes(
               $("#game-history-filter").val().toLowerCase()
             )
           ){
