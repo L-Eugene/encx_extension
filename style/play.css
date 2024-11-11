@@ -69,25 +69,22 @@
 
 #game-history-dialog input {
   background: none;
-  color: black;
+  color: #808080;
   width: 100%;
 }
 
 #game-history-dialog select {
   background: none;
-  font: 130% Verdana, Helvetica, sans-serif;
   padding: 0 3px;
   padding-bottom: 1px;
-  height: 23px;
-  line-height: 23px;
   border: 1px solid #707070;
   border-radius: 3px;
-  color: black;
+  color: #808080;
 }
 
 #game-history-dialog table td {
   border: 0;
-  color: black;
+  color: #808080;
   padding-bottom: 5px;
 }
 
