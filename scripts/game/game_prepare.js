@@ -174,7 +174,7 @@ class GamePrepare extends GameManager {
         </tr>
         <tr>
           <td colspan=2>
-            <input id="game-history-filter" placeholder="${chrome.i18n.getMessage("optionsGameHistoryDialog_partOfCode")}">
+            <input id="game-history-filter" autocomplete="off" placeholder="${chrome.i18n.getMessage("optionsGameHistoryDialog_partOfCode")}">
           </td>
         </tr>
         <tr>
