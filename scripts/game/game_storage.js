@@ -210,7 +210,7 @@ class GameStorage {
       location.reload(true);
     }
 
-    if (data.Level === null && [19,20,22].includes(data.Event)) {
+    if (data.Level === null && [16,18,19,20,21,22].includes(data.Event)) {
       return this.update({}, true);
     }
 
