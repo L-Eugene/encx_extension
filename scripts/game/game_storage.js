@@ -61,8 +61,17 @@ class GameStorage {
     return [6, 17].includes(parseInt(this.last.Event));
   }
 
+  /**
+   * Indicates if another request to API is required 
+   * @param {*} data 
+   * @returns 
+   */
+  needsUpdate(data){
+    return [16,18,19,20,21,22].includes(parseInt(data.Event));
+  }
+
   isError(){
-    return 0 !== this.last.Event
+    return !([0,16,18,19,20,21,22].includes(parseInt(this.last.Event)));
   }
 
   isFirstLoad(){
@@ -205,6 +214,11 @@ class GameStorage {
   }
 
   storeAPI(data){
+
+    if (this.needsUpdate(data)) {
+      return this.update({}, true);
+    }
+
     this.prev = this.last;
     this.last = data;
 
