@@ -108,7 +108,7 @@
   },
 
   "optionsGameHistoryDialog_partOfCode": {
-    "message": "Начало кода",
+    "message": "Введите код или его часть...",
     "description": "Подсказка в поле ввода фильтра кодов"
   },
 
