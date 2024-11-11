@@ -205,6 +205,15 @@ class GameStorage {
   }
 
   storeAPI(data){
+
+    if (data.Level === null && data.Event === 17) {
+      location.reload(true);
+    }
+
+    if (data.Level === null && [19,20,22].includes(data.Event)) {
+      return this.update({}, true);
+    }
+
     this.prev = this.last;
     this.last = data;
 
