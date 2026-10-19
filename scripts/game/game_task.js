@@ -141,7 +141,9 @@ class GameTaskManager extends GameManager {
               "levelTitle",
               [
                 game.Level.Number,
-                game.Levels.length,
+                // In ~09/2026, 'CountLevels' was added.
+                // Add fallback in case 'Levels' is restored
+                game.CountLevels ?? game.Levels.length,
                 game.Level.Name != "" ? `: ${game.Level.Name}`: ""
               ]
             )
