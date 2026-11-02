@@ -93,7 +93,9 @@ class GameStorage {
     if (this.isFirstLoad()) return false;
     if (!this.isStormGame()) return this.isLevelUp();
     if (null === this.prev) return false;
-    if (this.prev.Levels.length != this.last.Levels.length) return true;
+    if ((this.prev.CountLevels ?? this.prev.Levels.length) != (this.last.CountLevels ?? this.last.Levels.length)) return true;
+    // In ~09/2026, 'CountLevels' was added.
+    // Unclear how to count passed levels.
     return this._countPassedLevels(this.prev.Levels) != this._countPassedLevels(this.last.Levels);
   }
 
@@ -464,9 +466,11 @@ class GameStorage {
     return this.last.Level.LevelId;
   }
 
-  // Return total number of levels
+  // Return total number of levels.
+  // In ~09/2026, 'CountLevels' was added.
+  // Add fallback in case 'Levels' is restored
   getLevelCount(){
-    return this.last.Levels.length;
+    return this.last.CountLevels ?? this.last.Levels.length;
   }
 
   // Return current level Number
