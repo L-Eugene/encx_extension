@@ -194,7 +194,7 @@ function buildHTML(data){
   markBodyWithBrowser();
 
   data["images"].forEach((photo) => {
-    var filename = /\/([a-zA-Z0-9\.]*)$/.exec(photo)[1];
+    var filename = /\/(.+)$/.exec(photo)[1];
     $(".fotorama").append(
       $("<div>", { "data-thumb": photo, "data-name": filename })
         .addClass("gallery-flexible")
